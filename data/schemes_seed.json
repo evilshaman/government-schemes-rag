@@ -1,0 +1,1704 @@
+[
+  {
+    "scheme_id": "pmegp",
+    "scheme_name": "Prime Minister's Employment Generation Programme",
+    "scheme_short_code": "PMEGP",
+    "nodal_ministry": "Ministry of Micro, Small and Medium Enterprises",
+    "implementing_agency": "Khadi and Village Industries Commission (KVIC) / DIC",
+    "jurisdiction": "Central",
+    "summary": "Credit-linked subsidy programme to generate self-employment opportunities through establishment of micro-enterprises in manufacturing and service sectors.",
+    "rules": {
+      "allowed_jurisdictions": ["Central", "State"],
+      "applicable_states": ["ALL"],
+      "eligible_constitutions": [
+        "Proprietorship",
+        "Partnership",
+        "Society/Trust",
+        "Private Limited Company",
+        "Limited Liability Partnership"
+      ],
+      "eligible_msme_tiers": ["Micro"],
+      "min_business_age_years": 0.0,
+      "max_business_age_years": 2.0,
+      "target_sectors": ["ALL"],
+      "requires_manufacturing": false,
+      "requires_services": false,
+      "requires_women_ownership": false,
+      "requires_sc_st_ownership": false,
+      "requires_dpiit_recognition": false
+    },
+    "eligibility_criteria_text": [
+      "Any individual above 18 years of age.",
+      "At least VIII standard pass for projects costing above Rs.10 lakh in manufacturing and above Rs.5 lakh in service sector.",
+      "Only new projects are eligible; existing units or units that have availed government subsidy under other schemes are not eligible.",
+      "Self Help Groups (SHGs), Institutions registered under Societies Registration Act 1860, Production Co-operative Societies, and Charitable Trusts are also eligible."
+    ],
+    "benefits": {
+      "benefit_type": "Capital Subsidy",
+      "quantum_description": "15% to 35% margin money subsidy. Max project cost: ₹50 Lakh for manufacturing, ₹20 Lakh for services. Beneficiary contribution is 5% to 10%.",
+      "subsidy_percentage": 35.0,
+      "max_assistance_amount_inr": 1750000.0,
+      "interest_subsidy_rate": null,
+      "guarantee_coverage_percentage": null
+    },
+    "required_documents": [
+      "Aadhaar Card",
+      "PAN Card",
+      "Project Report (Detailed Project Cost & Projections)",
+      "Educational Qualification Certificate (Class 8th marksheet/certificate)",
+      "Special Category Certificate (if SC/ST/OBC/Minority/Women/Ex-serviceman/PH)",
+      "Rural Area Certificate (issued by Gram Panchayat/Patwari for rural classification)"
+    ],
+    "application_mode": "Online via KVIC PMEGP Portal / Jan Samarth",
+    "official_portal_url": "https://www.kviconline.gov.in/pmegpeportal/pmegphome/index.jsp",
+    "guidelines_doc_url": "https://msme.gov.in/sites/default/files/PMEGP_Revised_Guidelines.pdf",
+    "tags": ["employment", "manufacturing", "services", "margin-money", "subsidy", "kvic", "micro-enterprise"],
+    "status": "Active",
+    "metadata": {
+      "urban_general_subsidy_pct": 15,
+      "rural_general_subsidy_pct": 25,
+      "special_urban_subsidy_pct": 25,
+      "special_rural_subsidy_pct": 35
+    }
+  },
+  {
+    "scheme_id": "cgtmse",
+    "scheme_name": "Credit Guarantee Scheme for Micro & Small Enterprises",
+    "scheme_short_code": "CGTMSE",
+    "nodal_ministry": "Ministry of Micro, Small and Medium Enterprises",
+    "implementing_agency": "Credit Guarantee Fund Trust for Micro and Small Enterprises (CGTMSE) / Member Lending Institutions (MLIs)",
+    "jurisdiction": "Central",
+    "summary": "Facilitates collateral-free credit facilities (term loans and working capital) up to ₹5 Crore from commercial banks and financial institutions for micro and small enterprises.",
+    "rules": {
+      "allowed_jurisdictions": ["Central", "State"],
+      "applicable_states": ["ALL"],
+      "eligible_constitutions": [
+        "Proprietorship",
+        "Partnership",
+        "Private Limited Company",
+        "Limited Liability Partnership",
+        "Public Limited Company"
+      ],
+      "eligible_msme_tiers": ["Micro", "Small"],
+      "min_business_age_years": 0.0,
+      "max_business_age_years": null,
+      "target_sectors": ["ALL"],
+      "requires_manufacturing": false,
+      "requires_services": false,
+      "requires_women_ownership": false,
+      "requires_sc_st_ownership": false,
+      "requires_dpiit_recognition": false
+    },
+    "eligibility_criteria_text": [
+      "Both new and existing Micro and Small Enterprises (MSEs) engaged in manufacturing or service activities.",
+      "Retail trade and wholesale trade are also covered up to eligible limits.",
+      "Borrower unit must hold valid Udyam Registration and GST Registration.",
+      "Facility covers loans up to ₹500 Lakh without third-party guarantee or collateral security."
+    ],
+    "benefits": {
+      "benefit_type": "Credit Guarantee",
+      "quantum_description": "Collateral-free credit up to ₹5 Crore with guarantee coverage of 75% to 85% (up to 85% for women entrepreneurs, SC/ST, and units in NER/Aspirational districts).",
+      "subsidy_percentage": null,
+      "max_assistance_amount_inr": 50000000.0,
+      "interest_subsidy_rate": null,
+      "guarantee_coverage_percentage": 85.0
+    },
+    "required_documents": [
+      "Udyam Registration Certificate",
+      "GST Registration Certificate",
+      "ITR & Audited Balance Sheets for existing units (last 2-3 years)",
+      "Projected Financials / Business Plan",
+      "Bank Account Statements (last 6-12 months)",
+      "KYC of Promoters/Directors"
+    ],
+    "application_mode": "Through Member Lending Institutions (Scheduled Commercial Banks, SFBs, NBFCs, RRBs)",
+    "official_portal_url": "https://www.cgtmse.in/",
+    "guidelines_doc_url": "https://www.cgtmse.in/Default/ViewFile/?id=1684307525380_Circular%20220.pdf",
+    "tags": ["collateral-free", "bank-loan", "guarantee", "sidbi", "working-capital", "term-loan"],
+    "status": "Active",
+    "metadata": {
+      "ceiling_limit_inr": 50000000,
+      "annual_guarantee_fee_discount_women": 10
+    }
+  },
+  {
+    "scheme_id": "mudra-shishu",
+    "scheme_name": "Pradhan Mantri MUDRA Yojana - Shishu",
+    "scheme_short_code": "PMMY-Shishu",
+    "nodal_ministry": "Ministry of Finance - Department of Financial Services",
+    "implementing_agency": "MUDRA / Commercial Banks, RRBs, Small Finance Banks, MFIs",
+    "jurisdiction": "Central",
+    "summary": "Micro-finance credit facility providing loans up to ₹50,000 for early-stage or very small micro-enterprises with minimal paperwork and zero collateral.",
+    "rules": {
+      "allowed_jurisdictions": ["Central", "State"],
+      "applicable_states": ["ALL"],
+      "eligible_constitutions": [
+        "Proprietorship",
+        "Partnership",
+        "Private Limited Company",
+        "Limited Liability Partnership"
+      ],
+      "eligible_msme_tiers": ["Micro"],
+      "min_business_age_years": 0.0,
+      "max_business_age_years": null,
+      "target_sectors": ["ALL"],
+      "requires_manufacturing": false,
+      "requires_services": false,
+      "requires_women_ownership": false,
+      "requires_sc_st_ownership": false,
+      "requires_dpiit_recognition": false
+    },
+    "eligibility_criteria_text": [
+      "Any Indian citizen who has a business plan for non-farm income-generating activity such as manufacturing, processing, trading, or service sector.",
+      "Loan requirement is up to ₹50,000.",
+      "No collateral required.",
+      "Applicant must not be a defaulter to any bank or financial institution."
+    ],
+    "benefits": {
+      "benefit_type": "Term Loan / Working Capital",
+      "quantum_description": "Loans up to ₹50,000 at competitive bank interest rates, nil processing fee, and zero collateral security.",
+      "subsidy_percentage": null,
+      "max_assistance_amount_inr": 50000.0,
+      "interest_subsidy_rate": null,
+      "guarantee_coverage_percentage": 100.0
+    },
+    "required_documents": [
+      "Identity Proof (Voter ID / Aadhaar / PAN / Driving License)",
+      "Address Proof",
+      "Passport size photographs",
+      "Quotation of machinery/items to be purchased or business outline",
+      "Bank Account Statement (if available)"
+    ],
+    "application_mode": "Online via Udyamimitra / Jan Samarth Portal or any Bank Branch",
+    "official_portal_url": "https://www.mudra.org.in/",
+    "guidelines_doc_url": "https://www.mudra.org.in/Offerings",
+    "tags": ["mudra", "shishu", "micro-loan", "collateral-free", "small-shopkeeper", "vendor"],
+    "status": "Active",
+    "metadata": {
+      "category": "Shishu",
+      "max_loan": 50000
+    }
+  },
+  {
+    "scheme_id": "mudra-kishore",
+    "scheme_name": "Pradhan Mantri MUDRA Yojana - Kishore",
+    "scheme_short_code": "PMMY-Kishore",
+    "nodal_ministry": "Ministry of Finance - Department of Financial Services",
+    "implementing_agency": "MUDRA / Scheduled Commercial Banks, RRBs, NBFCs",
+    "jurisdiction": "Central",
+    "summary": "Mid-tier micro credit providing business loans from ₹50,000 to ₹5,00,000 for expanding micro business enterprises.",
+    "rules": {
+      "allowed_jurisdictions": ["Central", "State"],
+      "applicable_states": ["ALL"],
+      "eligible_constitutions": [
+        "Proprietorship",
+        "Partnership",
+        "Private Limited Company",
+        "Limited Liability Partnership"
+      ],
+      "eligible_msme_tiers": ["Micro"],
+      "min_business_age_years": 0.5,
+      "max_business_age_years": null,
+      "target_sectors": ["ALL"],
+      "requires_manufacturing": false,
+      "requires_services": false,
+      "requires_women_ownership": false,
+      "requires_sc_st_ownership": false,
+      "requires_dpiit_recognition": false
+    },
+    "eligibility_criteria_text": [
+      "Micro-enterprises that have already commenced operations and need funds between ₹50,000 and ₹5,00,000 for business expansion or machinery acquisition.",
+      "Clean credit history and non-defaulter status.",
+      "Valid business registration or establishment proof (GST / Shop & Est / Udyam)."
+    ],
+    "benefits": {
+      "benefit_type": "Term Loan / Working Capital",
+      "quantum_description": "Term loan or working capital overdraft from ₹50,000 to ₹5,00,000 without collateral.",
+      "subsidy_percentage": null,
+      "max_assistance_amount_inr": 500000.0,
+      "interest_subsidy_rate": null,
+      "guarantee_coverage_percentage": 75.0
+    },
+    "required_documents": [
+      "Udyam / GST Registration Certificate",
+      "KYC of Promoters (PAN, Aadhaar)",
+      "Bank Statement (last 6 months)",
+      "Last 1-2 years Sales Tax / GST Returns or Financial accounts",
+      "Machinery/equipment supplier quotation (if asset finance)"
+    ],
+    "application_mode": "Online via Jan Samarth Portal or Bank Branches",
+    "official_portal_url": "https://www.jansamarth.in/",
+    "guidelines_doc_url": "https://www.mudra.org.in/Offerings",
+    "tags": ["mudra", "kishore", "expansion", "working-capital", "equipment-finance"],
+    "status": "Active",
+    "metadata": {
+      "min_loan": 50000,
+      "max_loan": 500000
+    }
+  },
+  {
+    "scheme_id": "mudra-tarun",
+    "scheme_name": "Pradhan Mantri MUDRA Yojana - Tarun & Tarun Plus",
+    "scheme_short_code": "PMMY-Tarun",
+    "nodal_ministry": "Ministry of Finance - Department of Financial Services",
+    "implementing_agency": "MUDRA / Scheduled Commercial Banks, SFBs",
+    "jurisdiction": "Central",
+    "summary": "Flagship credit facility offering loans from ₹5 Lakh up to ₹20 Lakh (Tarun Plus) for scaling mature micro businesses.",
+    "rules": {
+      "allowed_jurisdictions": ["Central", "State"],
+      "applicable_states": ["ALL"],
+      "eligible_constitutions": [
+        "Proprietorship",
+        "Partnership",
+        "Private Limited Company",
+        "Limited Liability Partnership"
+      ],
+      "eligible_msme_tiers": ["Micro", "Small"],
+      "min_business_age_years": 1.0,
+      "max_business_age_years": null,
+      "target_sectors": ["ALL"],
+      "requires_manufacturing": false,
+      "requires_services": false,
+      "requires_women_ownership": false,
+      "requires_sc_st_ownership": false,
+      "requires_dpiit_recognition": false
+    },
+    "eligibility_criteria_text": [
+      "Established micro and small business units requiring higher capital for scaling.",
+      "Loan requirement between ₹5,00,000 and ₹10,00,000 (and up to ₹20 Lakh under Tarun Plus for previous borrowers who successfully repaid Tarun loans).",
+      "Documented operating history of at least 1-2 years with positive cash flows."
+    ],
+    "benefits": {
+      "benefit_type": "Term Loan / Working Capital",
+      "quantum_description": "Credit facility from ₹5 Lakh up to ₹20 Lakh without collateral requirement.",
+      "subsidy_percentage": null,
+      "max_assistance_amount_inr": 2000000.0,
+      "interest_subsidy_rate": null,
+      "guarantee_coverage_percentage": 75.0
+    },
+    "required_documents": [
+      "GST Registration Certificate",
+      "Udyam Registration Certificate",
+      "Audited Balance Sheet and P&L for last 2 years",
+      "ITR Returns (last 2 years) along with computation of income",
+      "Bank statements for last 12 months",
+      "Projected financial statements for 1-2 years"
+    ],
+    "application_mode": "Online via Jan Samarth Portal or Bank Branches",
+    "official_portal_url": "https://www.jansamarth.in/",
+    "guidelines_doc_url": "https://www.mudra.org.in/Offerings",
+    "tags": ["mudra", "tarun", "growth-capital", "tarun-plus", "scaleup"],
+    "status": "Active",
+    "metadata": {
+      "min_loan": 500000,
+      "max_loan": 2000000
+    }
+  },
+  {
+    "scheme_id": "stand-up-india",
+    "scheme_name": "Stand-Up India Scheme",
+    "scheme_short_code": "StandUp-India",
+    "nodal_ministry": "Ministry of Finance - Department of Financial Services",
+    "implementing_agency": "SIDBI / Scheduled Commercial Banks",
+    "jurisdiction": "Central",
+    "summary": "Bank loans between ₹10 Lakh and ₹1 Crore to at least one Scheduled Caste (SC) or Scheduled Tribe (ST) borrower and at least one woman borrower per bank branch for setting up greenfield enterprises.",
+    "rules": {
+      "allowed_jurisdictions": ["Central", "State"],
+      "applicable_states": ["ALL"],
+      "eligible_constitutions": [
+        "Proprietorship",
+        "Partnership",
+        "Private Limited Company",
+        "Limited Liability Partnership"
+      ],
+      "eligible_msme_tiers": ["Micro", "Small"],
+      "min_business_age_years": 0.0,
+      "max_business_age_years": 2.0,
+      "target_sectors": ["ALL"],
+      "requires_manufacturing": false,
+      "requires_services": false,
+      "requires_women_ownership": true,
+      "requires_sc_st_ownership": false,
+      "requires_dpiit_recognition": false
+    },
+    "eligibility_criteria_text": [
+      "SC/ST and/or woman entrepreneurs above 18 years of age.",
+      "Loans under the scheme are available only for greenfield projects (the first-time venture of the beneficiary in manufacturing, services, agri-allied activities, or trading).",
+      "In case of non-individual enterprises, 51% of the shareholding and controlling stake must be held by either SC/ST and/or women entrepreneur.",
+      "Borrower should not be in default to any bank or financial institution."
+    ],
+    "benefits": {
+      "benefit_type": "Term Loan / Working Capital",
+      "quantum_description": "Composite loan (term loan and working capital) between ₹10 Lakh and ₹1 Crore covering up to 85% of total project cost.",
+      "subsidy_percentage": null,
+      "max_assistance_amount_inr": 10000000.0,
+      "interest_subsidy_rate": null,
+      "guarantee_coverage_percentage": 80.0
+    },
+    "required_documents": [
+      "Identity and Address Proof of applicant/promoters",
+      "Caste Certificate (for SC/ST category)",
+      "Proof of Woman Ownership (CA Certificate or ROC Shareholding pattern showing ≥ 51% equity)",
+      "Detailed Project Report (DPR)",
+      "GST / Udyam registration",
+      "Lease deed / land allotment papers for business premises"
+    ],
+    "application_mode": "Online via Stand-Up India Portal or Bank Branches",
+    "official_portal_url": "https://www.standupmitra.in/",
+    "guidelines_doc_url": "https://www.standupmitra.in/Home/SUISchemes",
+    "tags": ["women-entrepreneurs", "sc-st", "greenfield", "bank-loan", "sidbi"],
+    "status": "Active",
+    "metadata": {
+      "min_loan": 1000000,
+      "max_loan": 10000000,
+      "margin_money_pct": 15
+    }
+  },
+  {
+    "scheme_id": "pm-vishwakarma",
+    "scheme_name": "PM Vishwakarma Scheme",
+    "scheme_short_code": "PM-Vishwakarma",
+    "nodal_ministry": "Ministry of Micro, Small and Medium Enterprises",
+    "implementing_agency": "MoMSME / MoSD&E / DFS",
+    "jurisdiction": "Central",
+    "summary": "End-to-end holistic support for traditional artisans and craftspeople across 18 designated trades, including skill training, ₹15,000 toolkit incentive, and collateral-free credit at 5% interest.",
+    "rules": {
+      "allowed_jurisdictions": ["Central", "State"],
+      "applicable_states": ["ALL"],
+      "eligible_constitutions": [
+        "Proprietorship"
+      ],
+      "eligible_msme_tiers": ["Micro"],
+      "min_business_age_years": 0.0,
+      "max_business_age_years": null,
+      "target_sectors": ["Artisans & Crafts", "Manufacturing", "Handicrafts"],
+      "requires_manufacturing": false,
+      "requires_services": false,
+      "requires_women_ownership": false,
+      "requires_sc_st_ownership": false,
+      "requires_dpiit_recognition": false
+    },
+    "eligibility_criteria_text": [
+      "An artisan or craftsperson working with hands and tools, engaged in one of 18 family-based traditional trades.",
+      "Minimum age of 18 years on the date of registration.",
+      "The beneficiary should not have availed loans under similar credit-based schemes of Central or State Government (e.g. PMEGP, PM SVANidhi, Mudra) in the past 5 years.",
+      "Registration is restricted to one member of the family."
+    ],
+    "benefits": {
+      "benefit_type": "Interest Subvention",
+      "quantum_description": "PM Vishwakarma Certificate & ID card, ₹15,000 toolkit incentive e-voucher, basic & advanced training with ₹500/day stipend, and collateral-free credit support up to ₹3 Lakh (₹1 Lakh tranche-1 and ₹2 Lakh tranche-2) at concessional interest rate of 5%.",
+      "subsidy_percentage": null,
+      "max_assistance_amount_inr": 300000.0,
+      "interest_subsidy_rate": 8.0,
+      "guarantee_coverage_percentage": 100.0
+    },
+    "required_documents": [
+      "Aadhaar Card with mobile linking",
+      "Ration Card / Family details",
+      "Active Bank Account details",
+      "Self-declaration of trade engagement"
+    ],
+    "application_mode": "Online via Common Services Centers (CSC) / PM Vishwakarma Portal",
+    "official_portal_url": "https://pmvishwakarma.gov.in/",
+    "guidelines_doc_url": "https://pmvishwakarma.gov.in/Home/Guidelines",
+    "tags": ["artisans", "traditional-trades", "toolkit", "subvention", "carpenter", "blacksmith", "crafts"],
+    "status": "Active",
+    "metadata": {
+      "toolkit_incentive": 15000,
+      "concessional_interest_rate": 5.0
+    }
+  },
+  {
+    "scheme_id": "clcss",
+    "scheme_name": "Credit Linked Capital Subsidy Scheme (MSME Champions Scheme)",
+    "scheme_short_code": "CLCSS",
+    "nodal_ministry": "Ministry of Micro, Small and Medium Enterprises",
+    "implementing_agency": "Office of Development Commissioner (MSME) / SIDBI / NABARD",
+    "jurisdiction": "Central",
+    "summary": "15% upfront capital subsidy for micro and small enterprises to modernize plant, equipment, and machinery with state-of-the-art technology in 51 approved sub-sectors.",
+    "rules": {
+      "allowed_jurisdictions": ["Central", "State"],
+      "applicable_states": ["ALL"],
+      "eligible_constitutions": [
+        "Proprietorship",
+        "Partnership",
+        "Private Limited Company",
+        "Limited Liability Partnership",
+        "Public Limited Company"
+      ],
+      "eligible_msme_tiers": ["Micro", "Small"],
+      "min_business_age_years": 0.0,
+      "max_business_age_years": null,
+      "target_sectors": ["Manufacturing", "Engineering", "Textiles", "Food Processing", "Plastics", "Chemicals", "Electronics"],
+      "requires_manufacturing": true,
+      "requires_services": false,
+      "requires_women_ownership": false,
+      "requires_sc_st_ownership": false,
+      "requires_dpiit_recognition": false
+    },
+    "eligibility_criteria_text": [
+      "Registered Micro and Small Enterprises having valid Udyam Registration.",
+      "Must be upgrading existing plant and machinery or establishing new facility with proven technology in approved sub-sectors.",
+      "Loan availed from scheduled commercial banks, state financial corporations, or SIDBI/NABARD.",
+      "Replacement of obsolete technology with modern energy-efficient machinery."
+    ],
+    "benefits": {
+      "benefit_type": "Capital Subsidy",
+      "quantum_description": "15% upfront capital subsidy on institutional term loan availed for purchase of eligible machinery, calculated on loan up to ₹1 Crore (Maximum subsidy ₹15 Lakh).",
+      "subsidy_percentage": 15.0,
+      "max_assistance_amount_inr": 1500000.0,
+      "interest_subsidy_rate": null,
+      "guarantee_coverage_percentage": null
+    },
+    "required_documents": [
+      "Udyam Registration Certificate",
+      "GST Registration Certificate",
+      "Sanction Letter of institutional term loan from Bank",
+      "Machinery Invoices / Technical Specifications & Manufacturer details",
+      "Audited accounts / CA Certificate for investment in plant & machinery"
+    ],
+    "application_mode": "Online through Lending Bank on MSME Champions CLCSS Portal",
+    "official_portal_url": "https://champions.gov.in/",
+    "guidelines_doc_url": "https://msme.gov.in/sites/default/files/CLCSS_guidelines.pdf",
+    "tags": ["machinery", "technology-upgrade", "manufacturing", "capital-subsidy", "champions"],
+    "status": "Active",
+    "metadata": {
+      "max_eligible_investment_inr": 10000000,
+      "subsidy_rate_pct": 15
+    }
+  },
+  {
+    "scheme_id": "pmfme",
+    "scheme_name": "PM Formalisation of Micro food processing Enterprises Scheme",
+    "scheme_short_code": "PMFME",
+    "nodal_ministry": "Ministry of Food Processing Industries",
+    "implementing_agency": "State Nodal Agencies (SNAs) / MoFPI / MoMSME",
+    "jurisdiction": "Central",
+    "summary": "Credit-linked financial assistance, technical support, and business upgrade for individual and collective micro food processing units under the One District One Product (ODOP) framework.",
+    "rules": {
+      "allowed_jurisdictions": ["Central", "State"],
+      "applicable_states": ["ALL"],
+      "eligible_constitutions": [
+        "Proprietorship",
+        "Partnership",
+        "Private Limited Company",
+        "Limited Liability Partnership",
+        "Society/Trust"
+      ],
+      "eligible_msme_tiers": ["Micro"],
+      "min_business_age_years": 0.0,
+      "max_business_age_years": null,
+      "target_sectors": ["Food Processing", "Agri-Processing", "Beverages", "Spices", "Dairy", "Bakery"],
+      "requires_manufacturing": true,
+      "requires_services": false,
+      "requires_women_ownership": false,
+      "requires_sc_st_ownership": false,
+      "requires_dpiit_recognition": false
+    },
+    "eligibility_criteria_text": [
+      "Existing micro food processing enterprise or new unit aligning with ODOP (One District One Product).",
+      "Enterprise must have ownership right/long-term lease over premises.",
+      "Applicant should be above 18 years of age with basic literacy.",
+      "Beneficiary must contribute at least 10% of the project cost as equity."
+    ],
+    "benefits": {
+      "benefit_type": "Capital Subsidy",
+      "quantum_description": "35% credit-linked capital subsidy on eligible project cost, with maximum ceiling of ₹10 Lakh per unit.",
+      "subsidy_percentage": 35.0,
+      "max_assistance_amount_inr": 1000000.0,
+      "interest_subsidy_rate": null,
+      "guarantee_coverage_percentage": null
+    },
+    "required_documents": [
+      "Aadhaar Card & PAN Card",
+      "Udyam / GST Registration / FSSAI Food License",
+      "Detailed Project Report (DPR) of food processing unit",
+      "Bank Account details & quotation of food processing equipment",
+      "Land ownership documents / Lease agreement"
+    ],
+    "application_mode": "Online via MoFPI PMFME Portal",
+    "official_portal_url": "https://pmfme.mofpi.gov.in/",
+    "guidelines_doc_url": "https://pmfme.mofpi.gov.in/pmfme/assets/docs/PMFME_Scheme_Guidelines.pdf",
+    "tags": ["food-processing", "odop", "fssai", "capital-subsidy", "agro-business"],
+    "status": "Active",
+    "metadata": {
+      "subsidy_cap_inr": 1000000,
+      "odop_aligned": true
+    }
+  },
+  {
+    "scheme_id": "aif",
+    "scheme_name": "Agriculture Infrastructure Fund",
+    "scheme_short_code": "AIF",
+    "nodal_ministry": "Ministry of Agriculture & Farmers Welfare",
+    "implementing_agency": "Department of Agriculture and Farmers Welfare / NABARD / Commercial Banks",
+    "jurisdiction": "Central",
+    "summary": "Medium-long term debt financing facility for investment in viable projects for post-harvest management infrastructure and community farming assets.",
+    "rules": {
+      "allowed_jurisdictions": ["Central", "State"],
+      "applicable_states": ["ALL"],
+      "eligible_constitutions": [
+        "Proprietorship",
+        "Partnership",
+        "Private Limited Company",
+        "Limited Liability Partnership",
+        "Society/Trust"
+      ],
+      "eligible_msme_tiers": ["Micro", "Small", "Medium"],
+      "min_business_age_years": 0.0,
+      "max_business_age_years": null,
+      "target_sectors": ["Agriculture", "Cold Storage", "Warehousing", "Food Processing", "Supply Chain"],
+      "requires_manufacturing": false,
+      "requires_services": false,
+      "requires_women_ownership": false,
+      "requires_sc_st_ownership": false,
+      "requires_dpiit_recognition": false
+    },
+    "eligibility_criteria_text": [
+      "Agri-entrepreneurs, Startups, Primary Agricultural Credit Societies (PACS), FPOs, SHGs, and MSMEs setting up post-harvest management facilities.",
+      "Eligible projects include cold chains, pack houses, silos, sorting/grading units, assaying units, and ripening chambers.",
+      "Borrower must have credit approval from participating lending institutions."
+    ],
+    "benefits": {
+      "benefit_type": "Interest Subvention",
+      "quantum_description": "3% interest subvention per annum on institutional loans up to ₹2 Crore for a maximum duration of 7 years, along with CGTMSE credit guarantee coverage fee paid by Government.",
+      "subsidy_percentage": null,
+      "max_assistance_amount_inr": 20000000.0,
+      "interest_subsidy_rate": 3.0,
+      "guarantee_coverage_percentage": 85.0
+    },
+    "required_documents": [
+      "Detailed Project Report (DPR) with civil and technical estimates",
+      "Land ownership title or registered long lease (minimum 10 years)",
+      "Bank sanction letter / application form",
+      "GST and Udyam Registration",
+      "Statutory approvals / clearances for civil construction"
+    ],
+    "application_mode": "Online via Agri Infra Portal",
+    "official_portal_url": "https://agriinfra.dac.gov.in/",
+    "guidelines_doc_url": "https://agriinfra.dac.gov.in/Home/Guidelines",
+    "tags": ["agriculture", "cold-chain", "warehousing", "subvention", "post-harvest"],
+    "status": "Active",
+    "metadata": {
+      "subvention_period_years": 7,
+      "loan_cap_for_subvention": 20000000
+    }
+  },
+  {
+    "scheme_id": "sisfs",
+    "scheme_name": "Startup India Seed Fund Scheme",
+    "scheme_short_code": "SISFS",
+    "nodal_ministry": "Ministry of Commerce and Industry",
+    "implementing_agency": "Department for Promotion of Industry and Internal Trade (DPIIT)",
+    "jurisdiction": "Central",
+    "summary": "Financial assistance to early-stage DPIIT-recognized startups for proof of concept, prototype development, product trials, market entry, and commercialization through approved incubators.",
+    "rules": {
+      "allowed_jurisdictions": ["Central", "State"],
+      "applicable_states": ["ALL"],
+      "eligible_constitutions": [
+        "Private Limited Company",
+        "Limited Liability Partnership"
+      ],
+      "eligible_msme_tiers": ["Micro", "Small"],
+      "min_business_age_years": 0.0,
+      "max_business_age_years": 2.0,
+      "target_sectors": ["ALL"],
+      "requires_manufacturing": false,
+      "requires_services": false,
+      "requires_women_ownership": false,
+      "requires_sc_st_ownership": false,
+      "requires_dpiit_recognition": true
+    },
+    "eligibility_criteria_text": [
+      "Startup recognized by DPIIT, incorporated not more than 2 years ago at the time of application.",
+      "Startup must have a business idea to develop a product or service with a market fit, viable commercialization, and scope of scaling.",
+      "Startup should be using technology in its core product or service, or business model.",
+      "Startup should not have received more than ₹10 Lakh of monetary support under any other Central or State Government scheme (excluding prize money/competitions).",
+      "Shareholding by Indian promoters in the startup should be at least 51%."
+    ],
+    "benefits": {
+      "benefit_type": "Grant / Seed Funding",
+      "quantum_description": "Up to ₹20 Lakh grant for Proof of Concept (PoC) / Prototype development / Product trials; Up to ₹50 Lakh through convertible debentures or debt-linked instruments for market entry, commercialization, and scaling.",
+      "subsidy_percentage": null,
+      "max_assistance_amount_inr": 5000000.0,
+      "interest_subsidy_rate": null,
+      "guarantee_coverage_percentage": null
+    },
+    "required_documents": [
+      "DPIIT Startup Recognition Certificate",
+      "Certificate of Incorporation (ROC)",
+      "Pitch Deck / Business Presentation",
+      "Product Prototype / Demo links",
+      "CA Certified Shareholding Pattern proving ≥ 51% Indian promoter holding"
+    ],
+    "application_mode": "Online through Startup India Seed Fund Portal",
+    "official_portal_url": "https://seedfund.startupindia.gov.in/",
+    "guidelines_doc_url": "https://seedfund.startupindia.gov.in/assets/guidelines/sisfs_guidelines.pdf",
+    "tags": ["startup", "seed-fund", "dpiit", "prototype", "convertible-debt", "innovation"],
+    "status": "Active",
+    "metadata": {
+      "grant_poc_ceiling": 2000000,
+      "debt_scaleup_ceiling": 5000000
+    }
+  },
+  {
+    "scheme_id": "ffs-sidbi",
+    "scheme_name": "Fund of Funds for Startups",
+    "scheme_short_code": "FFS",
+    "nodal_ministry": "Ministry of Commerce and Industry",
+    "implementing_agency": "SIDBI / DPIIT",
+    "jurisdiction": "Central",
+    "summary": "₹10,000 Crore corpus managed by SIDBI contributing capital to SEBI-registered Alternative Investment Funds (AIFs), which invest directly in innovative DPIIT-recognized startups.",
+    "rules": {
+      "allowed_jurisdictions": ["Central", "State"],
+      "applicable_states": ["ALL"],
+      "eligible_constitutions": [
+        "Private Limited Company"
+      ],
+      "eligible_msme_tiers": ["Micro", "Small", "Medium"],
+      "min_business_age_years": 0.0,
+      "max_business_age_years": 10.0,
+      "target_sectors": ["ALL"],
+      "requires_manufacturing": false,
+      "requires_services": false,
+      "requires_women_ownership": false,
+      "requires_sc_st_ownership": false,
+      "requires_dpiit_recognition": true
+    },
+    "eligibility_criteria_text": [
+      "Startup must be recognized by DPIIT.",
+      "Must be incorporated as a Private Limited Company.",
+      "Company age must not exceed 10 years from the date of incorporation.",
+      "Startup must demonstrate innovative business model, scalable unit economics, and technology orientation."
+    ],
+    "benefits": {
+      "benefit_type": "Grant / Seed Funding",
+      "quantum_description": "Venture equity and structured growth capital deployed via SIDBI-partnered Daughter VC Funds (Series Pre-A, Series A, Series B).",
+      "subsidy_percentage": null,
+      "max_assistance_amount_inr": 100000000.0,
+      "interest_subsidy_rate": null,
+      "guarantee_coverage_percentage": null
+    },
+    "required_documents": [
+      "DPIIT Certificate of Recognition",
+      "Certificate of Incorporation and MoA/AoA",
+      "Audited Financial Statements since incorporation",
+      "Cap Table & Dilution history",
+      "Detailed Information Memorandum (IM) & Financial Model"
+    ],
+    "application_mode": "Direct outreach to SIDBI-empanelled AIFs / Venture Capitalists listed on Startup India",
+    "official_portal_url": "https://www.startupindia.gov.in/content/sih/en/fund-of-funds-for-startups.html",
+    "guidelines_doc_url": "https://sidbi.in/en/venture-capital",
+    "tags": ["venture-capital", "equity", "sidbi", "growth-stage", "dpiit", "aif"],
+    "status": "Active",
+    "metadata": {
+      "total_corpus_inr": 100000000000
+    }
+  },
+  {
+    "scheme_id": "sec-80iac",
+    "scheme_name": "Section 80-IAC Tax Exemption for Startups",
+    "scheme_short_code": "80-IAC",
+    "nodal_ministry": "Ministry of Commerce and Industry / Ministry of Finance",
+    "implementing_agency": "DPIIT / Inter-Ministerial Board (IMB) / Central Board of Direct Taxes (CBDT)",
+    "jurisdiction": "Central",
+    "summary": "100% income tax deduction on profits and gains for 3 consecutive financial years out of the first 10 years since incorporation for eligible innovative startups.",
+    "rules": {
+      "allowed_jurisdictions": ["Central", "State"],
+      "applicable_states": ["ALL"],
+      "eligible_constitutions": [
+        "Private Limited Company",
+        "Limited Liability Partnership"
+      ],
+      "eligible_msme_tiers": ["Micro", "Small", "Medium"],
+      "min_business_age_years": 0.0,
+      "max_business_age_years": 10.0,
+      "target_sectors": ["ALL"],
+      "requires_manufacturing": false,
+      "requires_services": false,
+      "requires_women_ownership": false,
+      "requires_sc_st_ownership": false,
+      "requires_dpiit_recognition": true
+    },
+    "eligibility_criteria_text": [
+      "Incorporated as a Private Limited Company or LLP between April 1, 2016 and March 31, 2025 (or as extended in Finance Act).",
+      "Total turnover should not exceed ₹100 Crore in any of the previous financial years.",
+      "Entity must be certified by the Inter-Ministerial Board (IMB) of Certification as an innovative business working towards innovation, development or improvement of products or processes.",
+      "Company should not be formed by splitting up or reconstruction of an existing business."
+    ],
+    "benefits": {
+      "benefit_type": "Tax Exemption / Concession",
+      "quantum_description": "100% tax holiday on corporate income profits for any 3 consecutive assessment years chosen by the startup within its first 10 years.",
+      "subsidy_percentage": 100.0,
+      "max_assistance_amount_inr": null,
+      "interest_subsidy_rate": null,
+      "guarantee_coverage_percentage": null
+    },
+    "required_documents": [
+      "DPIIT Certificate of Recognition",
+      "Memorandum of Association (MoA) and Articles of Association (AoA)",
+      "Audited Balance Sheets, P&L statements, and ITR for the last 3 financial years (or since incorporation)",
+      "Pitch deck and product video demonstrating innovation, IP, and high commercial potential"
+    ],
+    "application_mode": "Online application via Startup India Portal to Inter-Ministerial Board (IMB)",
+    "official_portal_url": "https://www.startupindia.gov.in/content/sih/en/tax-exemptions.html",
+    "guidelines_doc_url": "https://www.startupindia.gov.in/content/dam/invest-india/Templates/public/80-IAC%20FAQ.pdf",
+    "tags": ["tax-holiday", "80-iac", "income-tax", "dpiit", "imb-approval", "innovation"],
+    "status": "Active",
+    "metadata": {
+      "tax_holiday_years": 3,
+      "turnover_limit_inr": 1000000000
+    }
+  },
+  {
+    "scheme_id": "meity-samridh",
+    "scheme_name": "MeitY SAMRIDH Scheme",
+    "scheme_short_code": "SAMRIDH",
+    "nodal_ministry": "Ministry of Electronics and Information Technology",
+    "implementing_agency": "MeitY Startup Hub (MSH)",
+    "jurisdiction": "Central",
+    "summary": "Scheme for Accelerating Startups for Scale-up through Mentorship, Funding, and Market Access, matching accelerator investments up to ₹40 Lakh per software tech startup.",
+    "rules": {
+      "allowed_jurisdictions": ["Central", "State"],
+      "applicable_states": ["ALL"],
+      "eligible_constitutions": [
+        "Private Limited Company",
+        "Limited Liability Partnership"
+      ],
+      "eligible_msme_tiers": ["Micro", "Small"],
+      "min_business_age_years": 0.5,
+      "max_business_age_years": 5.0,
+      "target_sectors": ["Information Technology", "Software", "SaaS", "DeepTech", "Artificial Intelligence", "Cybersecurity"],
+      "requires_manufacturing": false,
+      "requires_services": true,
+      "requires_women_ownership": false,
+      "requires_sc_st_ownership": false,
+      "requires_dpiit_recognition": true
+    },
+    "eligibility_criteria_text": [
+      "Software product startup with a demonstrable proof of concept, commercial traction, and customer validations.",
+      "Must be DPIIT recognized and registered in India.",
+      "Selected through a partner accelerator empanelled under MeitY SAMRIDH.",
+      "Indian promoter holding must be greater than 51%."
+    ],
+    "benefits": {
+      "benefit_type": "Grant / Seed Funding",
+      "quantum_description": "Matched funding up to ₹40 Lakh per startup along with 6-month customized accelerator cohort, corporate pilot linkages, and global investor demo day.",
+      "subsidy_percentage": null,
+      "max_assistance_amount_inr": 4000000.0,
+      "interest_subsidy_rate": null,
+      "guarantee_coverage_percentage": null
+    },
+    "required_documents": [
+      "DPIIT Recognition Certificate",
+      "Product metrics and active customer traction report",
+      "Certificate of Incorporation",
+      "Cap table and valuation agreement from partnering accelerator"
+    ],
+    "application_mode": "Online via MeitY Startup Hub (MSH) Portal",
+    "official_portal_url": "https://msh.meity.gov.in/samridh",
+    "guidelines_doc_url": "https://msh.meity.gov.in/assets/docs/SAMRIDH_guidelines.pdf",
+    "tags": ["software", "accelerator", "meity", "saas", "msh", "scaleup"],
+    "status": "Active",
+    "metadata": {
+      "max_matching_grant_inr": 4000000
+    }
+  },
+  {
+    "scheme_id": "tide-2",
+    "scheme_name": "TIDE 2.0 Scheme (Technology Incubation and Development of Entrepreneurs)",
+    "scheme_short_code": "TIDE 2.0",
+    "nodal_ministry": "Ministry of Electronics and Information Technology",
+    "implementing_agency": "MeitY / Empanelled Incubators (IITs, IIMs, NITs)",
+    "jurisdiction": "Central",
+    "summary": "Supports ICT and emerging technology startups (IoT, AI, Blockchain, Robotics) through 51 specialized incubation centers with Entrepreneur-in-Residence (EiR) and prototype grants.",
+    "rules": {
+      "allowed_jurisdictions": ["Central", "State"],
+      "applicable_states": ["ALL"],
+      "eligible_constitutions": [
+        "Proprietorship",
+        "Partnership",
+        "Private Limited Company",
+        "Limited Liability Partnership"
+      ],
+      "eligible_msme_tiers": ["Micro", "Small"],
+      "min_business_age_years": 0.0,
+      "max_business_age_years": 3.0,
+      "target_sectors": ["Information Technology", "Artificial Intelligence", "Robotics", "IoT", "Healthcare Tech", "FinTech"],
+      "requires_manufacturing": false,
+      "requires_services": false,
+      "requires_women_ownership": false,
+      "requires_sc_st_ownership": false,
+      "requires_dpiit_recognition": false
+    },
+    "eligibility_criteria_text": [
+      "Aspiring tech entrepreneurs or early-stage startups working on emerging technology solutions (AI, IoT, Blockchain, CleanTech).",
+      "Applicant must be incubated or willing to incubate at a recognized TIDE 2.0 incubation center.",
+      "Focus on solving societal challenges in healthcare, education, agriculture, or financial inclusion."
+    ],
+    "benefits": {
+      "benefit_type": "Grant / Seed Funding",
+      "quantum_description": "Grant support: Up to ₹7 Lakh for Entrepreneur-in-Residence (EiR) fellows, and up to ₹40 Lakh Grant/Equity for Proof of Concept & commercialization.",
+      "subsidy_percentage": null,
+      "max_assistance_amount_inr": 4000000.0,
+      "interest_subsidy_rate": null,
+      "guarantee_coverage_percentage": null
+    },
+    "required_documents": [
+      "Technical proposal and architecture document",
+      "Founder CVs and academic credentials",
+      "Entity registration (if incorporated) or identity proofs",
+      "Incubator recommendation letter"
+    ],
+    "application_mode": "Online through TIDE 2.0 partner incubation centers",
+    "official_portal_url": "https://msh.meity.gov.in/schemes/tide-2-0",
+    "guidelines_doc_url": "https://www.meity.gov.in/writereaddata/files/TIDE_2_0_Guidelines.pdf",
+    "tags": ["deeptech", "iot", "artificial-intelligence", "eir", "incubator-grant"],
+    "status": "Active",
+    "metadata": {
+      "eir_support_inr": 700000,
+      "grant_poc_inr": 4000000
+    }
+  },
+  {
+    "scheme_id": "birac-big",
+    "scheme_name": "Biotechnology Ignition Grant Scheme",
+    "scheme_short_code": "BIRAC-BIG",
+    "nodal_ministry": "Ministry of Science & Technology - Department of Biotechnology",
+    "implementing_agency": "Biotechnology Industry Research Assistance Council (BIRAC)",
+    "jurisdiction": "Central",
+    "summary": "Flagship early-stage grant-in-aid of up to ₹50 Lakh for biotech, medtech, diagnostics, agri-biotech, and industrial biotechnology innovations.",
+    "rules": {
+      "allowed_jurisdictions": ["Central", "State"],
+      "applicable_states": ["ALL"],
+      "eligible_constitutions": [
+        "Private Limited Company",
+        "Limited Liability Partnership",
+        "Proprietorship"
+      ],
+      "eligible_msme_tiers": ["Micro", "Small"],
+      "min_business_age_years": 0.0,
+      "max_business_age_years": 5.0,
+      "target_sectors": ["Biotechnology", "Healthcare", "Medical Devices", "Agri-Biotech", "Bio-Pharma", "Industrial Biotechnology"],
+      "requires_manufacturing": false,
+      "requires_services": false,
+      "requires_women_ownership": false,
+      "requires_sc_st_ownership": false,
+      "requires_dpiit_recognition": false
+    },
+    "eligibility_criteria_text": [
+      "Biotech startup incorporated for not more than 5 years, or an individual innovator with verified institutional backing.",
+      "Majority shareholding (> 51%) held by Indian citizens who are researchers, scientists, or medical entrepreneurs.",
+      "Startups must possess an incubator affiliation or independent laboratory access.",
+      "Clear scientific hypothesis and novel intellectual property path."
+    ],
+    "benefits": {
+      "benefit_type": "Grant / Seed Funding",
+      "quantum_description": "Grant-in-aid up to ₹50 Lakh for milestone-based research and proof-of-concept validation over 18 months, with zero equity dilution.",
+      "subsidy_percentage": null,
+      "max_assistance_amount_inr": 5000000.0,
+      "interest_subsidy_rate": null,
+      "guarantee_coverage_percentage": null
+    },
+    "required_documents": [
+      "Company Incorporation Certificate / GST",
+      "Detailed Scientific Research Proposal with experimental milestones",
+      "IP disclosure / patent search report",
+      "Laboratory affiliation / Letter of Support from BIRAC-partner incubator",
+      "Promoter CVs and publication records"
+    ],
+    "application_mode": "Online via BIRAC Portal (Biannual calls in January and July)",
+    "official_portal_url": "https://birac.nic.in/desc_new.php?id=37",
+    "guidelines_doc_url": "https://birac.nic.in/webcontent/BIG_Guidelines.pdf",
+    "tags": ["biotech", "medtech", "diagnostics", "non-dilutive-grant", "birac", "lifesciences"],
+    "status": "Active",
+    "metadata": {
+      "grant_ceiling_inr": 5000000,
+      "duration_months": 18
+    }
+  },
+  {
+    "scheme_id": "aim-incubator-grant",
+    "scheme_name": "Atal Innovation Mission - Seed & Incubation Support",
+    "scheme_short_code": "AIM",
+    "nodal_ministry": "NITI Aayog",
+    "implementing_agency": "Atal Innovation Mission (AIM)",
+    "jurisdiction": "Central",
+    "summary": "Catalyzes world-class startups through Atal Incubation Centres (AICs) with prototyping labs, maker spaces, and access to seed grants.",
+    "rules": {
+      "allowed_jurisdictions": ["Central", "State"],
+      "applicable_states": ["ALL"],
+      "eligible_constitutions": [
+        "Proprietorship",
+        "Partnership",
+        "Private Limited Company",
+        "Limited Liability Partnership"
+      ],
+      "eligible_msme_tiers": ["Micro", "Small"],
+      "min_business_age_years": 0.0,
+      "max_business_age_years": 5.0,
+      "target_sectors": ["ALL"],
+      "requires_manufacturing": false,
+      "requires_services": false,
+      "requires_women_ownership": false,
+      "requires_sc_st_ownership": false,
+      "requires_dpiit_recognition": false
+    },
+    "eligibility_criteria_text": [
+      "Innovators and early-stage ventures working on technology, circular economy, rural development, or high-impact social solutions.",
+      "Must apply to and be shortlisted by an Atal Incubation Centre (AIC) or Established Incubation Centre (EIC).",
+      "Clear intent to incorporate a commercial enterprise in India."
+    ],
+    "benefits": {
+      "benefit_type": "Grant / Seed Funding",
+      "quantum_description": "Incubation access, state-of-the-art laboratory infrastructure, corporate POCs, and micro seed grants ranging from ₹5 Lakh to ₹25 Lakh.",
+      "subsidy_percentage": null,
+      "max_assistance_amount_inr": 2500000.0,
+      "interest_subsidy_rate": null,
+      "guarantee_coverage_percentage": null
+    },
+    "required_documents": [
+      "Business Pitch Deck",
+      "Prototype demonstrations or design schematics",
+      "Founding team credentials",
+      "GST / ROC registration if incorporated"
+    ],
+    "application_mode": "Online via Atal Innovation Mission Portal or respective AIC websites",
+    "official_portal_url": "https://aim.gov.in/",
+    "guidelines_doc_url": "https://aim.gov.in/guidelines.php",
+    "tags": ["niti-aayog", "incubator", "prototyping", "innovation", "seed-grant"],
+    "status": "Active",
+    "metadata": {
+      "incubator_network_size": 72
+    }
+  },
+  {
+    "scheme_id": "dst-nidhi-sss",
+    "scheme_name": "NIDHI-Seed Support System (NIDHI-SSS)",
+    "scheme_short_code": "NIDHI-SSS",
+    "nodal_ministry": "Ministry of Science and Technology - Department of Science & Technology",
+    "implementing_agency": "National Science & Technology Entrepreneurship Development Board (NSTEDB) / TBIs",
+    "jurisdiction": "Central",
+    "summary": "Debt and equity seed financing up to ₹1 Crore for technology-driven startups incubated in DST-supported Technology Business Incubators (TBIs).",
+    "rules": {
+      "allowed_jurisdictions": ["Central", "State"],
+      "applicable_states": ["ALL"],
+      "eligible_constitutions": [
+        "Private Limited Company",
+        "Limited Liability Partnership"
+      ],
+      "eligible_msme_tiers": ["Micro", "Small"],
+      "min_business_age_years": 0.0,
+      "max_business_age_years": 5.0,
+      "target_sectors": ["DeepTech", "Hardware", "CleanTech", "Electronics", "Materials Science"],
+      "requires_manufacturing": false,
+      "requires_services": false,
+      "requires_women_ownership": false,
+      "requires_sc_st_ownership": false,
+      "requires_dpiit_recognition": false
+    },
+    "eligibility_criteria_text": [
+      "Registered startup incubated in a DST-approved Technology Business Incubator (TBI) for at least 3 months.",
+      "Focus on commercializing indigenous, science-backed technologies and proprietary engineering.",
+      "Indian promoter holding must be at least 51%."
+    ],
+    "benefits": {
+      "benefit_type": "Grant / Seed Funding",
+      "quantum_description": "Financial seed support between ₹25 Lakh and ₹100 Lakh per startup via equity investment, convertible debentures, or soft loan.",
+      "subsidy_percentage": null,
+      "max_assistance_amount_inr": 10000000.0,
+      "interest_subsidy_rate": null,
+      "guarantee_coverage_percentage": null
+    },
+    "required_documents": [
+      "Certificate of Incorporation",
+      "TBI Incubation Agreement",
+      "Product Technical Architecture and Test Reports",
+      "Audited Accounts / Projected Financial Model",
+      "Patent / IP filing documents"
+    ],
+    "application_mode": "Through host Technology Business Incubator (TBI)",
+    "official_portal_url": "https://www.nstedb.com/institutional/NIDHI-SSS.htm",
+    "guidelines_doc_url": "https://nstedb.com/guidelines/NIDHI_SSS_Guidelines.pdf",
+    "tags": ["dst", "tbi", "deeptech", "seed-support", "equity", "hardware"],
+    "status": "Active",
+    "metadata": {
+      "max_seed_inr": 10000000
+    }
+  },
+  {
+    "scheme_id": "dsir-prism",
+    "scheme_name": "PRISM Scheme (Promoting Innovations in Individuals, Start-ups and MSMEs)",
+    "scheme_short_code": "PRISM",
+    "nodal_ministry": "Ministry of Science and Technology - DSIR",
+    "implementing_agency": "Department of Scientific and Industrial Research (DSIR)",
+    "jurisdiction": "Central",
+    "summary": "Grants up to ₹50 Lakh for individual innovators and MSMEs to translate novel, green, and industrial technical concepts into marketable working prototypes.",
+    "rules": {
+      "allowed_jurisdictions": ["Central", "State"],
+      "applicable_states": ["ALL"],
+      "eligible_constitutions": [
+        "Proprietorship",
+        "Partnership",
+        "Private Limited Company",
+        "Limited Liability Partnership"
+      ],
+      "eligible_msme_tiers": ["Micro", "Small"],
+      "min_business_age_years": 0.0,
+      "max_business_age_years": null,
+      "target_sectors": ["Engineering", "Green Technology", "Renewable Energy", "Waste Management", "Agriculture"],
+      "requires_manufacturing": false,
+      "requires_services": false,
+      "requires_women_ownership": false,
+      "requires_sc_st_ownership": false,
+      "requires_dpiit_recognition": false
+    },
+    "eligibility_criteria_text": [
+      "Any individual innovator or registered micro/small enterprise with a novel technology idea.",
+      "Proposal must demonstrate novelty, techno-commercial feasibility, and potential for patent protection.",
+      "Cost of project evaluated across Phase I (Proof of Concept, max ₹5 Lakh) and Phase II (Working Prototype, max ₹50 Lakh)."
+    ],
+    "benefits": {
+      "benefit_type": "Grant / Seed Funding",
+      "quantum_description": "Grant-in-aid covering up to 90% of project cost for Phase I (up to ₹5 Lakh) and up to 50% of project cost for Phase II (up to ₹50 Lakh).",
+      "subsidy_percentage": 50.0,
+      "max_assistance_amount_inr": 5000000.0,
+      "interest_subsidy_rate": null,
+      "guarantee_coverage_percentage": null
+    },
+    "required_documents": [
+      "PRISM Application Form with technical description",
+      "Patent search or patent application copy",
+      "Quotations for machinery/components",
+      "KYC and registration certificates (GST/Udyam if entity)"
+    ],
+    "application_mode": "Submission through designated PRISM Centers (TOCICs) or DSIR portal",
+    "official_portal_url": "https://www.dsir.gov.in/#files/prism/index.html",
+    "guidelines_doc_url": "https://www.dsir.gov.in/sites/default/files/prism_guidelines.pdf",
+    "tags": ["dsir", "prototype", "green-technology", "individual-innovators", "prism"],
+    "status": "Active",
+    "metadata": {
+      "phase1_grant_inr": 500000,
+      "phase2_grant_inr": 5000000
+    }
+  },
+  {
+    "scheme_id": "genesis-meity",
+    "scheme_name": "GENESIS (Gen-Next Support for Innovative Startups)",
+    "scheme_short_code": "GENESIS",
+    "nodal_ministry": "Ministry of Electronics and Information Technology",
+    "implementing_agency": "MeitY / MeitY Startup Hub",
+    "jurisdiction": "Central",
+    "summary": "₹490 Crore umbrella initiative to discover, support, and scale tech startups from Tier-II and Tier-III cities across India with discovery grants and pilot linkages.",
+    "rules": {
+      "allowed_jurisdictions": ["Central", "State"],
+      "applicable_states": ["ALL"],
+      "eligible_constitutions": [
+        "Private Limited Company",
+        "Limited Liability Partnership"
+      ],
+      "eligible_msme_tiers": ["Micro", "Small"],
+      "min_business_age_years": 0.0,
+      "max_business_age_years": 5.0,
+      "target_sectors": ["Information Technology", "Electronic System Design", "EdTech", "AgriTech", "FinTech"],
+      "requires_manufacturing": false,
+      "requires_services": false,
+      "requires_women_ownership": false,
+      "requires_sc_st_ownership": false,
+      "requires_dpiit_recognition": true
+    },
+    "eligibility_criteria_text": [
+      "DPIIT-recognized tech startups registered and operating out of Tier-II and Tier-III cities.",
+      "Tech-driven product or intellectual property.",
+      "Indian promoter ownership > 51%."
+    ],
+    "benefits": {
+      "benefit_type": "Grant / Seed Funding",
+      "quantum_description": "Financial grants up to ₹25 Lakh for pilot rollouts, cloud infrastructure credits, and direct market access partnerships.",
+      "subsidy_percentage": null,
+      "max_assistance_amount_inr": 2500000.0,
+      "interest_subsidy_rate": null,
+      "guarantee_coverage_percentage": null
+    },
+    "required_documents": [
+      "DPIIT Recognition Certificate",
+      "Registered address proof confirming Tier-II/III operational location",
+      "Product demo and customer deployment metrics",
+      "ROC Incorporation Certificate"
+    ],
+    "application_mode": "Online via MeitY Startup Hub Portal",
+    "official_portal_url": "https://msh.meity.gov.in/schemes/genesis",
+    "guidelines_doc_url": "https://www.meity.gov.in/genesis-guidelines",
+    "tags": ["tier-2-tier-3", "meity", "tech-startups", "cloud-credits", "genesis"],
+    "status": "Active",
+    "metadata": {
+      "focus_geography": "Tier II and Tier III cities"
+    }
+  },
+  {
+    "scheme_id": "msme-zed",
+    "scheme_name": "MSME Sustainable (ZED) Certification Scheme",
+    "scheme_short_code": "MSME-ZED",
+    "nodal_ministry": "Ministry of Micro, Small and Medium Enterprises",
+    "implementing_agency": "Quality Council of India (QCI) / MoMSME",
+    "jurisdiction": "Central",
+    "summary": "Subsidizes comprehensive quality and environmental assessment (Zero Defect, Zero Effect) to enhance competitiveness, reduce waste, and access bank concessions.",
+    "rules": {
+      "allowed_jurisdictions": ["Central", "State"],
+      "applicable_states": ["ALL"],
+      "eligible_constitutions": [
+        "Proprietorship",
+        "Partnership",
+        "Private Limited Company",
+        "Limited Liability Partnership",
+        "Public Limited Company"
+      ],
+      "eligible_msme_tiers": ["Micro", "Small", "Medium"],
+      "min_business_age_years": 0.0,
+      "max_business_age_years": null,
+      "target_sectors": ["Manufacturing"],
+      "requires_manufacturing": true,
+      "requires_services": false,
+      "requires_women_ownership": false,
+      "requires_sc_st_ownership": false,
+      "requires_dpiit_recognition": false
+    },
+    "eligibility_criteria_text": [
+      "All manufacturing MSMEs registered with Udyam Registration.",
+      "Enterprise must undertake the ZED pledge and undergo digital desktop / on-site verification.",
+      "Valid GST registration required."
+    ],
+    "benefits": {
+      "benefit_type": "Fee / Cost Reimbursement",
+      "quantum_description": "Financial subsidy on certification cost: 80% for Micro, 60% for Small, 50% for Medium enterprises. Additional 10% subsidy for women/SC/ST owned units. Up to ₹5 Lakh reward for adopting zero-pollution green technology, plus bank loan interest concessions (0.25% - 0.50%).",
+      "subsidy_percentage": 80.0,
+      "max_assistance_amount_inr": 500000.0,
+      "interest_subsidy_rate": 0.5,
+      "guarantee_coverage_percentage": null
+    },
+    "required_documents": [
+      "Udyam Registration Certificate",
+      "GST Certificate",
+      "Photographs of factory premises and production floor",
+      "Energy & pollution control measures self-attestation"
+    ],
+    "application_mode": "Online via Official ZED Portal",
+    "official_portal_url": "https://zed.msme.gov.in/",
+    "guidelines_doc_url": "https://zed.msme.gov.in/assets/guidelines/ZED_Guidelines.pdf",
+    "tags": ["quality", "zed", "sustainability", "qci", "manufacturing", "green-certification"],
+    "status": "Active",
+    "metadata": {
+      "micro_subsidy_pct": 80,
+      "small_subsidy_pct": 60,
+      "medium_subsidy_pct": 50
+    }
+  },
+  {
+    "scheme_id": "msme-innovative",
+    "scheme_name": "MSME Innovative Scheme (Incubation, Design, IPR)",
+    "scheme_short_code": "MSME-Innovative",
+    "nodal_ministry": "Ministry of Micro, Small and Medium Enterprises",
+    "implementing_agency": "Office of Development Commissioner (MSME)",
+    "jurisdiction": "Central",
+    "summary": "Holistic ecosystem combining Incubation grants, Professional Design subsidies, and IPR reimbursements for patents, trademarks, and design registrations.",
+    "rules": {
+      "allowed_jurisdictions": ["Central", "State"],
+      "applicable_states": ["ALL"],
+      "eligible_constitutions": [
+        "Proprietorship",
+        "Partnership",
+        "Private Limited Company",
+        "Limited Liability Partnership"
+      ],
+      "eligible_msme_tiers": ["Micro", "Small", "Medium"],
+      "min_business_age_years": 0.0,
+      "max_business_age_years": null,
+      "target_sectors": ["ALL"],
+      "requires_manufacturing": false,
+      "requires_services": false,
+      "requires_women_ownership": false,
+      "requires_sc_st_ownership": false,
+      "requires_dpiit_recognition": false
+    },
+    "eligibility_criteria_text": [
+      "Any registered MSME with Udyam Registration or student/individual innovator affiliated with an approved Host Institute (HI).",
+      "Must have an innovative concept, product design challenge, or registered patent/trademark requirement.",
+      "Commercial potential and technological viability."
+    ],
+    "benefits": {
+      "benefit_type": "Fee / Cost Reimbursement",
+      "quantum_description": "Financial assistance: Up to ₹15 Lakh for idea incubation; Up to ₹40 Lakh for design project (MSME contribution 25%); Up to ₹5 Lakh reimbursement for Foreign Patent, ₹1 Lakh for Domestic Patent, ₹10,000 for Trademark registration.",
+      "subsidy_percentage": 75.0,
+      "max_assistance_amount_inr": 4000000.0,
+      "interest_subsidy_rate": null,
+      "guarantee_coverage_percentage": null
+    },
+    "required_documents": [
+      "Udyam Registration Certificate",
+      "GST Registration",
+      "Detailed project report / Design brief / Patent application receipt from IPO",
+      "Bank Account details & cancelled cheque"
+    ],
+    "application_mode": "Online via MSME Champions Portal",
+    "official_portal_url": "https://innovative.msme.gov.in/",
+    "guidelines_doc_url": "https://innovative.msme.gov.in/Home/Guidelines",
+    "tags": ["ipr", "patent-reimbursement", "trademark", "industrial-design", "incubation", "champions"],
+    "status": "Active",
+    "metadata": {
+      "patent_foreign_max_inr": 500000,
+      "patent_domestic_max_inr": 100000,
+      "design_grant_max_inr": 4000000,
+      "idea_grant_max_inr": 1500000
+    }
+  },
+  {
+    "scheme_id": "pli-electronics",
+    "scheme_name": "Production Linked Incentive Scheme (PLI) for Large Scale Electronics",
+    "scheme_short_code": "PLI-Electronics",
+    "nodal_ministry": "Ministry of Electronics and Information Technology",
+    "implementing_agency": "IFCI / MeitY",
+    "jurisdiction": "Central",
+    "summary": "Financial incentive of 4% to 6% on incremental sales (over base year) of goods manufactured in India covering mobile phones and specified electronic components.",
+    "rules": {
+      "allowed_jurisdictions": ["Central", "State"],
+      "applicable_states": ["ALL"],
+      "eligible_constitutions": [
+        "Private Limited Company",
+        "Public Limited Company"
+      ],
+      "eligible_msme_tiers": ["Small", "Medium", "Large"],
+      "min_business_age_years": 1.0,
+      "max_business_age_years": null,
+      "target_sectors": ["Electronics", "Semiconductor", "Hardware", "Manufacturing"],
+      "requires_manufacturing": true,
+      "requires_services": false,
+      "requires_women_ownership": false,
+      "requires_sc_st_ownership": false,
+      "requires_dpiit_recognition": false
+    },
+    "eligibility_criteria_text": [
+      "Companies incorporated in India engaged in domestic manufacturing of target electronics products.",
+      "Must meet minimum threshold criteria of incremental cumulative investment in plant & machinery.",
+      "Must achieve minimum incremental sales threshold of manufactured goods over the base year."
+    ],
+    "benefits": {
+      "benefit_type": "Capital Subsidy",
+      "quantum_description": "Incentive of 4% to 6% on incremental sales (over base year) of goods manufactured in India for a period of 5 years.",
+      "subsidy_percentage": 6.0,
+      "max_assistance_amount_inr": 500000000.0,
+      "interest_subsidy_rate": null,
+      "guarantee_coverage_percentage": null
+    },
+    "required_documents": [
+      "Certificate of Incorporation and Memorandum of Association",
+      "Audited Financial Statements and Statutory Auditor's certificate",
+      "Customs / Excise / GST return records proving incremental sales",
+      "Chartered Engineer certificate for plant and machinery investment",
+      "Factory license and industrial approvals"
+    ],
+    "application_mode": "Online through IFCI PLI Portal",
+    "official_portal_url": "https://www.meity.gov.in/esdm/pli",
+    "guidelines_doc_url": "https://www.meity.gov.in/writereaddata/files/PLI_Guidelines.pdf",
+    "tags": ["pli", "electronics", "manufacturing", "incremental-sales", "meity"],
+    "status": "Active",
+    "metadata": {
+      "incentive_range_pct": "4% to 6%"
+    }
+  },
+  {
+    "scheme_id": "specs-electronics",
+    "scheme_name": "Scheme for Promotion of Manufacturing of Electronic Components and Semiconductors",
+    "scheme_short_code": "SPECS",
+    "nodal_ministry": "Ministry of Electronics and Information Technology",
+    "implementing_agency": "IFCI / MeitY",
+    "jurisdiction": "Central",
+    "summary": "Financial incentive of 25% on capital expenditure for the manufacturing of identified electronic components, semiconductor packaging, display fabrication, and active components.",
+    "rules": {
+      "allowed_jurisdictions": ["Central", "State"],
+      "applicable_states": ["ALL"],
+      "eligible_constitutions": [
+        "Private Limited Company",
+        "Public Limited Company",
+        "Limited Liability Partnership"
+      ],
+      "eligible_msme_tiers": ["Small", "Medium", "Large"],
+      "min_business_age_years": 0.0,
+      "max_business_age_years": null,
+      "target_sectors": ["Electronics", "Semiconductor", "Passive Components", "PCB", "Hardware"],
+      "requires_manufacturing": true,
+      "requires_services": false,
+      "requires_women_ownership": false,
+      "requires_sc_st_ownership": false,
+      "requires_dpiit_recognition": false
+    },
+    "eligibility_criteria_text": [
+      "Investment in new manufacturing unit or expansion of existing units for eligible electronic items.",
+      "Minimum capital expenditure investment threshold ranges from ₹5 Crore to ₹1,000 Crore depending on product category.",
+      "Application must be submitted prior to placing orders for plant and machinery."
+    ],
+    "benefits": {
+      "benefit_type": "Capital Subsidy",
+      "quantum_description": "25% financial incentive on eligible capital expenditure for plant, machinery, equipment, associated utilities, and clean room facilities.",
+      "subsidy_percentage": 25.0,
+      "max_assistance_amount_inr": 250000000.0,
+      "interest_subsidy_rate": null,
+      "guarantee_coverage_percentage": null
+    },
+    "required_documents": [
+      "Detailed Project Report (DPR) with technical process flow",
+      "Chartered Accountant / Engineer certificates on eligible capex",
+      "Purchase orders, bills of entry, and commissioning certificates",
+      "GST returns and plant layout approvals"
+    ],
+    "application_mode": "Online via MeitY SPECS portal",
+    "official_portal_url": "https://www.meity.gov.in/esdm/specs",
+    "guidelines_doc_url": "https://www.meity.gov.in/writereaddata/files/SPECS_Guidelines.pdf",
+    "tags": ["specs", "semiconductors", "electronic-components", "pcb", "capital-expenditure"],
+    "status": "Active",
+    "metadata": {
+      "capex_subsidy_pct": 25
+    }
+  },
+  {
+    "scheme_id": "msme-pms",
+    "scheme_name": "Procurement and Marketing Support (PMS) Scheme",
+    "scheme_short_code": "MSME-PMS",
+    "nodal_ministry": "Ministry of Micro, Small and Medium Enterprises",
+    "implementing_agency": "Office of Development Commissioner (MSME)",
+    "jurisdiction": "Central",
+    "summary": "Subsidizes participation in national and international trade fairs, marketing exhibitions, and modern retail packaging to enhance market linkage for MSMEs.",
+    "rules": {
+      "allowed_jurisdictions": ["Central", "State"],
+      "applicable_states": ["ALL"],
+      "eligible_constitutions": [
+        "Proprietorship",
+        "Partnership",
+        "Private Limited Company",
+        "Limited Liability Partnership"
+      ],
+      "eligible_msme_tiers": ["Micro", "Small"],
+      "min_business_age_years": 0.0,
+      "max_business_age_years": null,
+      "target_sectors": ["ALL"],
+      "requires_manufacturing": false,
+      "requires_services": false,
+      "requires_women_ownership": false,
+      "requires_sc_st_ownership": false,
+      "requires_dpiit_recognition": false
+    },
+    "eligibility_criteria_text": [
+      "Registered manufacturing or service MSMEs holding valid Udyam Registration.",
+      "Participating in approved trade exhibitions, domestic expos, or onboarding to Government e-Marketplace (GeM).",
+      "Special priority given to women, SC/ST, and units in North Eastern Region."
+    ],
+    "benefits": {
+      "benefit_type": "Fee / Cost Reimbursement",
+      "quantum_description": "Up to 100% stall charge reimbursement (up to ₹1.5 Lakh for domestic expos) and reimbursement of packaging and barcode certification costs.",
+      "subsidy_percentage": 100.0,
+      "max_assistance_amount_inr": 150000.0,
+      "interest_subsidy_rate": null,
+      "guarantee_coverage_percentage": null
+    },
+    "required_documents": [
+      "Udyam Registration Certificate",
+      "GST Certificate",
+      "Stall booking receipt and participation certificate from fair organizer",
+      "Bank Account details"
+    ],
+    "application_mode": "Online via MSME Champions / PMS Portal",
+    "official_portal_url": "https://champions.gov.in/",
+    "guidelines_doc_url": "https://msme.gov.in/sites/default/files/PMS_Guidelines.pdf",
+    "tags": ["trade-fairs", "marketing", "exhibitions", "reimbursement", "gem-portal"],
+    "status": "Active",
+    "metadata": {
+      "max_stall_subsidy_inr": 150000
+    }
+  },
+  {
+    "scheme_id": "nssh-scheme",
+    "scheme_name": "National SC-ST Hub (NSSH) Scheme",
+    "scheme_short_code": "NSSH",
+    "nodal_ministry": "Ministry of Micro, Small and Medium Enterprises",
+    "implementing_agency": "National Small Industries Corporation (NSIC)",
+    "jurisdiction": "Central",
+    "summary": "Specialized affirmative support ecosystem to empower SC/ST micro and small entrepreneurs to fulfill the 4% mandatory public procurement quota by CPSEs and ministries.",
+    "rules": {
+      "allowed_jurisdictions": ["Central", "State"],
+      "applicable_states": ["ALL"],
+      "eligible_constitutions": [
+        "Proprietorship",
+        "Partnership",
+        "Private Limited Company",
+        "Limited Liability Partnership"
+      ],
+      "eligible_msme_tiers": ["Micro", "Small"],
+      "min_business_age_years": 0.0,
+      "max_business_age_years": null,
+      "target_sectors": ["ALL"],
+      "requires_manufacturing": false,
+      "requires_services": false,
+      "requires_women_ownership": false,
+      "requires_sc_st_ownership": true,
+      "requires_dpiit_recognition": false
+    },
+    "eligibility_criteria_text": [
+      "Enterprise owned by SC/ST entrepreneurs (100% ownership in sole proprietorship, or at least 51% equity in partnership/company).",
+      "Valid Udyam Registration and Caste Certificate of promoter.",
+      "Applicant must be engaged in manufacturing or provision of services."
+    ],
+    "benefits": {
+      "benefit_type": "Fee / Cost Reimbursement",
+      "quantum_description": "100% reimbursement of Single Point Registration Scheme (SPRS) fees, 100% annual credit guarantee fee reimbursement under CGTMSE, up to ₹1 Lakh subsidy for trade fairs, and subsidized tender document fees.",
+      "subsidy_percentage": 100.0,
+      "max_assistance_amount_inr": 200000.0,
+      "interest_subsidy_rate": null,
+      "guarantee_coverage_percentage": null
+    },
+    "required_documents": [
+      "Caste Certificate issued by Competent Authority",
+      "Udyam Registration Certificate",
+      "GST Registration Certificate",
+      "Proof of shareholding pattern (CA certificate for companies/partnerships)",
+      "Bank Account details"
+    ],
+    "application_mode": "Online via National SC-ST Hub Portal / NSIC offices",
+    "official_portal_url": "https://www.scsthub.in/",
+    "guidelines_doc_url": "https://www.scsthub.in/sites/default/files/NSSH_Scheme_Guidelines.pdf",
+    "tags": ["sc-st", "affirmative-action", "nsic", "cgtmse-fee-reimbursement", "public-procurement"],
+    "status": "Active",
+    "metadata": {
+      "public_procurement_target_pct": 4
+    }
+  },
+  {
+    "scheme_id": "msme-ic",
+    "scheme_name": "International Cooperation (IC) Scheme",
+    "scheme_short_code": "MSME-IC",
+    "nodal_ministry": "Ministry of Micro, Small and Medium Enterprises",
+    "implementing_agency": "Office of Development Commissioner (MSME)",
+    "jurisdiction": "Central",
+    "summary": "Financial assistance to MSMEs for participating in international exhibitions, trade fairs, buyer-seller meets, and technology transfer delegations abroad.",
+    "rules": {
+      "allowed_jurisdictions": ["Central", "State"],
+      "applicable_states": ["ALL"],
+      "eligible_constitutions": [
+        "Proprietorship",
+        "Partnership",
+        "Private Limited Company",
+        "Limited Liability Partnership"
+      ],
+      "eligible_msme_tiers": ["Micro", "Small", "Medium"],
+      "min_business_age_years": 1.0,
+      "max_business_age_years": null,
+      "target_sectors": ["ALL"],
+      "requires_manufacturing": false,
+      "requires_services": false,
+      "requires_women_ownership": false,
+      "requires_sc_st_ownership": false,
+      "requires_dpiit_recognition": false
+    },
+    "eligibility_criteria_text": [
+      "Registered MSME with valid Udyam Registration and active IEC (Import Export Code).",
+      "Must have an operational track record of at least 1 year.",
+      "Participating in international fairs or business delegations approved under the IC guidelines."
+    ],
+    "benefits": {
+      "benefit_type": "Fee / Cost Reimbursement",
+      "quantum_description": "Reimbursement of 100% economy class airfare (up to ₹1.5 Lakh) and 100% space/stall rent (up to ₹3 Lakh) for individual MSME exporters participating in foreign events.",
+      "subsidy_percentage": 100.0,
+      "max_assistance_amount_inr": 450000.0,
+      "interest_subsidy_rate": null,
+      "guarantee_coverage_percentage": null
+    },
+    "required_documents": [
+      "Udyam Registration Certificate",
+      "Import Export Code (IEC) certificate",
+      "Passport and valid visa of travelling representative",
+      "Air tickets, boarding passes, and stall invoices",
+      "Outcome report of business meetings and export orders generated"
+    ],
+    "application_mode": "Online through IC Scheme Portal on MSME Champions",
+    "official_portal_url": "https://ic.msme.gov.in/",
+    "guidelines_doc_url": "https://msme.gov.in/sites/default/files/IC_Revised_Guidelines.pdf",
+    "tags": ["export", "international-trade", "airfare-reimbursement", "global-fairs", "iec"],
+    "status": "Active",
+    "metadata": {
+      "airfare_cap_inr": 150000,
+      "stall_cap_inr": 300000
+    }
+  },
+  {
+    "scheme_id": "atufs-textiles",
+    "scheme_name": "Amended Technology Upgradation Fund Scheme (ATUFS)",
+    "scheme_short_code": "ATUFS",
+    "nodal_ministry": "Ministry of Textiles",
+    "implementing_agency": "Office of Textile Commissioner / Ministry of Textiles",
+    "jurisdiction": "Central",
+    "summary": "Capital investment subsidy for the modernization and technology induction in textile segments including garmenting, technical textiles, weaving, and processing.",
+    "rules": {
+      "allowed_jurisdictions": ["Central", "State"],
+      "applicable_states": ["ALL"],
+      "eligible_constitutions": [
+        "Proprietorship",
+        "Partnership",
+        "Private Limited Company",
+        "Public Limited Company",
+        "Limited Liability Partnership"
+      ],
+      "eligible_msme_tiers": ["Small", "Medium", "Large"],
+      "min_business_age_years": 0.0,
+      "max_business_age_years": null,
+      "target_sectors": ["Textiles & Apparel", "Technical Textiles", "Garmenting", "Weaving", "Spinning"],
+      "requires_manufacturing": true,
+      "requires_services": false,
+      "requires_women_ownership": false,
+      "requires_sc_st_ownership": false,
+      "requires_dpiit_recognition": false
+    },
+    "eligibility_criteria_text": [
+      "Entity engaged in textile manufacturing intending to install benchmarked state-of-the-art machinery.",
+      "Must obtain Unique Identification Number (UID) from i-TUFS portal prior to machinery acquisition.",
+      "Term loan availed from notified lending banks/financial institutions."
+    ],
+    "benefits": {
+      "benefit_type": "Capital Subsidy",
+      "quantum_description": "Capital Investment Subsidy (CIS) of 10% to 15% on eligible benchmarked machinery with a subsidy ceiling up to ₹30 Crore depending on textile sub-segment.",
+      "subsidy_percentage": 15.0,
+      "max_assistance_amount_inr": 300000000.0,
+      "interest_subsidy_rate": null,
+      "guarantee_coverage_percentage": null
+    },
+    "required_documents": [
+      "i-TUFS UID certificate",
+      "Bank sanction letter and appraisal note",
+      "Commercial invoices and customs clearance for imported textile machines",
+      "Chartered Engineer commissioning certificate",
+      "Factory registration and pollution NOC"
+    ],
+    "application_mode": "Online via i-TUFS Portal",
+    "official_portal_url": "https://itufs.gov.in/",
+    "guidelines_doc_url": "https://texmin.nic.in/schemes/atufs",
+    "tags": ["textiles", "garmenting", "capital-investment-subsidy", "atufs", "machinery-modernization"],
+    "status": "Active",
+    "metadata": {
+      "garmenting_subsidy_pct": 15,
+      "weaving_processing_subsidy_pct": 10
+    }
+  },
+  {
+    "scheme_id": "aspire-scheme",
+    "scheme_name": "ASPIRE (Scheme for Promotion of Innovation, Rural Industry & Entrepreneurship)",
+    "scheme_short_code": "ASPIRE",
+    "nodal_ministry": "Ministry of Micro, Small and Medium Enterprises",
+    "implementing_agency": "MoMSME / SIDBI / Coir Board / KVIC",
+    "jurisdiction": "Central",
+    "summary": "Sets up Livelihood Business Incubators (LBIs) and Technology Business Incubators (TBIs) to promote rural agro-business enterprise creation and employment.",
+    "rules": {
+      "allowed_jurisdictions": ["Central", "State"],
+      "applicable_states": ["ALL"],
+      "eligible_constitutions": [
+        "Society/Trust",
+        "Proprietorship",
+        "Partnership",
+        "Private Limited Company",
+        "Limited Liability Partnership"
+      ],
+      "eligible_msme_tiers": ["Micro", "Small"],
+      "min_business_age_years": 0.0,
+      "max_business_age_years": null,
+      "target_sectors": ["Agro-Rural Industry", "Food Processing", "Rural Entrepreneurship", "Handicrafts"],
+      "requires_manufacturing": false,
+      "requires_services": false,
+      "requires_women_ownership": false,
+      "requires_sc_st_ownership": false,
+      "requires_dpiit_recognition": false
+    },
+    "eligibility_criteria_text": [
+      "Agro-rural entrepreneurs, educational institutions, or technical bodies setting up LBI/TBI incubators in rural/semi-urban areas.",
+      "Focus on skilling youth and translating rural produce into value-added enterprise goods."
+    ],
+    "benefits": {
+      "benefit_type": "Grant / Seed Funding",
+      "quantum_description": "One-time 100% grant of up to ₹1 Crore for government agencies and up to ₹50 Lakh for private bodies for plant and machinery procurement for LBI incubators.",
+      "subsidy_percentage": 100.0,
+      "max_assistance_amount_inr": 10000000.0,
+      "interest_subsidy_rate": null,
+      "guarantee_coverage_percentage": null
+    },
+    "required_documents": [
+      "Detailed Project Report (DPR)",
+      "Institutional registration and land proof",
+      "Curriculum and machinery layout for livelihood training",
+      "Udyam registration for participating rural units"
+    ],
+    "application_mode": "Online through ASPIRE portal / MSME Champions",
+    "official_portal_url": "https://aspire.msme.gov.in/",
+    "guidelines_doc_url": "https://msme.gov.in/sites/default/files/ASPIRE_guidelines.pdf",
+    "tags": ["rural-industry", "lbi", "tbi", "agro-business", "aspire", "incubation"],
+    "status": "Active",
+    "metadata": {
+      "govt_lbi_grant_inr": 10000000,
+      "pvt_lbi_grant_inr": 5000000
+    }
+  },
+  {
+    "scheme_id": "cmegp-maharashtra",
+    "scheme_name": "Chief Minister Employment Generation Programme (Maharashtra)",
+    "scheme_short_code": "CMEGP-MH",
+    "nodal_ministry": "Industries Department, Government of Maharashtra",
+    "implementing_agency": "Directorate of Industries, Maharashtra / KVIB / District Industries Centre (DIC)",
+    "jurisdiction": "State",
+    "summary": "State flagship credit-linked subsidy scheme for youth and micro-entrepreneurs setting up manufacturing and service ventures in Maharashtra.",
+    "rules": {
+      "allowed_jurisdictions": ["State"],
+      "applicable_states": ["Maharashtra"],
+      "eligible_constitutions": [
+        "Proprietorship",
+        "Partnership",
+        "Private Limited Company",
+        "Limited Liability Partnership"
+      ],
+      "eligible_msme_tiers": ["Micro"],
+      "min_business_age_years": 0.0,
+      "max_business_age_years": 2.0,
+      "target_sectors": ["ALL"],
+      "requires_manufacturing": false,
+      "requires_services": false,
+      "requires_women_ownership": false,
+      "requires_sc_st_ownership": false,
+      "requires_dpiit_recognition": false
+    },
+    "eligibility_criteria_text": [
+      "Domicile resident of Maharashtra state aged 18 to 45 years (up to 50 years for SC/ST/Women/Ex-servicemen).",
+      "Minimum 7th standard pass for project cost up to ₹10 Lakh, and 10th standard pass for project cost above ₹10 Lakh.",
+      "Project must be located within the state of Maharashtra.",
+      "Only for new micro-enterprises in manufacturing (up to ₹50 Lakh) or service (up to ₹20 Lakh)."
+    ],
+    "benefits": {
+      "benefit_type": "Capital Subsidy",
+      "quantum_description": "15% to 35% capital subsidy (margin money) on project cost up to ₹50 Lakh for manufacturing and ₹20 Lakh for service units.",
+      "subsidy_percentage": 35.0,
+      "max_assistance_amount_inr": 1750000.0,
+      "interest_subsidy_rate": null,
+      "guarantee_coverage_percentage": null
+    },
+    "required_documents": [
+      "Maharashtra Domicile Certificate",
+      "Aadhaar Card and PAN Card",
+      "Educational qualification certificate",
+      "Detailed Project Report (DPR)",
+      "Caste / Special category certificate if claiming higher subsidy",
+      "Quotation of machinery / lease agreement for factory premises"
+    ],
+    "application_mode": "Online via MahaCMEGP Portal",
+    "official_portal_url": "https://maha-cmegp.gov.in/",
+    "guidelines_doc_url": "https://maha-cmegp.gov.in/guidelines",
+    "tags": ["maharashtra", "state-scheme", "cmegp", "margin-money", "dic", "youth-employment"],
+    "status": "Active",
+    "metadata": {
+      "state_code": "27",
+      "urban_subsidy_pct": 25,
+      "rural_subsidy_pct": 35
+    }
+  }
+]

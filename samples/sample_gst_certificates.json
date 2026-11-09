@@ -1,0 +1,41 @@
+{
+  "samples": [
+    {
+      "id": "sample_1_pvt_ltd_electronics",
+      "description": "Maharashtra Tech & Electronics Startup (Pvt Ltd, 1.5 yrs old, DPIIT recognized, Woman co-founder)",
+      "raw_certificate_text": "Government of India\nForm GST REG-06\n[See Rule 10(1)]\nRegistration Certificate\nRegistration Number: 27AAACG1234A1Z5\n\n1. Legal Name: NEXUS ROBOTICS AND EMBEDDED SYSTEMS PRIVATE LIMITED\n2. Trade Name: NEXUS AUTOMATION LABS\n3. Constitution of Business: Private Limited Company\n4. Address of Principal Place of Business: Plot No. 42, Rajiv Gandhi Infotech Park, Phase II, Hinjewadi, District: Pune, Maharashtra, 411057\n5. Date of Liability: 10/05/2025\n6. Period of Validity: From 10/05/2025 To NA\n7. Type of Registration: Regular\n\nAnnexure B Details of Goods and Services:\nHSN 8471 - Automatic Data Processing Machines & Robotics Controllers\nHSN 8504 - Static Converters, Power Units\nSAC 9983 - Information Technology Design and Software Engineering\nNature of Activities: Manufacturing, Provision of Services",
+      "extra_profile_metadata": {
+        "primary_sector": "Electronics",
+        "turnover_bracket": "Below ₹1 Crore",
+        "msme_tier": "Micro",
+        "social_category": "General",
+        "is_woman_owned": true,
+        "is_dpiit_recognized": true
+      }
+    },
+    {
+      "id": "sample_2_proprietorship_food",
+      "description": "Gujarat Food Processing Micro-Unit (Sole Proprietorship, 7 months old)",
+      "raw_certificate_text": "Government of India\nForm GST REG-06\nRegistration Certificate\nRegistration Number: 24AABCS5678B1Z2\n\n1. Legal Name: SHREE KRISHNA AGRO FOODS\n2. Trade Name: KRISHNA ORGANIC SPICES\n3. Constitution of Business: Proprietorship\n4. Address of Principal Place of Business: Survey No. 112, GIDC Food Industrial Estate, District: Anand, Gujarat, 388001\n5. Date of Liability: 12/04/2026\n6. Period of Validity: From 12/04/2026 To NA\n7. Type of Registration: Regular\n\nAnnexure B Details of Goods:\nHSN 0910 - Ginger, saffron, turmeric, spices and processed curry powder\nHSN 2005 - Preserved vegetables and agro food products\nNature of Activities: Manufacturing",
+      "extra_profile_metadata": {
+        "primary_sector": "Food Processing",
+        "turnover_bracket": "Below ₹1 Crore",
+        "msme_tier": "Micro",
+        "is_woman_owned": false,
+        "is_dpiit_recognized": false
+      }
+    },
+    {
+      "id": "sample_3_llp_textiles",
+      "description": "Karnataka Mature Textile & Garment Manufacturing LLP (4 years old)",
+      "raw_certificate_text": "Government of India\nForm GST REG-06\nRegistration Certificate\nRegistration Number: 29AAACL9999C1Z8\n\n1. Legal Name: KAAVERI APPARELS AND FABRICS LLP\n2. Trade Name: KAAVERI WEAVES\n3. Constitution of Business: Limited Liability Partnership\n4. Address of Principal Place of Business: Plot 88, Peenya Industrial Area, 4th Phase, District: Bengaluru, Karnataka, 560058\n5. Date of Liability: 20/08/2022\n6. Period of Validity: From 20/08/2022 To NA\n7. Type of Registration: Regular\n\nAnnexure B Details of Goods:\nHSN 5208 - Woven fabrics of cotton\nHSN 6203 - Men or boys garments and apparel\nNature of Activities: Manufacturing, Export",
+      "extra_profile_metadata": {
+        "primary_sector": "Textiles & Apparel",
+        "turnover_bracket": "₹5 Crore to ₹50 Crore",
+        "msme_tier": "Small",
+        "is_woman_owned": false,
+        "is_dpiit_recognized": false
+      }
+    }
+  ]
+}
