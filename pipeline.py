@@ -35,6 +35,8 @@ from knowledge_base.storage import SchemeKnowledgeStore
 from knowledge_base.normalizer import SchemeNormalizer
 from knowledge_base.vector_store import SchemeVectorStore
 from engine.pipeline_phase3 import Phase3ReasonerPipeline
+from guardrails.pii_sanitizer import PIISanitizer
+from evaluation.evaluator import BenchmarkEvaluator
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("PipelineRunner")
@@ -277,6 +279,20 @@ def main():
         help="Port to run the FastAPI server on (default: 8000)",
     )
 
+    # Phase 5 Arguments
+    parser.add_argument(
+        "--benchmark",
+        "--eval",
+        dest="benchmark",
+        action="store_true",
+        help="Run golden benchmark evaluation suite scoring precision, recall, MRR, and grounding",
+    )
+    parser.add_argument(
+        "--sanitize",
+        action="store_true",
+        help="Sanitize and mask PII (Aadhaar, PAN, Phone) in profile before reasoner execution",
+    )
+
     args = parser.parse_args()
     store = SchemeKnowledgeStore()
     vector_store = SchemeVectorStore()
@@ -303,6 +319,10 @@ def main():
     # Phase 3 Reasoner Execution
     if args.analyze_profile:
         profile = load_sample_profile(args.analyze_profile)
+        if args.sanitize:
+            logger.info("Applying PII Sanitizer to business profile...")
+            profile = PIISanitizer.sanitize_profile(profile)
+
         phase3_pipeline = Phase3ReasonerPipeline(knowledge_store=store, vector_store=vector_store)
         report = phase3_pipeline.run(
             profile=profile,
@@ -326,6 +346,14 @@ def main():
                 f.write(report.model_dump_json(indent=2))
             logger.info(f"Exported JSON report to: {args.export_json}")
 
+        actions_taken += 1
+
+    # Phase 5 Benchmark Evaluator
+    if args.benchmark:
+        evaluator = BenchmarkEvaluator(knowledge_store=store, vector_store=vector_store)
+        logger.info("Executing Phase 5 Golden Benchmark Evaluation Suite...")
+        summary = evaluator.run_evaluation(top_k=args.top_k)
+        evaluator.print_benchmark_table(summary)
         actions_taken += 1
 
     elif args.query:

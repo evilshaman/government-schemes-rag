@@ -1,0 +1,136 @@
+{
+  "version": "1.0",
+  "description": "Golden Evaluation Benchmark Dataset for Government Schemes RAG",
+  "test_cases": [
+    {
+      "id": "case_1_tech_startup_mh",
+      "description": "Maharashtra Early-Stage Tech & Robotics Startup (Pvt Ltd, DPIIT, Woman co-founder)",
+      "profile": {
+        "legal_name": "NEXUS ROBOTICS AND EMBEDDED SYSTEMS PRIVATE LIMITED",
+        "gstin": "27AAACG1234A1Z5",
+        "constitution": "Private Limited Company",
+        "principal_address": {
+          "full_address": "Plot 42, Hinjewadi Phase 2, Pune, Maharashtra, 411057",
+          "state_name": "Maharashtra",
+          "state_code": "27"
+        },
+        "date_of_registration": "2025-05-10",
+        "nature_of_activities": ["Manufacturing", "Services"],
+        "primary_sector": "Electronics",
+        "turnover_bracket": "Below ₹1 Crore",
+        "msme_tier": "Micro",
+        "is_woman_owned": true,
+        "is_dpiit_recognized": true,
+        "social_category": "General"
+      },
+      "expected_top_scheme_ids": ["specs", "clcss", "zed", "sisfs", "stand-up-india"],
+      "expected_disqualified_scheme_ids": [],
+      "expected_missing_documents": ["udyam", "dpr", "quotation"],
+      "expected_affirmative_boost": true
+    },
+    {
+      "id": "case_2_food_proprietor_gj",
+      "description": "Gujarat Food Processing Micro-Unit (Proprietorship, 7 months old)",
+      "profile": {
+        "legal_name": "SHREE KRISHNA AGRO FOODS",
+        "gstin": "24AABCS5678B1Z2",
+        "constitution": "Proprietorship",
+        "principal_address": {
+          "full_address": "GIDC Food Industrial Estate, Anand, Gujarat, 388001",
+          "state_name": "Gujarat",
+          "state_code": "24"
+        },
+        "date_of_registration": "2026-04-12",
+        "nature_of_activities": ["Manufacturing"],
+        "primary_sector": "Food Processing",
+        "turnover_bracket": "Below ₹1 Crore",
+        "msme_tier": "Micro",
+        "is_woman_owned": false,
+        "is_dpiit_recognized": false,
+        "social_category": "General"
+      },
+      "expected_top_scheme_ids": ["clcss", "aspire", "zed", "pmegp", "pmfme"],
+      "expected_disqualified_scheme_ids": [],
+      "expected_missing_documents": ["udyam", "quotation"],
+      "expected_affirmative_boost": false
+    },
+    {
+      "id": "case_3_textile_llp_ka",
+      "description": "Karnataka Mature Textile & Garment Manufacturing LLP (4 years old, Exporter)",
+      "profile": {
+        "legal_name": "KAAVERI APPARELS AND FABRICS LLP",
+        "gstin": "29AAACL9999C1Z8",
+        "constitution": "Limited Liability Partnership",
+        "principal_address": {
+          "full_address": "Plot 88, Peenya Industrial Area, Bengaluru, Karnataka, 560058",
+          "state_name": "Karnataka",
+          "state_code": "29"
+        },
+        "date_of_registration": "2022-08-20",
+        "nature_of_activities": ["Manufacturing", "Export"],
+        "primary_sector": "Textiles & Apparel",
+        "turnover_bracket": "₹5 Crore to ₹50 Crore",
+        "msme_tier": "Small",
+        "is_woman_owned": false,
+        "is_dpiit_recognized": false,
+        "social_category": "General"
+      },
+      "expected_top_scheme_ids": ["atufs", "clcss", "zed", "msme-ic"],
+      "expected_disqualified_scheme_ids": [],
+      "expected_missing_documents": ["udyam", "quotation"],
+      "expected_affirmative_boost": false
+    },
+    {
+      "id": "case_4_pure_services_delhi",
+      "description": "Delhi Pure Software & IT Services Firm (No Manufacturing)",
+      "profile": {
+        "legal_name": "CLOUDSPHERE INFOTECH PRIVATE LIMITED",
+        "gstin": "07AABCC3333E1Z4",
+        "constitution": "Private Limited Company",
+        "principal_address": {
+          "full_address": "Connaught Place, New Delhi, Delhi, 110001",
+          "state_name": "Delhi",
+          "state_code": "07"
+        },
+        "date_of_registration": "2024-01-15",
+        "nature_of_activities": ["Services"],
+        "primary_sector": "Information Technology",
+        "turnover_bracket": "₹1 Crore to ₹5 Crore",
+        "msme_tier": "Micro",
+        "is_woman_owned": false,
+        "is_dpiit_recognized": true,
+        "social_category": "General"
+      },
+      "expected_top_scheme_ids": ["meity-samridh", "genesis-meity", "tide-2", "sec-80iac", "sisfs"],
+      "expected_disqualified_scheme_ids": ["zed"],
+      "expected_missing_documents": ["udyam"],
+      "expected_affirmative_boost": false
+    },
+    {
+      "id": "case_5_sc_woman_rural_tn",
+      "description": "Tamil Nadu Rural SC Woman Entrepreneur (Micro Unit)",
+      "profile": {
+        "legal_name": "MEENAKSHI COTTAGE INDUSTRIES",
+        "gstin": "33AAAPM7777K1Z6",
+        "constitution": "Proprietorship",
+        "principal_address": {
+          "full_address": "Village Keeladi, District Sivaganga, Tamil Nadu, 630611",
+          "state_name": "Tamil Nadu",
+          "state_code": "33"
+        },
+        "date_of_registration": "2025-11-01",
+        "nature_of_activities": ["Manufacturing"],
+        "primary_sector": "Handicrafts & Agro",
+        "turnover_bracket": "Below ₹1 Crore",
+        "msme_tier": "Micro",
+        "is_woman_owned": true,
+        "is_dpiit_recognized": false,
+        "social_category": "SC"
+      },
+      "expected_top_scheme_ids": ["pm-vishwakarma", "stand-up-india", "zed", "pmfme", "pmegp"],
+      "expected_disqualified_scheme_ids": [],
+      "expected_missing_documents": ["udyam", "caste"],
+      "expected_affirmative_boost": true
+    }
+  ]
+}
