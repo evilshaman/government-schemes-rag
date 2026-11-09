@@ -10,7 +10,7 @@ import json
 import logging
 import httpx
 from typing import List, Dict, Any, Optional
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 from pydantic import BaseModel, Field
 
 from schemas.business_profile import BusinessProfile
@@ -18,6 +18,8 @@ from schemas.government_scheme import GovernmentScheme
 from knowledge_base.storage import SchemeKnowledgeStore
 from knowledge_base.vector_store import SchemeVectorStore
 from api.dependencies import get_knowledge_store, get_vector_store
+from api.middleware import limiter
+from core.config import settings
 
 logger = logging.getLogger("ChatAPI")
 router = APIRouter(prefix="/api/chat", tags=["Policy Copilot"])
@@ -49,7 +51,9 @@ class ChatResponse(BaseModel):
 
 
 @router.post("", response_model=ChatResponse)
+@limiter.limit(settings.RATE_LIMIT_CHAT)
 async def chat_with_copilot(
+    request: Request,
     req: ChatRequest,
     store: SchemeKnowledgeStore = Depends(get_knowledge_store),
     vector_store: SchemeVectorStore = Depends(get_vector_store),

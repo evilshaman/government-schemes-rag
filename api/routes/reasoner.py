@@ -8,13 +8,15 @@ Provides endpoints for:
 from __future__ import annotations
 import logging
 from typing import Optional
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Request
 from pydantic import BaseModel, Field
 
 from schemas.business_profile import BusinessProfile
 from schemas.reasoner_schema import FullReasoningReport
 from engine.pipeline_phase3 import Phase3ReasonerPipeline
 from api.dependencies import get_reasoner_pipeline
+from api.middleware import limiter
+from core.config import settings
 
 logger = logging.getLogger("ReasonerAPI")
 router = APIRouter(prefix="/api/schemes", tags=["Eligibility Reasoner & Gap Analysis"])
@@ -33,7 +35,9 @@ class MarkdownExportResponse(BaseModel):
 
 
 @router.post("/deliberate", response_model=FullReasoningReport)
+@limiter.limit(settings.RATE_LIMIT_ANALYZE)
 async def deliberate_on_profile(
+    request: Request,
     req: DeliberateRequest,
     pipeline: Phase3ReasonerPipeline = Depends(get_reasoner_pipeline),
 ):

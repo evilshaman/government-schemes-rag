@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gov-schemes-data-pvc
+  namespace: gov-schemes
+  labels:
+    app.kubernetes.io/name: gov-schemes-rag
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi

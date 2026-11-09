@@ -25,6 +25,9 @@ from schemas.business_profile import (
 )
 from parsers.gst_parser import GSTCertificateParser
 
+from core.config import settings
+from api.metrics import metrics
+
 logger = logging.getLogger("UploadAPI")
 router = APIRouter(prefix="/api", tags=["Document Ingestion & Profiling"])
 
@@ -104,6 +107,10 @@ async def upload_document(
     if not content:
         raise HTTPException(status_code=400, detail="Uploaded file is empty.")
 
+    if len(content) > settings.MAX_UPLOAD_SIZE_BYTES:
+        max_mb = settings.MAX_UPLOAD_SIZE_BYTES // (1024 * 1024)
+        raise HTTPException(status_code=413, detail=f"File exceeds maximum upload size of {max_mb}MB.")
+
     filename = file.filename.lower() if file.filename else "uploaded_file"
     extracted_text = ""
 
@@ -150,6 +157,8 @@ async def upload_document(
         profile.is_woman_owned = True
     if is_dpiit_recognized:
         profile.is_dpiit_recognized = True
+
+    metrics.record_gst_upload()
 
     return {
         "success": True,

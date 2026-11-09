@@ -6,6 +6,7 @@ Manages singletons for SchemeKnowledgeStore, SchemeVectorStore, and Phase3Reason
 from __future__ import annotations
 import os
 from functools import lru_cache
+from core.config import settings
 from knowledge_base.storage import SchemeKnowledgeStore
 from knowledge_base.vector_store import SchemeVectorStore
 from engine.pipeline_phase3 import Phase3ReasonerPipeline
@@ -15,12 +16,12 @@ from engine.reasoner import LLMEligibilityReasoner
 
 @lru_cache(maxsize=1)
 def get_knowledge_store() -> SchemeKnowledgeStore:
-    return SchemeKnowledgeStore()
+    return SchemeKnowledgeStore(db_path=settings.resolved_db_path)
 
 
 @lru_cache(maxsize=1)
 def get_vector_store() -> SchemeVectorStore:
-    vs = SchemeVectorStore()
+    vs = SchemeVectorStore(index_file_path=settings.resolved_vector_path)
     vs.load_index()
     return vs
 

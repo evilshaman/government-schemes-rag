@@ -10,9 +10,15 @@ Computes enterprise-grade RAG metrics:
 
 from __future__ import annotations
 import os
+import sys
 import json
 import logging
 from typing import List, Dict, Any, Optional
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if BASE_DIR not in sys.path:
+    sys.path.insert(0, BASE_DIR)
+
 from pydantic import BaseModel, Field
 
 from schemas.business_profile import BusinessProfile
@@ -25,7 +31,6 @@ from guardrails.hallucination_guard import HallucinationGuard
 
 logger = logging.getLogger("Evaluator")
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BENCHMARK_PATH = os.path.join(BASE_DIR, "evaluation", "benchmark_dataset.json")
 
 
@@ -228,3 +233,10 @@ class BenchmarkEvaluator:
                 f"{c.reciprocal_rank:>6.3f} | {c.grounding_score * 100:>8.1f}% | {c.violations_detected:>10}"
             )
         print("=" * 80 + "\n")
+
+
+if __name__ == "__main__":
+    evaluator = BenchmarkEvaluator()
+    summary = evaluator.run_evaluation()
+    BenchmarkEvaluator.print_benchmark_table(summary)
+    sys.exit(0 if summary.all_tests_passed else 1)
