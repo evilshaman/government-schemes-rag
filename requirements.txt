@@ -10,3 +10,8 @@ lxml>=5.0.0
 requests>=2.31.0
 httpx>=0.27.0
 pypdf>=5.0.0
+
+# Phase 4: Full-Stack App & Matching Backend API
+fastapi>=0.115.0
+uvicorn>=0.30.0
+python-multipart>=0.0.12

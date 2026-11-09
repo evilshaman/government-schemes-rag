@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Government Schemes Discovery & RAG Platform</title>
+  <!-- Tailwind CSS & Lucide Icons -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            gov: {
+              saffron: '#FF9933',
+              green: '#138808',
+              navy: '#000080',
+              blue: '#0A2540',
+              lightBlue: '#E8F0FE',
+              cardBorder: '#E2E8F0',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .tricolor-bar {
+      height: 4px;
+      background: linear-gradient(90deg, #FF9933 33.3%, #FFFFFF 33.3%, #FFFFFF 66.6%, #138808 66.6%);
+    }
+    .badge-eligible {
+      background-color: #DEF7EC;
+      color: #03543F;
+      border: 1px solid #84E1BC;
+    }
+    .badge-conditional {
+      background-color: #FEF08A;
+      color: #713F12;
+      border: 1px solid #FACC15;
+    }
+    .badge-ineligible {
+      background-color: #FDE8E8;
+      color: #9B1C1C;
+      border: 1px solid #F8B4B4;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col font-sans">
+
+  <!-- Top Tricolor Stripe -->
+  <div class="tricolor-bar"></div>
+
+  <!-- Header & Navbar -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-lg bg-gov-blue text-white flex items-center justify-center font-bold text-lg shadow-md">
+          <i class="fa-solid fa-landmark text-gov-saffron"></i>
+        </div>
+        <div>
+          <h1 class="text-lg font-bold text-gov-blue leading-tight">Government Schemes Discovery & RAG Platform</h1>
+          <p class="text-xs text-slate-500">Document-Driven Business Profiling & Grounded Deliberation Engine</p>
+        </div>
+      </div>
+      
+      <!-- Right Status & Nav -->
+      <div class="flex items-center space-x-4">
+        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+          <span class="w-2 h-2 mr-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+          41 Active Central & State Schemes
+        </span>
+        <a href="/docs" target="_blank" class="text-xs font-medium text-slate-600 hover:text-gov-blue px-2 py-1 rounded border border-slate-200 hover:bg-slate-50">
+          <i class="fa-solid fa-code mr-1"></i> API Docs
+        </a>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-100 flex space-x-6 text-sm">
+      <button onclick="switchTab('tab-matching')" id="btn-tab-matching" class="tab-btn py-3 border-b-2 border-gov-blue font-semibold text-gov-blue flex items-center">
+        <i class="fa-solid fa-file-invoice mr-2 text-gov-saffron"></i> Document Matching & Reasoner
+      </button>
+      <button onclick="switchTab('tab-explorer')" id="btn-tab-explorer" class="tab-btn py-3 border-b-2 border-transparent font-medium text-slate-500 hover:text-slate-700 flex items-center">
+        <i class="fa-solid fa-compass mr-2 text-blue-500"></i> Scheme Explorer
+      </button>
+      <button onclick="switchTab('tab-copilot')" id="btn-tab-copilot" class="tab-btn py-3 border-b-2 border-transparent font-medium text-slate-500 hover:text-slate-700 flex items-center">
+        <i class="fa-solid fa-robot mr-2 text-purple-600"></i> Policy Copilot (Chat)
+      </button>
+      <button onclick="switchTab('tab-stats')" id="btn-tab-stats" class="tab-btn py-3 border-b-2 border-transparent font-medium text-slate-500 hover:text-slate-700 flex items-center">
+        <i class="fa-solid fa-chart-pie mr-2 text-emerald-600"></i> Knowledge Base Metrics
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- ================================================================= -->
+    <!-- TAB 1: DOCUMENT MATCHING & DELIBERATION REASONER -->
+    <!-- ================================================================= -->
+    <div id="tab-matching" class="tab-content block space-y-8">
+      
+      <!-- Top Intro / One-Click Test Bar -->
+      <div class="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 text-white rounded-2xl p-6 shadow-lg">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <span class="inline-block px-3 py-1 bg-gov-saffron text-slate-900 font-bold text-xs uppercase tracking-wider rounded-md mb-2">
+              Phase 3 Reasoner Active
+            </span>
+            <h2 class="text-2xl font-bold">Document-Driven Scheme Matching & Gap Analysis</h2>
+            <p class="text-slate-300 text-sm mt-1 max-w-2xl">
+              Upload your Form GST REG-06 or Udyam Certificate. The AI extracts your business digital twin, filters regulatory rules, scores cross-encoder alignments, and synthesizes an actionable document gap roadmap.
+            </p>
+          </div>
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+            <span class="text-xs text-slate-300 font-medium">Quick 1-Click Samples:</span>
+            <button onclick="loadSample(1)" class="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold rounded-lg border border-white/20 transition">
+              Sample 1: Tech Startup (MH)
+            </button>
+            <button onclick="loadSample(2)" class="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold rounded-lg border border-white/20 transition">
+              Sample 2: Food Micro (GJ)
+            </button>
+            <button onclick="loadSample(3)" class="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold rounded-lg border border-white/20 transition">
+              Sample 3: Textile LLP (KA)
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Two-Column Grid: Upload/Profile on Left, Action on Right -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Left: Upload Zone & Digital Twin -->
+        <div class="lg:col-span-5 space-y-6">
+          
+          <!-- Upload Box -->
+          <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+            <h3 class="text-base font-bold text-slate-800 flex items-center">
+              <i class="fa-solid fa-cloud-arrow-up text-gov-blue mr-2"></i>
+              Upload Registration Document
+            </h3>
+            <p class="text-xs text-slate-500 mt-1 mb-4">Supported: Form GST REG-06, Udyam Registration (PDF, PNG, JPG)</p>
+            
+            <div id="drop-zone" class="border-2 border-dashed border-slate-300 hover:border-gov-blue rounded-xl p-6 text-center cursor-pointer transition bg-slate-50/50">
+              <input type="file" id="file-input" class="hidden" accept=".pdf,.png,.jpg,.jpeg,.txt,.json">
+              <i class="fa-solid fa-file-pdf text-4xl text-slate-400 mb-2"></i>
+              <p class="text-sm font-semibold text-slate-700">Drag and drop document here, or <span class="text-gov-blue underline">browse</span></p>
+              <p class="text-xs text-slate-400 mt-1">Processed securely in-memory</p>
+            </div>
+            <div id="upload-status" class="hidden mt-3 text-xs font-semibold text-emerald-600 flex items-center">
+              <i class="fa-solid fa-circle-check mr-1.5"></i> <span id="upload-status-text">Document parsed successfully!</span>
+            </div>
+          </div>
+
+          <!-- Extracted Profile Confirmation Card -->
+          <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+              <h3 class="text-base font-bold text-slate-800 flex items-center">
+                <i class="fa-solid fa-id-card text-gov-saffron mr-2"></i>
+                Extracted Business Digital Twin
+              </h3>
+              <span id="profile-badge-tier" class="px-2 py-0.5 rounded text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200">
+                Micro
+              </span>
+            </div>
+
+            <!-- Profile Details -->
+            <div class="space-y-3 text-sm">
+              <div>
+                <label class="text-xs font-medium text-slate-400">Legal Entity Name</label>
+                <input type="text" id="prof-legal-name" value="NEXUS ROBOTICS AND EMBEDDED SYSTEMS PRIVATE LIMITED" class="w-full font-semibold text-slate-800 bg-slate-50 border border-slate-200 rounded px-2.5 py-1.5 text-xs">
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="text-xs font-medium text-slate-400">GSTIN</label>
+                  <input type="text" id="prof-gstin" value="27AAACG1234A1Z5" class="w-full text-xs font-mono font-bold text-slate-700 bg-slate-50 border border-slate-200 rounded px-2 py-1.5">
+                </div>
+                <div>
+                  <label class="text-xs font-medium text-slate-400">Registered State</label>
+                  <input type="text" id="prof-state" value="Maharashtra" class="w-full text-xs font-semibold text-slate-700 bg-slate-50 border border-slate-200 rounded px-2 py-1.5">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="text-xs font-medium text-slate-400">Constitution</label>
+                  <select id="prof-constitution" class="w-full text-xs font-medium text-slate-700 bg-slate-50 border border-slate-200 rounded px-2 py-1.5">
+                    <option value="Private Limited Company">Private Limited Company</option>
+                    <option value="Proprietorship">Proprietorship</option>
+                    <option value="Partnership">Partnership</option>
+                    <option value="Limited Liability Partnership">Limited Liability Partnership</option>
+                    <option value="Public Limited Company">Public Limited Company</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="text-xs font-medium text-slate-400">Primary Sector</label>
+                  <input type="text" id="prof-sector" value="Electronics" class="w-full text-xs font-medium text-slate-700 bg-slate-50 border border-slate-200 rounded px-2 py-1.5">
+                </div>
+              </div>
+
+              <!-- Interactive Sliders / Toggles -->
+              <div class="pt-2 border-t border-slate-100 space-y-2.5">
+                <div class="flex items-center justify-between">
+                  <label class="text-xs font-medium text-slate-600">Turnover Bracket</label>
+                  <select id="prof-turnover" class="text-xs bg-slate-50 border border-slate-200 rounded px-2 py-1 text-slate-700">
+                    <option value="Below ₹1 Crore">Below ₹1 Crore</option>
+                    <option value="₹1 Crore to ₹5 Crore">₹1 Crore to ₹5 Crore</option>
+                    <option value="₹5 Crore to ₹50 Crore">₹5 Crore to ₹50 Crore</option>
+                    <option value="₹50 Crore to ₹250 Crore">₹50 Crore to ₹250 Crore</option>
+                  </select>
+                </div>
+
+                <div class="flex items-center justify-between text-xs">
+                  <span class="text-slate-600">Woman-Led / Majority Owned</span>
+                  <input type="checkbox" id="prof-woman" checked class="w-4 h-4 text-gov-blue rounded">
+                </div>
+
+                <div class="flex items-center justify-between text-xs">
+                  <span class="text-slate-600">DPIIT Startup Recognized</span>
+                  <input type="checkbox" id="prof-dpiit" checked class="w-4 h-4 text-gov-blue rounded">
+                </div>
+
+                <div class="flex items-center justify-between text-xs">
+                  <span class="text-slate-600">Social Category (SC/ST/OBC)</span>
+                  <select id="prof-social" class="text-xs bg-slate-50 border border-slate-200 rounded px-2 py-1 text-slate-700">
+                    <option value="General">General</option>
+                    <option value="SC">SC</option>
+                    <option value="ST">ST</option>
+                    <option value="OBC">OBC</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Primary Action CTA -->
+              <div class="pt-3">
+                <button onclick="runDeliberation()" id="btn-run-deliberate" class="w-full py-3 bg-gov-blue hover:bg-slate-900 text-white font-bold text-sm rounded-xl shadow-md transition flex items-center justify-center space-x-2">
+                  <i class="fa-solid fa-wand-magic-sparkles text-gov-saffron"></i>
+                  <span>Deliberate & Analyze Gaps</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right: Deliberation Results & Gap Roadmap -->
+        <div class="lg:col-span-7 space-y-6">
+          
+          <!-- Summary Banner -->
+          <div id="results-banner" class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+              <div>
+                <h3 class="text-lg font-bold text-slate-900">Eligibility & Gap Analysis Report</h3>
+                <p id="results-subtitle" class="text-xs text-slate-500 mt-0.5">Evaluating across 41 Central & State policies</p>
+              </div>
+              <button onclick="downloadMarkdownReport()" id="btn-download-md" class="px-3 py-1.5 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition border border-slate-200 flex items-center">
+                <i class="fa-solid fa-download mr-1.5"></i> Export Markdown
+              </button>
+            </div>
+
+            <!-- Metric Cards -->
+            <div class="grid grid-cols-4 gap-3 mt-4 text-center">
+              <div class="bg-slate-50 rounded-lg p-3 border border-slate-100">
+                <span class="text-xs text-slate-400 font-medium block">Audited</span>
+                <span id="stat-audited" class="text-xl font-bold text-slate-800">4</span>
+              </div>
+              <div class="bg-emerald-50 rounded-lg p-3 border border-emerald-100">
+                <span class="text-xs text-emerald-600 font-medium block">Eligible</span>
+                <span id="stat-eligible" class="text-xl font-bold text-emerald-700">0</span>
+              </div>
+              <div class="bg-yellow-50 rounded-lg p-3 border border-yellow-100">
+                <span class="text-xs text-yellow-700 font-medium block">Conditional</span>
+                <span id="stat-conditional" class="text-xl font-bold text-yellow-800">4</span>
+              </div>
+              <div class="bg-red-50 rounded-lg p-3 border border-red-100">
+                <span class="text-xs text-red-600 font-medium block">Ineligible</span>
+                <span id="stat-ineligible" class="text-xl font-bold text-red-700">0</span>
+              </div>
+            </div>
+
+            <!-- Strategic Advisory Note -->
+            <div class="mt-4 p-3.5 bg-blue-50/70 border border-blue-100 rounded-lg">
+              <span class="text-xs font-bold text-gov-blue uppercase tracking-wider block mb-1">
+                <i class="fa-solid fa-compass mr-1"></i> Strategic Roadmap Advisory
+              </span>
+              <p id="stat-advisory" class="text-xs text-slate-700 leading-relaxed">
+                Loading strategic recommendations...
+              </p>
+            </div>
+          </div>
+
+          <!-- Scheme Deliberation Cards Container -->
+          <div id="schemes-cards-container" class="space-y-4">
+            <!-- Dynamic Scheme Cards Injected Here -->
+            <div class="text-center py-12 text-slate-400 bg-white rounded-xl border border-dashed border-slate-200">
+              <i class="fa-solid fa-spinner fa-spin text-3xl mb-2 text-gov-blue"></i>
+              <p class="text-sm font-medium">Click "Deliberate & Analyze Gaps" to evaluate policies...</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TAB 2: SCHEME EXPLORER -->
+    <!-- ================================================================= -->
+    <div id="tab-explorer" class="tab-content hidden space-y-6">
+      <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h2 class="text-xl font-bold text-slate-900">National Policy & Scheme Explorer</h2>
+            <p class="text-xs text-slate-500 mt-1">Search 41 central and state flagship government schemes and circulars</p>
+          </div>
+          <!-- Filter Inputs -->
+          <div class="flex flex-wrap items-center gap-2">
+            <input type="text" id="explorer-search" oninput="filterExplorer()" placeholder="Search keywords, ministries..." class="text-xs border border-slate-200 rounded-lg px-3 py-2 w-64 bg-slate-50">
+            <select id="explorer-jurisdiction" onchange="filterExplorer()" class="text-xs border border-slate-200 rounded-lg px-2.5 py-2 bg-slate-50">
+              <option value="">All Jurisdictions</option>
+              <option value="Central">Central (Nationwide)</option>
+              <option value="State">State Specific</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Schemes Grid -->
+        <div id="explorer-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TAB 3: POLICY COPILOT CHAT -->
+    <!-- ================================================================= -->
+    <div id="tab-copilot" class="tab-content hidden space-y-6">
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm flex flex-col h-[650px] overflow-hidden">
+        <!-- Chat Header -->
+        <div class="p-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <div class="w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center font-bold text-xs">
+              <i class="fa-solid fa-robot"></i>
+            </div>
+            <div>
+              <h3 class="text-sm font-bold text-slate-800">Policy Copilot Assistant</h3>
+              <p class="text-xs text-slate-500">Grounded in 41 official scheme circulars and guideline gazettes</p>
+            </div>
+          </div>
+          <span class="text-xs bg-purple-100 text-purple-700 font-semibold px-2 py-0.5 rounded">RAG Grounded</span>
+        </div>
+
+        <!-- Quick Question Pills -->
+        <div class="px-4 py-2 bg-slate-100/60 border-b border-slate-200 flex flex-wrap gap-2 text-xs">
+          <span class="text-slate-400 font-medium py-1">Try:</span>
+          <button onclick="askCopilot('What margin money subsidy is provided under PMEGP for a woman entrepreneur?')" class="bg-white hover:bg-purple-50 text-slate-700 hover:text-purple-700 border border-slate-200 rounded-full px-3 py-1 transition">
+            PMEGP Subsidy for Women
+          </button>
+          <button onclick="askCopilot('How does CGTMSE collateral-free credit guarantee work?')" class="bg-white hover:bg-purple-50 text-slate-700 hover:text-purple-700 border border-slate-200 rounded-full px-3 py-1 transition">
+            CGTMSE Guarantee Cap
+          </button>
+          <button onclick="askCopilot('What is the fee subsidy percentage under ZED Certification for micro units?')" class="bg-white hover:bg-purple-50 text-slate-700 hover:text-purple-700 border border-slate-200 rounded-full px-3 py-1 transition">
+            ZED Certification Subsidy
+          </button>
+        </div>
+
+        <!-- Messages Area -->
+        <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-4 text-sm">
+          <!-- Initial Welcome Message -->
+          <div class="flex items-start space-x-3">
+            <div class="w-7 h-7 rounded-full bg-purple-600 text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5">
+              <i class="fa-solid fa-robot"></i>
+            </div>
+            <div class="bg-slate-100 rounded-2xl rounded-tl-none p-3.5 max-w-xl text-xs text-slate-800 space-y-2">
+              <p><strong>Namaste!</strong> I am your Government Schemes & Subsidies Policy Copilot.</p>
+              <p>Ask me any question regarding credit guarantees, margin money subsidies, patent reimbursements, or documentation requirements under central and state policies.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chat Input Bar -->
+        <div class="p-3 border-t border-slate-200 bg-white flex items-center space-x-2">
+          <input type="text" id="chat-input" onkeydown="if(event.key==='Enter') sendChatMessage()" placeholder="Ask about any scheme, subsidy percentage, or required documents..." class="flex-1 text-xs border border-slate-200 rounded-xl px-4 py-2.5 bg-slate-50 focus:outline-none focus:border-gov-blue">
+          <button onclick="sendChatMessage()" id="btn-chat-send" class="px-4 py-2.5 bg-gov-blue hover:bg-slate-900 text-white font-semibold text-xs rounded-xl transition">
+            <i class="fa-solid fa-paper-plane mr-1"></i> Send
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TAB 4: KNOWLEDGE BASE METRICS -->
+    <!-- ================================================================= -->
+    <div id="tab-stats" class="tab-content hidden space-y-6">
+      <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm space-y-6">
+        <div>
+          <h2 class="text-xl font-bold text-slate-900">Knowledge Base & Crawl Audit Statistics</h2>
+          <p class="text-xs text-slate-500 mt-1">Real-time relational database metrics and ingestion audit records</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="stats-kpi-container">
+          <!-- KPI Cards -->
+        </div>
+
+        <!-- Breakdown Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <h4 class="text-sm font-bold text-slate-800 mb-3">Benefit Types Breakdown</h4>
+            <div id="stats-benefits-list" class="space-y-2 text-xs"></div>
+          </div>
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <h4 class="text-sm font-bold text-slate-800 mb-3">Recent Scraper Audit Logs</h4>
+            <div id="stats-crawls-list" class="space-y-2 text-xs"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Detail Modal -->
+  <div id="scheme-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-2xl w-full p-6 space-y-4 max-h-[85vh] overflow-y-auto shadow-2xl">
+      <div class="flex items-center justify-between border-b pb-3">
+        <h3 id="modal-title" class="text-base font-bold text-slate-900">Scheme Details</h3>
+        <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+      </div>
+      <div id="modal-content" class="text-xs space-y-3 text-slate-700"></div>
+    </div>
+  </div>
+
+  <!-- JavaScript Application Logic -->
+  <script>
+    let currentProfile = null;
+    let currentReport = null;
+    let allSchemesList = [];
+
+    // Switch Tabs
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.getElementById(tabId).classList.remove('hidden');
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('border-gov-blue', 'text-gov-blue', 'font-semibold');
+        btn.classList.add('border-transparent', 'text-slate-500');
+      });
+      const activeBtn = document.getElementById(`btn-${tabId}`);
+      if (activeBtn) {
+        activeBtn.classList.add('border-gov-blue', 'text-gov-blue', 'font-semibold');
+        activeBtn.classList.remove('border-transparent', 'text-slate-500');
+      }
+
+      if (tabId === 'tab-explorer' && allSchemesList.length === 0) {
+        loadExplorerSchemes();
+      }
+      if (tabId === 'tab-stats') {
+        loadStats();
+      }
+    }
+
+    // Load Curated Sample Profile
+    async function loadSample(sampleId) {
+      try {
+        const res = await fetch(`/api/sample-profile/${sampleId}`, { method: 'POST' });
+        if (!res.ok) throw new Error("Failed to load sample profile");
+        currentProfile = await res.json();
+        populateProfileForm(currentProfile);
+        document.getElementById('upload-status').classList.remove('hidden');
+        document.getElementById('upload-status-text').innerText = `Sample ${sampleId} loaded successfully!`;
+        // Auto run deliberation
+        runDeliberation();
+      } catch (err) {
+        alert("Error loading sample: " + err.message);
+      }
+    }
+
+    // Populate Form from Profile JSON
+    function populateProfileForm(p) {
+      document.getElementById('prof-legal-name').value = p.legal_name || '';
+      document.getElementById('prof-gstin').value = p.gstin || '';
+      document.getElementById('prof-state').value = p.principal_address ? p.principal_address.state_name : '';
+      document.getElementById('prof-constitution').value = p.constitution || 'Private Limited Company';
+      document.getElementById('prof-sector').value = p.primary_sector || 'General';
+      document.getElementById('prof-turnover').value = p.turnover_bracket || 'Below ₹1 Crore';
+      document.getElementById('prof-woman').checked = !!p.is_woman_owned;
+      document.getElementById('prof-dpiit').checked = !!p.is_dpiit_recognized;
+      document.getElementById('prof-social').value = p.social_category || 'General';
+      document.getElementById('profile-badge-tier').innerText = p.msme_tier || 'Micro';
+    }
+
+    // Collect Form into Profile Object
+    function getProfileFromForm() {
+      return {
+        legal_name: document.getElementById('prof-legal-name').value,
+        gstin: document.getElementById('prof-gstin').value || null,
+        constitution: document.getElementById('prof-constitution').value,
+        principal_address: {
+          full_address: document.getElementById('prof-state').value,
+          state_name: document.getElementById('prof-state').value,
+          state_code: (document.getElementById('prof-gstin').value || '27').slice(0, 2),
+        },
+        date_of_registration: "2025-06-01",
+        business_age_years: 1.5,
+        primary_sector: document.getElementById('prof-sector').value,
+        nature_of_activities: ["Manufacturing"],
+        turnover_bracket: document.getElementById('prof-turnover').value,
+        msme_tier: document.getElementById('profile-badge-tier').innerText || "Micro",
+        social_category: document.getElementById('prof-social').value,
+        is_woman_owned: document.getElementById('prof-woman').checked,
+        is_dpiit_recognized: document.getElementById('prof-dpiit').checked,
+      };
+    }
+
+    // Run Deliberation (Phase 3 Engine)
+    async function runDeliberation() {
+      const btn = document.getElementById('btn-run-deliberate');
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-2"></i> Deliberating Policies...`;
+      btn.disabled = true;
+
+      const profile = getProfileFromForm();
+      currentProfile = profile;
+
+      try {
+        const res = await fetch('/api/schemes/deliberate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ profile: profile, top_k: 4, apply_hard_filters: true })
+        });
+        if (!res.ok) throw new Error("Deliberation failed");
+        currentReport = await res.json();
+        renderDeliberationResults(currentReport);
+      } catch (err) {
+        alert("Error during deliberation: " + err.message);
+      } finally {
+        btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles text-gov-saffron mr-2"></i> Deliberate & Analyze Gaps`;
+        btn.disabled = false;
+      }
+    }
+
+    // Render Deliberation Cards
+    function renderDeliberationResults(report) {
+      document.getElementById('stat-audited').innerText = report.top_candidates_evaluated;
+      document.getElementById('stat-eligible').innerText = report.eligible_count;
+      document.getElementById('stat-conditional').innerText = report.conditional_count;
+      document.getElementById('stat-ineligible').innerText = report.ineligible_count;
+      document.getElementById('stat-advisory').innerText = report.strategic_roadmap_summary;
+
+      const container = document.getElementById('schemes-cards-container');
+      container.innerHTML = '';
+
+      report.top_recommendations.forEach((item, idx) => {
+        let badgeClass = "badge-conditional";
+        let badgeIcon = "fa-triangle-exclamation";
+        if (item.verdict === "Eligible") {
+          badgeClass = "badge-eligible";
+          badgeIcon = "fa-circle-check";
+        } else if (item.verdict === "Ineligible") {
+          badgeClass = "badge-ineligible";
+          badgeIcon = "fa-circle-xmark";
+        }
+
+        // Build document gap table rows
+        let docRows = item.document_checklist.map(d => {
+          let sBadge = d.status === "Available" 
+            ? `<span class="text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-semibold">✓ Available</span>`
+            : (d.status === "Missing" 
+                ? `<span class="text-red-700 bg-red-50 px-2 py-0.5 rounded font-semibold">⚠ Missing</span>`
+                : `<span class="text-amber-700 bg-amber-50 px-2 py-0.5 rounded font-semibold">🔄 Action Required</span>`);
+          
+          return `
+            <tr class="border-b border-slate-100 hover:bg-slate-50/50">
+              <td class="py-2 font-medium text-slate-800">${d.document_name}</td>
+              <td class="py-2">${sBadge}</td>
+              <td class="py-2 text-slate-600">${d.issuing_authority}</td>
+              <td class="py-2 text-slate-500">${d.estimated_turnaround_days} Days</td>
+            </tr>
+          `;
+        }).join('');
+
+        let citationsHtml = (item.official_citations || []).map(c => `
+          <div class="p-2.5 bg-slate-50 border-l-4 border-gov-blue rounded text-xs space-y-1">
+            <div class="font-bold text-slate-800">${c.source_document} - ${c.section_or_page}</div>
+            <p class="italic text-slate-600">"${c.excerpt}"</p>
+          </div>
+        `).join('');
+
+        let cardHtml = `
+          <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm space-y-4 hover:border-slate-300 transition">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <div class="flex items-center space-x-2">
+                  <span class="text-xs font-bold text-slate-400">#${idx + 1}</span>
+                  <span class="px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${badgeClass}">
+                    <i class="fa-solid ${badgeIcon} mr-1"></i> ${item.verdict}
+                  </span>
+                  <span class="text-xs font-mono font-bold bg-slate-100 text-slate-700 px-2 py-0.5 rounded">
+                    Score: ${item.match_score}/100
+                  </span>
+                </div>
+                <h4 class="text-base font-bold text-slate-900 mt-2">${item.scheme_name} (${item.scheme_short_code})</h4>
+                <p class="text-xs text-slate-500">${item.nodal_agency}</p>
+              </div>
+              <a href="${item.application_portal_url}" target="_blank" class="px-3 py-1.5 text-xs font-bold bg-gov-blue text-white rounded-lg hover:bg-slate-900 transition flex items-center flex-shrink-0">
+                Apply Portal <i class="fa-solid fa-arrow-up-right-from-square ml-1.5 text-gov-saffron"></i>
+              </a>
+            </div>
+
+            <!-- Financial Benefit Box -->
+            <div class="p-3 bg-emerald-50/70 border border-emerald-100 rounded-lg text-xs space-y-1">
+              <span class="font-bold text-emerald-800 uppercase tracking-wider block">
+                <i class="fa-solid fa-coins mr-1"></i> Financial Benefit Package:
+              </span>
+              <p class="text-slate-800 font-medium">${item.financial_benefit.quantum_description}</p>
+              ${item.financial_benefit.special_affirmative_boost ? `<p class="text-emerald-700 font-semibold mt-1">★ ${item.financial_benefit.special_affirmative_boost}</p>` : ''}
+            </div>
+
+            <!-- Rationale Checks -->
+            <div class="text-xs space-y-1">
+              <span class="font-bold text-slate-700 block mb-1">Qualification Rationale:</span>
+              ${item.eligibility_rationale.slice(0, 3).map(r => `<div class="text-slate-600 flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2"></i> ${r}</div>`).join('')}
+              ${item.disqualification_or_gap_reasons.map(g => `<div class="text-amber-700 flex items-center"><i class="fa-solid fa-triangle-exclamation mr-2"></i> ${g}</div>`).join('')}
+            </div>
+
+            <!-- Document Gap Checklist Accordion -->
+            <details class="text-xs bg-slate-50 rounded-lg border border-slate-200 p-3">
+              <summary class="font-bold text-slate-800 cursor-pointer flex justify-between items-center">
+                <span><i class="fa-solid fa-clipboard-check mr-1.5 text-blue-600"></i> Document Compliance Audit (${item.document_checklist.length} Documents)</span>
+                <span class="text-slate-400 font-normal">Click to toggle</span>
+              </summary>
+              <div class="mt-3 overflow-x-auto">
+                <table class="w-full text-left">
+                  <thead>
+                    <tr class="text-slate-400 border-b border-slate-200">
+                      <th class="pb-1.5 font-medium">Document</th>
+                      <th class="pb-1.5 font-medium">Status</th>
+                      <th class="pb-1.5 font-medium">Issuing Authority</th>
+                      <th class="pb-1.5 font-medium">SLA</th>
+                    </tr>
+                  </thead>
+                  <tbody>${docRows}</tbody>
+                </table>
+              </div>
+            </details>
+
+            <!-- Guideline Citations -->
+            ${citationsHtml ? `
+              <details class="text-xs bg-slate-50 rounded-lg border border-slate-200 p-3">
+                <summary class="font-bold text-slate-800 cursor-pointer flex justify-between items-center">
+                  <span><i class="fa-solid fa-book-bookmark mr-1.5 text-purple-600"></i> Official Circular Grounding Citations</span>
+                  <span class="text-slate-400 font-normal">Click to toggle</span>
+                </summary>
+                <div class="mt-3 space-y-2">${citationsHtml}</div>
+              </details>
+            ` : ''}
+
+          </div>
+        `;
+        container.innerHTML += cardHtml;
+      });
+    }
+
+    // Export Markdown Report
+    async function downloadMarkdownReport() {
+      if (!currentReport) {
+        alert("Please run deliberation first!");
+        return;
+      }
+      try {
+        const res = await fetch('/api/schemes/export-markdown', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(currentReport)
+        });
+        const data = await res.json();
+        const blob = new Blob([data.markdown_content], { type: 'text/markdown' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = data.file_name;
+        a.click();
+      } catch (err) {
+        alert("Export error: " + err.message);
+      }
+    }
+
+    // Load Explorer Tab Schemes
+    async function loadExplorerSchemes() {
+      try {
+        const res = await fetch('/api/schemes?limit=50');
+        const data = await res.json();
+        allSchemesList = data.schemes || [];
+        renderExplorerGrid(allSchemesList);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    function renderExplorerGrid(schemes) {
+      const grid = document.getElementById('explorer-grid');
+      grid.innerHTML = schemes.map(s => `
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-3 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-xs mb-1.5">
+              <span class="font-bold text-gov-blue">${s.jurisdiction}</span>
+              <span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-mono font-semibold">${s.scheme_short_code}</span>
+            </div>
+            <h4 class="font-bold text-sm text-slate-900 leading-snug">${s.scheme_name}</h4>
+            <p class="text-xs text-slate-500 mt-1 line-clamp-2">${s.summary}</p>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+            <span class="text-emerald-700 font-semibold">${s.benefits.benefit_type}</span>
+            <a href="${s.official_portal_url}" target="_blank" class="text-gov-blue hover:underline font-bold flex items-center">
+              Visit Portal <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-xs"></i>
+            </a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterExplorer() {
+      const q = document.getElementById('explorer-search').value.toLowerCase();
+      const jur = document.getElementById('explorer-jurisdiction').value;
+      const filtered = allSchemesList.filter(s => {
+        const matchQ = !q || s.scheme_name.toLowerCase().includes(q) || s.scheme_short_code.toLowerCase().includes(q);
+        const matchJur = !jur || s.jurisdiction === jur;
+        return matchQ && matchJur;
+      });
+      renderExplorerGrid(filtered);
+    }
+
+    // Policy Copilot Chat
+    async function sendChatMessage() {
+      const input = document.getElementById('chat-input');
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = '';
+
+      const container = document.getElementById('chat-messages');
+      // User message
+      container.innerHTML += `
+        <div class="flex items-start justify-end space-x-3">
+          <div class="bg-gov-blue text-white rounded-2xl rounded-tr-none p-3.5 max-w-xl text-xs space-y-1">
+            <p>${text}</p>
+          </div>
+        </div>
+      `;
+      container.scrollTop = container.scrollHeight;
+
+      // Loading bubble
+      const loadingId = 'loading-' + Date.now();
+      container.innerHTML += `
+        <div id="${loadingId}" class="flex items-start space-x-3">
+          <div class="w-7 h-7 rounded-full bg-purple-600 text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <div class="bg-slate-100 rounded-2xl rounded-tl-none p-3 max-w-xl text-xs text-slate-500 italic">
+            <i class="fa-solid fa-spinner fa-spin mr-1"></i> Consulting scheme circulars...
+          </div>
+        </div>
+      `;
+      container.scrollTop = container.scrollHeight;
+
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: text, profile: currentProfile })
+        });
+        const data = await res.json();
+        document.getElementById(loadingId).remove();
+
+        let badges = (data.cited_schemes || []).map(b => `
+          <a href="${b.official_portal_url}" target="_blank" class="inline-flex items-center px-2 py-1 bg-white border border-slate-200 rounded text-slate-700 font-semibold hover:border-gov-blue text-[11px] mr-1 mb-1">
+            <i class="fa-solid fa-link text-gov-saffron mr-1"></i> ${b.scheme_short_code}
+          </a>
+        `).join('');
+
+        container.innerHTML += `
+          <div class="flex items-start space-x-3">
+            <div class="w-7 h-7 rounded-full bg-purple-600 text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5">
+              <i class="fa-solid fa-robot"></i>
+            </div>
+            <div class="bg-slate-100 rounded-2xl rounded-tl-none p-3.5 max-w-xl text-xs text-slate-800 space-y-2">
+              <div class="prose prose-xs">${data.reply.replace(/\n/g, '<br>')}</div>
+              ${badges ? `<div class="pt-2 border-t border-slate-200"><strong>Cited Policies:</strong> ${badges}</div>` : ''}
+            </div>
+          </div>
+        `;
+        container.scrollTop = container.scrollHeight;
+      } catch (err) {
+        document.getElementById(loadingId).remove();
+        container.innerHTML += `<div class="text-xs text-red-500">Error: ${err.message}</div>`;
+      }
+    }
+
+    function askCopilot(q) {
+      document.getElementById('chat-input').value = q;
+      sendChatMessage();
+    }
+
+    // Load Stats
+    async function loadStats() {
+      try {
+        const res = await fetch('/api/stats');
+        const stats = await res.json();
+
+        document.getElementById('stats-kpi-container').innerHTML = `
+          <div class="bg-blue-50/50 p-4 rounded-xl border border-blue-100 text-center">
+            <span class="text-xs text-slate-500 font-medium">Total Active Schemes</span>
+            <span class="text-3xl font-bold text-gov-blue block mt-1">${stats.total_schemes}</span>
+          </div>
+          <div class="bg-purple-50/50 p-4 rounded-xl border border-purple-100 text-center">
+            <span class="text-xs text-slate-500 font-medium">Guideline Circular Chunks</span>
+            <span class="text-3xl font-bold text-purple-700 block mt-1">${stats.total_guideline_chunks}</span>
+          </div>
+          <div class="bg-emerald-50/50 p-4 rounded-xl border border-emerald-100 text-center">
+            <span class="text-xs text-slate-500 font-medium">Crawler Runs Logged</span>
+            <span class="text-3xl font-bold text-emerald-700 block mt-1">${stats.total_crawls_logged}</span>
+          </div>
+        `;
+
+        const bList = document.getElementById('stats-benefits-list');
+        bList.innerHTML = Object.entries(stats.benefit_type_breakdown || {}).map(([k, v]) => `
+          <div class="flex items-center justify-between py-1 border-b border-slate-200">
+            <span class="font-medium text-slate-700">${k}</span>
+            <span class="font-bold text-slate-900 bg-white px-2 py-0.5 rounded border border-slate-200">${v}</span>
+          </div>
+        `).join('');
+
+        const cList = document.getElementById('stats-crawls-list');
+        cList.innerHTML = (stats.recent_crawl_history || []).map(c => `
+          <div class="flex items-center justify-between py-1 border-b border-slate-200">
+            <span class="font-medium text-slate-700">${c.source_portal}</span>
+            <span class="text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded text-[10px]">${c.status}</span>
+          </div>
+        `).join('');
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    // Drag and drop upload setup
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+    dropZone.addEventListener('click', () => fileInput.click());
+    dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('border-gov-blue', 'bg-blue-50/50'); });
+    dropZone.addEventListener('dragleave', () => { dropZone.classList.remove('border-gov-blue', 'bg-blue-50/50'); });
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('border-gov-blue', 'bg-blue-50/50');
+      if (e.dataTransfer.files.length) handleFileUpload(e.dataTransfer.files[0]);
+    });
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files.length) handleFileUpload(fileInput.files[0]);
+    });
+
+    async function handleFileUpload(file) {
+      const formData = new FormData();
+      formData.append('file', file);
+      try {
+        const res = await fetch('/api/upload-document', { method: 'POST', body: formData });
+        if (!res.ok) throw new Error("Upload failed");
+        const data = await res.json();
+        currentProfile = data.profile;
+        populateProfileForm(currentProfile);
+        document.getElementById('upload-status').classList.remove('hidden');
+        document.getElementById('upload-status-text').innerText = `${file.name} parsed successfully!`;
+        runDeliberation();
+      } catch (err) {
+        alert("Upload error: " + err.message);
+      }
+    }
+
+    // Initial Load
+    window.addEventListener('DOMContentLoaded', () => {
+      loadSample(1);
+    });
+  </script>
+</body>
+</html>

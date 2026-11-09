@@ -264,6 +264,19 @@ def main():
         help="Export Phase 3 Reasoner output to specified JSON file path",
     )
 
+    # Phase 4 Arguments
+    parser.add_argument(
+        "--serve",
+        action="store_true",
+        help="Start the FastAPI backend server & Matching Dashboard UI",
+    )
+    parser.add_argument(
+        "--port",
+        type=int,
+        default=8000,
+        help="Port to run the FastAPI server on (default: 8000)",
+    )
+
     args = parser.parse_args()
     store = SchemeKnowledgeStore()
     vector_store = SchemeVectorStore()
@@ -344,6 +357,12 @@ def main():
                 if r.tags:
                     print(f"    Tags            : {', '.join(r.tags[:5])}")
         print("=" * 60 + "\n")
+        actions_taken += 1
+
+    if args.serve:
+        import uvicorn
+        logger.info(f"Starting Government Schemes Full-Stack Server on http://localhost:{args.port}...")
+        uvicorn.run("api.main:app", host="0.0.0.0", port=args.port, reload=True)
         actions_taken += 1
 
     if args.stats:

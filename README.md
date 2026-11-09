@@ -15,8 +15,8 @@ flowchart TD
 
     classDef done fill:#d4edda,stroke:#28a745,color:#155724;
     classDef pending fill:#e2e3e5,stroke:#6c757d,color:#383d41;
-    class M1,M2,M3 done;
-    class M4,M5 pending;
+    class M1,M2,M3,M4 done;
+    class M5 pending;
 ```
 
 | Phase | Milestone | Status | Key Deliverables |
@@ -24,8 +24,8 @@ flowchart TD
 | **Phase 1** | Schema Definition & Seed Dataset | ✅ Complete | Pydantic Schemas (`BusinessProfile`, `GovernmentScheme`), 30 Flagship Seed Schemes, GST REG-06 Multimodal Parser, Stage 1 Deterministic Engine. |
 | **Phase 2** | Crawler Pipeline & Knowledge Base Construction | ✅ Complete | Multi-portal Scrapers (MSME, Startup India, Jan Samarth, MyScheme), PDF Guideline Ingestion Engine, SQLite Knowledge Store, Dense Vector Index, `pipeline.py` CLI. |
 | **Phase 3** | Hybrid Retrieval & Reasoner Engine | ✅ Complete | Reciprocal Rank Fusion (RRF), Cross-Encoder Reranker, LLM Eligibility Verification & Regulatory Document Gap Analysis Synthesizer. |
-| **Phase 4** | Full-Stack App & Matching UI | ⏳ Next | Next.js 14 Document Upload Dashboard + FastAPI Backend. |
-| **Phase 5** | Guardrails, Testing & Launch | ⏳ Planned | Hallucination Guardrails, PII Masking, Production Deployment. |
+| **Phase 4** | Full-Stack App & Matching UI | ✅ Complete | FastAPI REST Backend Service, Interactive Single-Page Matching Dashboard, Next.js 14 App Router Client, Grounded Policy Copilot Chat. |
+| **Phase 5** | Guardrails, Testing & Launch | ⏳ Next | Hallucination Guardrails, PII Masking, Production Deployment. |
 
 ---
 
@@ -33,7 +33,33 @@ flowchart TD
 
 ```text
 government-schemes-rag/
-├── pipeline.py                   # Unified Pipeline Runner (Crawl, Ingest, Index, Search, Phase 3 Reasoner)
+├── api/                          # Phase 4: FastAPI REST API & Web Dashboard Service
+│   ├── __init__.py
+│   ├── main.py                   # FastAPI Application Entrypoint & Static Route Mounter
+│   ├── dependencies.py           # Dependency injection providers for Stores and Reasoner
+│   ├── routes/
+│   │   ├── __init__.py
+│   │   ├── upload.py             # Document Upload (PDF/Image) & Digital Twin Extractor
+│   │   ├── schemes.py            # Schemes Knowledge Base Browsing, Details, & Semantic Search
+│   │   ├── reasoner.py           # End-to-End Deliberation & Markdown Export Endpoints
+│   │   ├── chat.py               # Grounded Policy Copilot Conversational Chat Endpoint
+│   │   └── stats.py              # Knowledge Base Relational Metrics Endpoint
+│   └── static/
+│       └── index.html            # Interactive Modern Web Dashboard (Zero-install instant browser UI)
+├── frontend/                     # Phase 4: Modern Next.js 14 App Router Frontend
+│   ├── package.json              # Next.js 14, React 18, Tailwind CSS, Lucide dependencies
+│   ├── tsconfig.json             # TypeScript configuration
+│   ├── next.config.js            # Next.js configuration with FastAPI proxy rewrites
+│   ├── tailwind.config.js        # Tricolor & Indian Gov theme styling
+│   └── src/
+│       ├── app/
+│       │   ├── layout.tsx        # Responsive root layout with tricolor accent
+│       │   ├── page.tsx          # Interactive Document Upload, Digital Twin Card, & Deliberation Cards
+│       │   └── globals.css       # Tailwind CSS base styles
+│       └── lib/
+│           ├── types.ts          # TypeScript interfaces matching Python Pydantic models
+│           └── api.ts            # Typed client SDK calling FastAPI endpoints
+├── pipeline.py                   # Unified Pipeline Runner (Crawl, Ingest, Index, Search, Phase 3 Reasoner, Server)
 ├── cli.py                        # Interactive CLI demo for Phase 1 & Phase 3
 ├── requirements.txt              # Core project dependencies
 ├── README.md                     # Architecture and operational documentation
@@ -78,90 +104,85 @@ government-schemes-rag/
 └── tests/
     ├── test_phase1.py            # Automated tests for Phase 1 schemas and deterministic matcher (6 tests)
     ├── test_phase2.py            # Automated tests for Phase 2 crawlers, PDF parser, SQLite, & Vector Store (9 tests)
-    └── test_phase3.py            # Automated tests for Phase 3 Hybrid RRF, Cross-Encoder, & Reasoner (8 tests)
+    ├── test_phase3.py            # Automated tests for Phase 3 Hybrid RRF, Cross-Encoder, & Reasoner (8 tests)
+    └── test_phase4.py            # Automated tests for Phase 4 FastAPI Endpoints & UI Serving (10 tests)
 ```
 
 ---
 
-## 3. Phase 3 Features & Components
+## 3. Phase 4 Features & API Endpoints
 
-### 3.1 Advanced Hybrid Retrieval Engine (`engine/retriever.py`)
-- **Multi-Channel Candidate Generation**:
-  - **Deterministic Metadata Filtering**: Evaluates hard jurisdictional constraints (State exclusion, legal entity exclusions, manufacturing/services requirements).
-  - **Dense Semantic Retrieval**: Computes cosine similarity between applicant profile intent vectors and scheme document / circular embeddings.
-  - **Sparse Lexical Scoring**: Executes BM25-style term-frequency scoring over titles, nodal ministries, keywords, and eligibility clauses.
-- **Reciprocal Rank Fusion (RRF)**:
-  - Fuses dense and lexical ranks via $RRF(d) = \frac{w_{dense}}{k + r_{dense}(d)} + \frac{w_{sparse}}{k + r_{sparse}(d)}$ with $k=60$.
-  - Soft priority boosts for state-specific matches, sector alignment, woman-owned units, and DPIIT-recognized startups.
-  - Automatically fetches official guideline circular chunks associated with candidate schemes.
+### 3.1 FastAPI REST Backend (`api/`)
+The FastAPI server provides high-throughput, asynchronous endpoints with OpenAPI documentation (`/docs`):
 
-### 3.2 Cross-Encoder Contextual Reranker (`engine/reranker.py`)
-- Evaluates the joint cross-attentive interaction between applicant attributes and scheme rules:
-  - **Regulatory Feasibility (0 - 30 pts)**: State jurisdiction, constitutional form, business operational age, MSME tier.
-  - **Operational & Sectoral Fit (0 - 30 pts)**: Manufacturing vs service operations, sector alignment, HSN/SAC match.
-  - **Affirmative Policy Priority (0 - 25 pts)**: Woman-owned priority, SC/ST social category, DPIIT startup priority.
-  - **Official Circular Passage Relevance (0 - 15 pts)**: Clause-level overlap with ingested PDF circular chunks.
-- Computes **Rank Shift Tracking** ($Rank_{initial} \to Rank_{reranked}$) and explainable factor notes.
+| Endpoint | Method | Description |
+| :--- | :--- | :--- |
+| `GET /` | `GET` | Serves the interactive Web Dashboard SPA with zero external build requirements. |
+| `GET /health` | `GET` | Health check reporting database and vector store connectivity. |
+| `GET /api/stats` | `GET` | Aggregated metrics: scheme counts, benefit categories, crawler audit logs. |
+| `GET /api/schemes` | `GET` | Browse schemes with SQL filters (`jurisdiction`, `state`, `benefit_type`, `search`). |
+| `GET /api/schemes/{id}`| `GET` | Retrieve full scheme rules, benefits, and ingested guideline PDF text chunks. |
+| `POST /api/schemes/search` | `POST` | Hybrid semantic vector search with state and entity pre-filters. |
+| `GET /api/sample-profiles` | `GET` | List metadata for pre-configured 1-click test profiles (Tech, Food, Textile). |
+| `POST /api/sample-profile/{id}` | `POST` | Load normalized `BusinessProfile` for instant evaluation. |
+| `POST /api/upload-document` | `POST` | Ingest Form GST REG-06 or Udyam PDF/images and extract structured profile. |
+| `POST /api/schemes/deliberate` | `POST` | Run Phase 3 Reasoner pipeline: RRF Retrieval -> Cross-Encoder -> Gap Analysis. |
+| `POST /api/schemes/export-markdown` | `POST` | Download synthesized eligibility report as formatted GitHub Markdown. |
+| `POST /api/chat` | `POST` | Grounded Policy Copilot conversational assistant citing official circulars. |
 
-### 3.3 LLM Eligibility Reasoner & Document Gap Synthesizer (`engine/reasoner.py`)
-- **Authoritative Deliberation**:
-  - Classifies candidates into `Eligible`, `Conditionally Eligible`, or `Ineligible` with confidence scores and granular pass/fail bullet points.
-- **Financial Benefit Quantum Calculator**:
-  - Computes exact or estimated monetary assistance tailored to business metrics (e.g. 35% margin money subsidy on PMEGP up to ₹17.5 Lakh for rural women/SC-ST; 80% to 90% fee subsidy on ZED certification; ₹20 Lakh 100% grant on SISFS).
-- **Automated Regulatory Document Gap Analysis**:
-  - Audits applicant documents against mandatory checklists using the `DOCUMENT_REGULATORY_REGISTRY`.
-  - Flags status (`Available`, `Missing`, `Action Required`) with official issuing authorities (e.g., Udyam Portal, Chartered Accountant, SPCB, SDM/Tehsildar), SLAs in working days, and step-by-step resolution guidance.
-- **Official Circular Citations**:
-  - Grounds every recommendation in official circular text (citing document name, page numbers, and exact excerpts).
-- **Dual Execution Mode**:
-  - **Gemini API Mode**: Leverages Gemini 2.5 / 1.5 Flash for dynamic structured JSON reasoning when `GEMINI_API_KEY` is present.
-  - **Deterministic Grounded Fallback**: Provides high-precision, zero-hallucination rule-grounded synthesis in offline or CI/CD test environments.
+### 3.2 Interactive Web Matching Dashboard (`api/static/index.html`)
+- **Document Drag-and-Drop Dropzone**: Ingests GST REG-06 PDFs or images with in-memory parsing.
+- **One-Click Quick Test Buttons**:
+  - *Sample 1*: Electronics Pvt Ltd (Woman Co-founder, DPIIT recognized, Pune MH).
+  - *Sample 2*: Food Processing Micro-Unit (Proprietorship, Anand Gujarat).
+  - *Sample 3*: Textile & Garment Manufacturing LLP (Peenya, Karnataka).
+- **Interactive Business Profile Digital Twin Card**: Edit legal name, GSTIN, constitution, turnover bracket slider, and affirmative checkboxes (Woman-owned, DPIIT Startup, SC/ST promoter).
+- **Ranked Scheme Recommendation Cards**:
+  - Color-coded Verdict Badges (🟢 `Eligible`, 🟡 `Conditionally Eligible`, 🔴 `Ineligible`).
+  - Match Score Progress Indicator (`87/100`) + Model Confidence (`90%`).
+  - Financial Benefit Package Highlight (exact subsidy % and monetary cap estimation).
+  - Pass/Fail Criteria Checklist.
+  - Interactive **Document Compliance Audit Accordion**: Audits 11 official regulatory documents with status (`Available`, `Missing`, `Action Required`), issuing authorities (Udyam, CA, SPCB, Tehsildar), and SLA days.
+  - Official Guideline Circular Grounding Citations box.
+  - 4-Step Application Roadmap.
+- **Policy Copilot (AI Chat Assistant)**: Ask questions regarding margin money subsidies, collateral requirements, or application portals with cited policy badges.
+
+### 3.3 Next.js 14 App Router Frontend (`frontend/`)
+- Modern React 18 & TypeScript frontend with Tailwind CSS and Lucide icons.
+- Built-in API proxy rewrites pointing to `http://localhost:8000/api/*`.
+- Reusable components: `DocumentUpload`, `ProfileConfirmation`, `SchemeCard`, `PolicyCopilotChat`.
 
 ---
 
 ## 4. Quickstart & Verification
 
-### Run All Automated Test Suites (23 Total Tests)
+### Run All 33 Automated Tests Across All Phases
 ```powershell
-# Run Phase 1 Tests (6 tests)
-python tests/test_phase1.py
-
-# Run Phase 2 Tests (9 tests)
-python tests/test_phase2.py
-
-# Run Phase 3 Tests (8 tests)
-python tests/test_phase3.py
+python -m unittest discover tests
 ```
-*Expected Result: `OK` across all 23 tests.*
+*Expected Result: `Ran 33 tests in ~1.5s - OK` (Phase 1: 6, Phase 2: 9, Phase 3: 8, Phase 4: 10).*
 
-### Running Phase 3 Reasoner CLI
-
-#### 1. Deliberate on a Business Profile (Sample 1: Tech Startup)
+### Start the Full-Stack Platform Server
 ```powershell
-python pipeline.py --analyze-profile 1 --top-k 4
-```
+# Option A: Via Unified Pipeline CLI
+python pipeline.py --serve --port 8000
 
-#### 2. Deliberate on Sample 2 (Food Processing Sole Proprietorship)
-```powershell
-python pipeline.py --analyze-profile 2 --top-k 3
+# Option B: Via Uvicorn module
+python -m uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
 ```
+- **Web Dashboard**: Open [http://localhost:8000](http://localhost:8000) in any browser.
+- **Interactive API Documentation (Swagger)**: [http://localhost:8000/docs](http://localhost:8000/docs)
+- **Alternative ReDoc UI**: [http://localhost:8000/redoc](http://localhost:8000/redoc)
 
-#### 3. Deliberate on Sample 3 (Textile Manufacturing LLP)
+### (Optional) Run the Next.js 14 Frontend Dev Server
 ```powershell
-python pipeline.py --analyze-profile 3 --top-k 4
+cd frontend
+npm install
+npm run dev
 ```
-
-#### 4. Export Markdown & JSON Reports
-```powershell
-python pipeline.py --analyze-profile 1 --export-markdown samples/sample_1_report.md --export-json samples/sample_1_report.json
-```
-
-#### 5. Run via Interactive CLI
-```powershell
-python cli.py --sample 1 --phase3
-```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-## 5. Next Steps: Phase 4
-With Phase 3 complete (Hybrid Retrieval, Contextual Cross-Encoder Reranking, and LLM Eligibility & Document Gap Deliberation), the backend reasoning engine is fully operational. We are now prepared for **Phase 4: Full-Stack App & Matching UI (Next.js 14 + FastAPI)**.
+## 5. Next Steps: Phase 5
+With Phase 4 complete, the end-to-end full-stack platform (FastAPI REST service, interactive matching dashboard, and Next.js frontend) is active. We are now ready for **Phase 5: Evaluation, Verification & Cloud Launch** (hallucination evaluation benchmarks, PII sanitization guardrails, and production cloud containerization).
