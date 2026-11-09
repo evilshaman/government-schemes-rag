@@ -33,6 +33,9 @@ flowchart TD
 
 ```text
 government-schemes-rag/
+├── docs/                         # Project architecture & phase implementation plans
+│   ├── government-schemes-rag-plan.md  # Original Architectural Blueprint
+│   └── phase-2-implementation-plan.md  # Phase 2 Detailed Architecture & Design
 ├── pipeline.py                   # Unified Phase 2 Pipeline Runner (Crawl, Ingest, Index, Search, Stats)
 ├── cli.py                        # Interactive CLI demo for Phase 1
 ├── requirements.txt              # Core project dependencies
