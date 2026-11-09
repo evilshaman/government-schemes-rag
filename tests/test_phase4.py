@@ -169,6 +169,19 @@ class TestPhase4API(unittest.TestCase):
         self.assertEqual(len(data["cited_schemes"]), 0)
         self.assertIn("specialized exclusively in Indian government subsidies", data["reply"])
 
+    def test_chat_copilot_scheme_scoped(self):
+        payload = {
+            "message": "Why am I conditionally eligible for this scheme?",
+            "scheme_id": "pmegp",
+        }
+        res = self.client.post("/api/chat", json=payload)
+        self.assertEqual(res.status_code, 200)
+        data = res.json()
+        self.assertIn("reply", data)
+        self.assertEqual(len(data["cited_schemes"]), 1)
+        self.assertEqual(data["cited_schemes"][0]["scheme_id"], "pmegp")
+        self.assertIn("PMEGP", data["reply"])
+
     # 10. Serve Dashboard
     def test_dashboard_serving(self):
         res = self.client.get("/")

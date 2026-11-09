@@ -106,3 +106,10 @@ export interface GovernmentScheme {
   tags: string[];
   official_portal_url: string;
 }
+
+export interface ChatRequest {
+  message: string;
+  scheme_id?: string | null;
+  history?: Array<{ role: string; content: string }>;
+  profile?: BusinessProfile | null;
+}

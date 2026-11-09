@@ -1,8 +1,11 @@
 """
 Policy Copilot Chat API Route.
 Provides an interactive AI chat assistant grounded in the official schemes knowledge base.
-Includes domain intent guardrails (rejecting out-of-domain requests like coding/chit-chat)
-and semantic similarity thresholding to prevent greedy, irrelevant policy citations.
+Features:
+- Global general policy Q&A with hybrid vector search.
+- Scheme-Scoped Chat: Directly anchors the conversation on a specific scheme candidate from Document Matching.
+- Out-of-Domain Guardrail: Rejects programming code, jokes, or non-policy queries.
+- Semantic Relevance Thresholding: Prevents greedy, low-confidence scheme citations.
 """
 
 from __future__ import annotations
@@ -42,7 +45,7 @@ OUT_OF_SCOPE_PATTERNS = [
 POLICY_KEYWORDS = [
     "scheme", "subsidy", "loan", "grant", "msme", "pmegp", "dpiit", "startup",
     "udyam", "tax", "gst", "cgtmse", "mudra", "standup", "interest", "incentive",
-    "financial", "capital", "seed", "government", "ministry", "kvic", "sidbi"
+    "financial", "capital", "seed", "government", "ministry", "kvic", "sidbi", "specs", "zed"
 ]
 
 
@@ -75,6 +78,7 @@ class ChatMessage(BaseModel):
 
 class ChatRequest(BaseModel):
     message: str = Field(..., description="User's policy or subsidy question")
+    scheme_id: Optional[str] = Field(None, description="Optional target scheme ID to anchor discussion strictly to one scheme")
     history: List[ChatMessage] = Field(default_factory=list)
     profile: Optional[BusinessProfile] = Field(None, description="Optional loaded profile for contextual personalization")
 
@@ -103,79 +107,124 @@ async def chat_with_copilot(
 ):
     """
     Delivers a grounded conversational answer using hybrid vector retrieval and guideline chunks.
-    Filters out-of-scope non-policy queries and low-relevance noise.
+    Supports Scheme-Scoped discussions (when scheme_id is passed) and Global Policy search.
     """
     query = req.message.strip()
 
-    # 1. Out-of-Domain Guardrail Check
-    ood_reply = detect_out_of_scope_query(query)
-    if ood_reply:
-        return ChatResponse(
-            reply=ood_reply,
-            cited_schemes=[],
-            suggested_actions=[
-                "Explore Startup India Seed Fund",
-                "Check SPECS (Electronics & IT)",
-                "Upload GST Certificate for Instant Matching",
-            ],
-        )
-
-    # 2. Retrieve relevant schemes using profile context if available
-    state = req.profile.principal_address.state_name if req.profile else None
-    entity = req.profile.constitution.value if req.profile else None
-    tier = req.profile.msme_tier.value if req.profile and req.profile.msme_tier.value != "Unknown" else None
-
-    raw_hits = vector_store.hybrid_search(
-        query=query,
-        state=state,
-        entity_type=entity,
-        msme_tier=tier,
-        top_k=5,
-    )
-
-    # Filter out low-similarity noise to prevent greedy hallucinated recommendations
-    search_hits = [hit for hit in raw_hits if hit.similarity_score >= MIN_RELEVANCE_THRESHOLD][:3]
+    # 1. Out-of-Domain Guardrail Check (only if not already scoped to a scheme)
+    if not req.scheme_id:
+        ood_reply = detect_out_of_scope_query(query)
+        if ood_reply:
+            return ChatResponse(
+                reply=ood_reply,
+                cited_schemes=[],
+                suggested_actions=[
+                    "Explore Startup India Seed Fund",
+                    "Check SPECS (Electronics & IT)",
+                    "Upload GST Certificate for Instant Matching",
+                ],
+            )
 
     cited_badges: List[CitedSchemeBadge] = []
     grounding_texts: List[str] = []
+    target_scheme: Optional[GovernmentScheme] = None
 
-    for hit in search_hits:
-        scheme = store.get_scheme(hit.scheme_id)
-        if scheme:
+    # -------------------------------------------------------------------------
+    # 2. Scheme-Scoped Focus (Anchored directly to a user-selected scheme card)
+    # -------------------------------------------------------------------------
+    if req.scheme_id:
+        target_scheme = store.get_scheme(req.scheme_id)
+        if target_scheme:
             cited_badges.append(
                 CitedSchemeBadge(
-                    scheme_id=scheme.scheme_id,
-                    scheme_name=scheme.scheme_name,
-                    scheme_short_code=scheme.scheme_short_code,
-                    official_portal_url=scheme.official_portal_url,
-                    benefit_summary=scheme.benefits.quantum_description,
+                    scheme_id=target_scheme.scheme_id,
+                    scheme_name=target_scheme.scheme_name,
+                    scheme_short_code=target_scheme.scheme_short_code,
+                    official_portal_url=target_scheme.official_portal_url,
+                    benefit_summary=target_scheme.benefits.quantum_description,
                 )
             )
-            # Fetch chunks if available
-            chunks = store.get_document_chunks_for_scheme(scheme.scheme_id)
-            chunk_excerpts = " ".join([c.content[:200] for c in chunks[:2]])
+            chunks = store.get_document_chunks_for_scheme(target_scheme.scheme_id)
+            chunk_excerpts = " ".join([c.content for c in chunks[:4]])
 
             grounding_texts.append(
-                f"SCHEME: {scheme.scheme_name} [{scheme.scheme_short_code}]\n"
-                f"- Nodal Ministry: {scheme.nodal_ministry}\n"
-                f"- Benefit: {scheme.benefits.quantum_description}\n"
-                f"- Eligibility: {'; '.join(scheme.eligibility_criteria_text[:3])}\n"
-                f"- Required Documents: {', '.join(scheme.required_documents[:4])}\n"
-                f"- Portal: {scheme.official_portal_url}\n"
-                f"- Guideline Circular Excerpts: {chunk_excerpts or 'Official gazette circular.'}"
+                f"FOCUSED SCHEME: {target_scheme.scheme_name} [{target_scheme.scheme_short_code}]\n"
+                f"- Implementing Agency: {target_scheme.implementing_agency} ({target_scheme.nodal_ministry})\n"
+                f"- Jurisdiction: {target_scheme.jurisdiction.value} | States: {', '.join(target_scheme.rules.applicable_states)}\n"
+                f"- Benefit Type: {target_scheme.benefits.benefit_type.value}\n"
+                f"- Financial Quantum & Assistance: {target_scheme.benefits.quantum_description}\n"
+                f"- Subsidy %: {target_scheme.benefits.subsidy_percentage or 'N/A'}% | Ceiling: ₹{target_scheme.benefits.max_assistance_amount_inr:,.0f}\n"
+                f"- Eligible Constitutions: {', '.join([c.value for c in target_scheme.rules.eligible_constitutions])}\n"
+                f"- Eligible MSME Tiers: {', '.join([t.value for t in target_scheme.rules.eligible_msme_tiers])}\n"
+                f"- Key Criteria: {'; '.join(target_scheme.eligibility_criteria_text)}\n"
+                f"- Mandatory Documents: {', '.join(target_scheme.required_documents)}\n"
+                f"- Official Portal: {target_scheme.official_portal_url}\n"
+                f"- Circular Guidelines: {chunk_excerpts or 'Official Gazette notification.'}"
             )
+
+    # -------------------------------------------------------------------------
+    # 3. Global Hybrid Vector Search (if not scoped to a scheme)
+    # -------------------------------------------------------------------------
+    if not target_scheme:
+        state = req.profile.principal_address.state_name if req.profile else None
+        entity = req.profile.constitution.value if req.profile else None
+        tier = req.profile.msme_tier.value if req.profile and req.profile.msme_tier.value != "Unknown" else None
+
+        raw_hits = vector_store.hybrid_search(
+            query=query,
+            state=state,
+            entity_type=entity,
+            msme_tier=tier,
+            top_k=5,
+        )
+
+        search_hits = [hit for hit in raw_hits if hit.similarity_score >= MIN_RELEVANCE_THRESHOLD][:3]
+
+        for hit in search_hits:
+            scheme = store.get_scheme(hit.scheme_id)
+            if scheme:
+                cited_badges.append(
+                    CitedSchemeBadge(
+                        scheme_id=scheme.scheme_id,
+                        scheme_name=scheme.scheme_name,
+                        scheme_short_code=scheme.scheme_short_code,
+                        official_portal_url=scheme.official_portal_url,
+                        benefit_summary=scheme.benefits.quantum_description,
+                    )
+                )
+                chunks = store.get_document_chunks_for_scheme(scheme.scheme_id)
+                chunk_excerpts = " ".join([c.content[:200] for c in chunks[:2]])
+
+                grounding_texts.append(
+                    f"SCHEME: {scheme.scheme_name} [{scheme.scheme_short_code}]\n"
+                    f"- Nodal Ministry: {scheme.nodal_ministry}\n"
+                    f"- Benefit: {scheme.benefits.quantum_description}\n"
+                    f"- Eligibility: {'; '.join(scheme.eligibility_criteria_text[:3])}\n"
+                    f"- Required Documents: {', '.join(scheme.required_documents[:4])}\n"
+                    f"- Portal: {scheme.official_portal_url}\n"
+                    f"- Guideline Circular Excerpts: {chunk_excerpts or 'Official gazette circular.'}"
+                )
 
     knowledge_context = "\n\n".join(grounding_texts)
 
-    # Check for Gemini API key
+    # -------------------------------------------------------------------------
+    # 4. LLM Generation via Gemini (when GEMINI_API_KEY is configured)
+    # -------------------------------------------------------------------------
     api_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
 
     if api_key and grounding_texts:
-        system_instruction = (
-            "You are the official Government Schemes AI Copilot. "
-            "Answer the user's question clearly and authoritatively, citing exact subsidy percentages, caps, and mandatory documents. "
-            "Use ONLY the verified policy grounding provided. If applicant profile context is provided, personalize your advice."
-        )
+        if target_scheme:
+            system_instruction = (
+                f"You are the official Government Schemes AI Copilot discussing the specific scheme '{target_scheme.scheme_name}' ({target_scheme.scheme_short_code}). "
+                "Answer the user's question clearly, authoritatively, and in detail citing exact subsidy percentages, caps, and mandatory documents. "
+                "Use ONLY the verified policy grounding provided. If applicant profile context is provided, personalize your advice."
+            )
+        else:
+            system_instruction = (
+                "You are the official Government Schemes AI Copilot. "
+                "Answer the user's question clearly and authoritatively, citing exact subsidy percentages, caps, and mandatory documents. "
+                "Use ONLY the verified policy grounding provided. If applicant profile context is provided, personalize your advice."
+            )
 
         user_content = f"APPLICANT PROFILE CONTEXT:\n{req.profile.model_dump_json() if req.profile else 'No profile uploaded yet.'}\n\n"
         user_content += f"GOVERNMENT POLICY GROUNDING:\n{knowledge_context}\n\n"
@@ -194,19 +243,22 @@ async def chat_with_copilot(
                 if res.status_code == 200:
                     data = res.json()
                     llm_text = data["candidates"][0]["content"]["parts"][0]["text"].strip()
+                    default_actions = [
+                        f"Apply on {target_scheme.scheme_short_code} Portal" if target_scheme else "Check document gap analysis checklist",
+                        "Verify Udyam MSME registration",
+                        "Access official nodal application portal",
+                    ]
                     return ChatResponse(
                         reply=llm_text,
                         cited_schemes=cited_badges,
-                        suggested_actions=[
-                            "Check document gap analysis checklist",
-                            "Verify Udyam MSME registration",
-                            "Access official nodal application portal",
-                        ],
+                        suggested_actions=default_actions,
                     )
         except Exception as exc:
             logger.warning(f"Gemini API chat call failed, using deterministic grounded synthesis: {exc}")
 
-    # Deterministic Grounded Policy Answer Fallback
+    # -------------------------------------------------------------------------
+    # 5. Deterministic Grounded Policy Answer Fallback
+    # -------------------------------------------------------------------------
     if not cited_badges:
         reply = (
             f"Based on official government notifications, no direct policy or subsidy match was found for \"{query}\".\n\n"
@@ -216,7 +268,129 @@ async def chat_with_copilot(
             "- Or upload your **GST REG-06 / Udyam Certificate** for automated policy matching."
         )
         actions = ["Browse All 41 Schemes", "Upload GST Certificate for Instant Matching", "Explore Credit Guarantee (CGTMSE)"]
+
+    elif target_scheme:
+        # Scheme-Scoped Deep Advisory
+        q_lower = query.lower()
+
+        # A. Asking about why / eligibility / conditional status
+        if any(w in q_lower for w in ["why", "eligible", "conditional", "qualif", "score", "fit", "disqualif"]):
+            reply_lines = [
+                f"### Qualification & Eligibility Analysis for **{target_scheme.scheme_name}** (`{target_scheme.scheme_short_code}`)",
+                "",
+                f"Administered by **{target_scheme.implementing_agency}** under the **{target_scheme.nodal_ministry}**.",
+                "",
+                "**Core Regulatory Criteria:**",
+                f"- **Applicable States:** {', '.join(target_scheme.rules.applicable_states)}",
+                f"- **Eligible Legal Entities:** {', '.join([c.value for c in target_scheme.rules.eligible_constitutions])}",
+                f"- **Eligible MSME Tiers:** {', '.join([t.value for t in target_scheme.rules.eligible_msme_tiers])}",
+                f"- **Activity Requirement:** Manufacturing: {'Yes' if target_scheme.rules.requires_manufacturing else 'Optional'} | Services: {'Yes' if target_scheme.rules.requires_services else 'Optional'}",
+            ]
+            if req.profile:
+                state_ok = "ALL" in target_scheme.rules.applicable_states or req.profile.principal_address.state_name in target_scheme.rules.applicable_states
+                const_ok = req.profile.constitution in target_scheme.rules.eligible_constitutions
+                tier_ok = req.profile.msme_tier in target_scheme.rules.eligible_msme_tiers
+
+                reply_lines.extend([
+                    "",
+                    f"**Applicant Profile Match (`{req.profile.legal_name}`):**",
+                    f"- State ({req.profile.principal_address.state_name}): {'[PASS] Verified' if state_ok else '[GAP] Geographic limitation'}",
+                    f"- Entity Type ({req.profile.constitution.value}): {'[PASS] Qualified entity' if const_ok else '[GAP] Constitution mismatch'}",
+                    f"- MSME Tier ({req.profile.msme_tier.value}): {'[PASS] Tier eligible' if tier_ok else '[NOTICE] Tier verification needed'}",
+                ])
+
+            reply_lines.extend([
+                "",
+                "**To achieve full qualification, submit the required documentation:**",
+                f"{', '.join(target_scheme.required_documents)}.",
+                "",
+                f"Official Application Portal: [{target_scheme.official_portal_url}]({target_scheme.official_portal_url})",
+            ])
+            actions = [
+                f"Apply on {target_scheme.scheme_short_code} Portal",
+                f"Review {target_scheme.scheme_short_code} Documents",
+                "Clear Focus & Ask Other Question",
+            ]
+
+        # B. Asking about subsidy calculation or financial benefit
+        elif any(w in q_lower for w in ["subsidy", "calculat", "amount", "margin", "money", "how much", "rate", "percent", "cap", "inr"]):
+            reply_lines = [
+                f"### Financial Assistance Quantum for **{target_scheme.scheme_name}** (`{target_scheme.scheme_short_code}`)",
+                "",
+                f"**Assistance Category:** {target_scheme.benefits.benefit_type.value}",
+                f"**Financial Formula:**\n{target_scheme.benefits.quantum_description}",
+                "",
+                "**Assistance Ceilings & Rates:**",
+                f"- **Maximum Assistance Cap:** ₹{target_scheme.benefits.max_assistance_amount_inr:,.0f}" if target_scheme.benefits.max_assistance_amount_inr else "- Maximum Assistance Cap: Subject to approved project cost appraisal",
+                f"- **Subsidy Rate:** {target_scheme.benefits.subsidy_percentage}%" if target_scheme.benefits.subsidy_percentage else "- Subsidy Rate: Tiered based on enterprise category and location",
+            ]
+            if target_scheme.rules.requires_women_ownership or target_scheme.rules.requires_sc_st_ownership:
+                reply_lines.append("- **Affirmative Boost:** Higher subsidy rates and reduced promoter contribution apply for women and SC/ST promoters.")
+
+            reply_lines.extend([
+                "",
+                f"Official Application Guidelines: [{target_scheme.official_portal_url}]({target_scheme.official_portal_url})",
+            ])
+            actions = [
+                f"Apply for {target_scheme.scheme_short_code} Subsidy",
+                "Prepare DPR Financial Model",
+                "Check Mandatory Documents",
+            ]
+
+        # C. Asking about documents or application process
+        elif any(w in q_lower for w in ["document", "checklist", "obtain", "paperwork", "certificate", "invoice", "how to apply", "process", "portal"]):
+            reply_lines = [
+                f"### Document Checklist & Process for **{target_scheme.scheme_name}** (`{target_scheme.scheme_short_code}`)",
+                "",
+                "**Mandatory Filing Documents:**",
+            ]
+            for doc in target_scheme.required_documents:
+                reply_lines.append(f"- **{doc}**")
+
+            reply_lines.extend([
+                "",
+                "**Key Application Steps:**",
+                "1. Compile your Udyam Certificate and GST Registration Certificate.",
+                "2. Prepare a Detailed Project Report (DPR) detailing machinery, project cost, and 3-year cash flow projections.",
+                "3. Secure competitive proforma invoice quotations from OEM machinery vendors with valid GSTINs.",
+                f"4. Submit your application online via the official portal: [{target_scheme.official_portal_url}]({target_scheme.official_portal_url}).",
+            ])
+            actions = [
+                f"Go to {target_scheme.scheme_short_code} Application Portal",
+                "Verify Udyam MSME Registration",
+                "Calculate DPR Budget",
+            ]
+
+        # D. General Scheme Overview
+        else:
+            reply_lines = [
+                f"### Overview of **{target_scheme.scheme_name}** (`{target_scheme.scheme_short_code}`)",
+                "",
+                f"Administered by **{target_scheme.implementing_agency}** under the **{target_scheme.nodal_ministry}**.",
+                "",
+                f"**Financial Benefit:**\n{target_scheme.benefits.quantum_description}",
+                "",
+                "**Key Qualifying Criteria:**",
+            ]
+            for crit in target_scheme.eligibility_criteria_text[:4]:
+                reply_lines.append(f"- {crit}")
+
+            reply_lines.extend([
+                "",
+                f"**Mandatory Documents:** {', '.join(target_scheme.required_documents)}.",
+                "",
+                f"Official Application Portal: [{target_scheme.official_portal_url}]({target_scheme.official_portal_url})",
+            ])
+            actions = [
+                f"Ask: 'Why am I conditionally eligible for {target_scheme.scheme_short_code}?'",
+                f"Ask: 'How is the subsidy calculated?'",
+                f"Ask: 'What documents do I need to prepare?'",
+            ]
+
+        reply = "\n".join(reply_lines)
+
     else:
+        # Global scheme match response
         top_scheme = store.get_scheme(cited_badges[0].scheme_id)
         reply_lines = [
             f"### Policy Findings for: *\"{query}\"*",
