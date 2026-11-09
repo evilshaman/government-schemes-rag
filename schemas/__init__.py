@@ -18,6 +18,13 @@ from schemas.government_scheme import (
     SchemeJurisdiction,
     SchemeStatus,
 )
+from schemas.reasoner_schema import (
+    DocumentGapItem,
+    ClauseCitation,
+    FinancialBenefitCalculation,
+    SchemeEligibilityAssessment,
+    FullReasoningReport,
+)
 
 __all__ = [
     "BusinessProfile",
@@ -32,4 +39,9 @@ __all__ = [
     "BenefitType",
     "SchemeJurisdiction",
     "SchemeStatus",
+    "DocumentGapItem",
+    "ClauseCitation",
+    "FinancialBenefitCalculation",
+    "SchemeEligibilityAssessment",
+    "FullReasoningReport",
 ]

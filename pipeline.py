@@ -24,6 +24,8 @@ if hasattr(sys.stdout, "reconfigure"):
         pass
 
 from schemas.government_scheme import GovernmentScheme
+from schemas.business_profile import BusinessProfile, TurnoverBracket, MSMETier, SocialCategory
+from parsers.gst_parser import GSTCertificateParser
 from crawlers.msme_crawler import MSMECrawler
 from crawlers.startup_india_crawler import StartupIndiaCrawler
 from crawlers.jansamarth_crawler import JanSamarthCrawler
@@ -32,6 +34,7 @@ from parsers.pdf_guidelines_parser import PDFGuidelinesParser
 from knowledge_base.storage import SchemeKnowledgeStore
 from knowledge_base.normalizer import SchemeNormalizer
 from knowledge_base.vector_store import SchemeVectorStore
+from engine.pipeline_phase3 import Phase3ReasonerPipeline
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("PipelineRunner")
@@ -159,9 +162,45 @@ def print_stats(store: SchemeKnowledgeStore):
     print("=" * 60 + "\n")
 
 
+def load_sample_profile(sample_spec: str) -> BusinessProfile:
+    """
+    Loads a BusinessProfile from sample index ('1', '2', '3') or JSON file path.
+    """
+    samples_path = os.path.join(BASE_DIR, "samples", "sample_gst_certificates.json")
+    if sample_spec in ["1", "2", "3"] and os.path.exists(samples_path):
+        with open(samples_path, "r", encoding="utf-8") as f:
+            data = json.load(f)["samples"]
+        idx = int(sample_spec) - 1
+        sample_item = data[idx]
+        profile = GSTCertificateParser.parse_from_text(sample_item["raw_certificate_text"])
+        meta = sample_item.get("extra_profile_metadata", {})
+        if meta.get("primary_sector"):
+            profile.primary_sector = meta["primary_sector"]
+        if meta.get("turnover_bracket"):
+            profile.turnover_bracket = TurnoverBracket(meta["turnover_bracket"])
+        if meta.get("msme_tier"):
+            profile.msme_tier = MSMETier(meta["msme_tier"])
+        if meta.get("social_category"):
+            profile.social_category = SocialCategory(meta["social_category"])
+        if "is_woman_owned" in meta:
+            profile.is_woman_owned = meta["is_woman_owned"]
+        if "is_dpiit_recognized" in meta:
+            profile.is_dpiit_recognized = meta["is_dpiit_recognized"]
+        return profile
+    elif os.path.exists(sample_spec):
+        with open(sample_spec, "r", encoding="utf-8") as f:
+            content = f.read()
+        try:
+            return BusinessProfile.model_validate_json(content)
+        except Exception:
+            return GSTCertificateParser.parse_from_text(content)
+    else:
+        raise ValueError(f"Invalid profile or sample specification: {sample_spec}")
+
+
 def main():
     parser = argparse.ArgumentParser(
-        description="Government Schemes Discovery Platform - Phase 2 Pipeline Runner"
+        description="Government Schemes Discovery Platform - Multi-Phase Pipeline Runner"
     )
     parser.add_argument(
         "--crawl",
@@ -196,7 +235,7 @@ def main():
     parser.add_argument(
         "--query",
         type=str,
-        help="Execute hybrid search with the given semantic query string",
+        help="Execute hybrid search or reasoner with the given query intent string",
     )
     parser.add_argument("--state", type=str, help="State filter for query (e.g. 'Maharashtra', 'Gujarat')")
     parser.add_argument("--entity", type=str, help="Entity type filter (e.g. 'Proprietorship', 'Private Limited Company')")
@@ -206,6 +245,23 @@ def main():
         "--stats",
         action="store_true",
         help="Display knowledge base metrics and crawl history",
+    )
+
+    # Phase 3 Arguments
+    parser.add_argument(
+        "--analyze-profile",
+        type=str,
+        help="Run Phase 3 Hybrid Retrieval + Cross-Encoder Reranker + LLM Reasoner for a sample (1, 2, 3) or profile file",
+    )
+    parser.add_argument(
+        "--export-markdown",
+        type=str,
+        help="Export Phase 3 Reasoner output to specified markdown file path",
+    )
+    parser.add_argument(
+        "--export-json",
+        type=str,
+        help="Export Phase 3 Reasoner output to specified JSON file path",
     )
 
     args = parser.parse_args()
@@ -231,7 +287,35 @@ def main():
         rebuild_index(store, vector_store)
         actions_taken += 1
 
-    if args.query:
+    # Phase 3 Reasoner Execution
+    if args.analyze_profile:
+        profile = load_sample_profile(args.analyze_profile)
+        phase3_pipeline = Phase3ReasonerPipeline(knowledge_store=store, vector_store=vector_store)
+        report = phase3_pipeline.run(
+            profile=profile,
+            query=args.query,
+            top_k_retrieve=max(args.top_k, 8),
+            top_n_rerank=args.top_k,
+        )
+
+        phase3_pipeline.print_terminal_report(report)
+
+        if args.export_markdown:
+            md_content = phase3_pipeline.render_markdown_report(report)
+            os.makedirs(os.path.dirname(os.path.abspath(args.export_markdown)), exist_ok=True)
+            with open(args.export_markdown, "w", encoding="utf-8") as f:
+                f.write(md_content)
+            logger.info(f"Exported Markdown report to: {args.export_markdown}")
+
+        if args.export_json:
+            os.makedirs(os.path.dirname(os.path.abspath(args.export_json)), exist_ok=True)
+            with open(args.export_json, "w", encoding="utf-8") as f:
+                f.write(report.model_dump_json(indent=2))
+            logger.info(f"Exported JSON report to: {args.export_json}")
+
+        actions_taken += 1
+
+    elif args.query:
         print("\n" + "=" * 60)
         print(f"  HYBRID RETRIEVAL RESULTS FOR: \"{args.query}\"")
         if args.state or args.entity or args.tier:

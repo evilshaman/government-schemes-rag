@@ -34,6 +34,7 @@ from schemas.business_profile import (
 from schemas.government_scheme import GovernmentScheme
 from parsers.gst_parser import GSTCertificateParser, get_gemini_extraction_prompt
 from engine.matcher import DeterministicSchemeMatcher, MatchReport
+from engine.pipeline_phase3 import Phase3ReasonerPipeline
 
 
 def load_seed_schemes() -> list[GovernmentScheme]:
@@ -128,6 +129,7 @@ def main():
     parser.add_argument("--sample", type=int, choices=[1, 2, 3], default=1, help="Sample GST Certificate (1, 2, or 3)")
     parser.add_argument("--list-schemes", action="store_true", help="List all 30 curated flagship schemes")
     parser.add_argument("--prompt", action="store_true", help="Display Gemini Multimodal Vision prompt template")
+    parser.add_argument("--phase3", action="store_true", help="Execute Phase 3 Hybrid Retrieval + Cross-Encoder Reranker + LLM Reasoner")
 
     args = parser.parse_args()
     print_banner()
@@ -172,6 +174,13 @@ def main():
 
     # Step 3: Print Extracted Profile
     print_profile(profile)
+
+    if args.phase3:
+        # Step 4: Run Phase 3 Reasoner Pipeline
+        phase3 = Phase3ReasonerPipeline()
+        report_p3 = phase3.run(profile=profile, top_k_retrieve=10, top_n_rerank=4)
+        phase3.print_terminal_report(report_p3)
+        return
 
     # Step 4: Run Deterministic Matcher
     report = DeterministicSchemeMatcher.match_all(profile, schemes)
