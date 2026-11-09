@@ -158,6 +158,17 @@ class TestPhase4API(unittest.TestCase):
         self.assertGreaterEqual(len(data["cited_schemes"]), 1)
         self.assertIn("pmegp", [c["scheme_id"] for c in data["cited_schemes"]])
 
+    def test_chat_copilot_out_of_domain_guardrail(self):
+        payload = {
+            "message": "write a hello world code in c",
+        }
+        res = self.client.post("/api/chat", json=payload)
+        self.assertEqual(res.status_code, 200)
+        data = res.json()
+        self.assertIn("reply", data)
+        self.assertEqual(len(data["cited_schemes"]), 0)
+        self.assertIn("specialized exclusively in Indian government subsidies", data["reply"])
+
     # 10. Serve Dashboard
     def test_dashboard_serving(self):
         res = self.client.get("/")

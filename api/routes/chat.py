@@ -1,11 +1,13 @@
 """
 Policy Copilot Chat API Route.
 Provides an interactive AI chat assistant grounded in the official schemes knowledge base.
-Answers specific queries with policy citations, margin money subsidy calculations, and application advice.
+Includes domain intent guardrails (rejecting out-of-domain requests like coding/chit-chat)
+and semantic similarity thresholding to prevent greedy, irrelevant policy citations.
 """
 
 from __future__ import annotations
 import os
+import re
 import json
 import logging
 import httpx
@@ -23,6 +25,47 @@ from core.config import settings
 
 logger = logging.getLogger("ChatAPI")
 router = APIRouter(prefix="/api/chat", tags=["Policy Copilot"])
+
+# Minimum cosine relevance threshold required to consider a scheme citation relevant
+MIN_RELEVANCE_THRESHOLD = 0.18
+
+# Patterns for out-of-scope intent classification
+OUT_OF_SCOPE_PATTERNS = [
+    # Code generation & programming
+    r"\b(write|create|generate|show|debug|give)\s+(a\s+)?(code|program|script|function|class|regex|sql)\b",
+    r"\b(hello\s*world)\b",
+    r"\b(in\s+(c|c\+\+|cpp|python|java|javascript|typescript|rust|go|php|html|css|ruby))\b",
+    r"\b(write\s+(a\s+)?(poem|story|song|essay|joke|riddle))\b",
+    r"\b(weather\s+in|recipe\s+for|who\s+won|movie\s+review)\b",
+]
+
+POLICY_KEYWORDS = [
+    "scheme", "subsidy", "loan", "grant", "msme", "pmegp", "dpiit", "startup",
+    "udyam", "tax", "gst", "cgtmse", "mudra", "standup", "interest", "incentive",
+    "financial", "capital", "seed", "government", "ministry", "kvic", "sidbi"
+]
+
+
+def detect_out_of_scope_query(text: str) -> Optional[str]:
+    """
+    Identifies if a query is clearly out of domain (coding tasks, creative writing, non-policy general trivia).
+    """
+    lower = text.lower().strip()
+    
+    # Check if query contains explicit policy keywords; if so, let it pass through
+    has_policy_intent = any(term in lower for term in POLICY_KEYWORDS)
+    if has_policy_intent:
+        return None
+
+    for pattern in OUT_OF_SCOPE_PATTERNS:
+        if re.search(pattern, lower):
+            return (
+                "I am the **Government Schemes & MSME Policy Copilot**, specialized exclusively in Indian government "
+                "subsidies, credit facilities, business registration (GST/Udyam), and grant eligibility.\n\n"
+                "I cannot assist with general programming, code generation, or topics outside government policy and enterprise finance.\n\n"
+                "*Note:* If your business operates in software development, electronics, or IT services, I can help you find relevant government programs such as the **SPECS Scheme** (Electronics Manufacturing), **SAMRIDH Accelerator**, or **Startup India Seed Fund Scheme**."
+            )
+    return None
 
 
 class ChatMessage(BaseModel):
@@ -60,21 +103,38 @@ async def chat_with_copilot(
 ):
     """
     Delivers a grounded conversational answer using hybrid vector retrieval and guideline chunks.
+    Filters out-of-scope non-policy queries and low-relevance noise.
     """
     query = req.message.strip()
 
-    # Retrieve relevant schemes
+    # 1. Out-of-Domain Guardrail Check
+    ood_reply = detect_out_of_scope_query(query)
+    if ood_reply:
+        return ChatResponse(
+            reply=ood_reply,
+            cited_schemes=[],
+            suggested_actions=[
+                "Explore Startup India Seed Fund",
+                "Check SPECS (Electronics & IT)",
+                "Upload GST Certificate for Instant Matching",
+            ],
+        )
+
+    # 2. Retrieve relevant schemes using profile context if available
     state = req.profile.principal_address.state_name if req.profile else None
     entity = req.profile.constitution.value if req.profile else None
     tier = req.profile.msme_tier.value if req.profile and req.profile.msme_tier.value != "Unknown" else None
 
-    search_hits = vector_store.hybrid_search(
+    raw_hits = vector_store.hybrid_search(
         query=query,
         state=state,
         entity_type=entity,
         msme_tier=tier,
-        top_k=3,
+        top_k=5,
     )
+
+    # Filter out low-similarity noise to prevent greedy hallucinated recommendations
+    search_hits = [hit for hit in raw_hits if hit.similarity_score >= MIN_RELEVANCE_THRESHOLD][:3]
 
     cited_badges: List[CitedSchemeBadge] = []
     grounding_texts: List[str] = []
@@ -149,11 +209,13 @@ async def chat_with_copilot(
     # Deterministic Grounded Policy Answer Fallback
     if not cited_badges:
         reply = (
-            f"Based on official government notifications, no direct policy match was found for \"{query}\". "
-            "Try specifying your sector (e.g. 'Food Processing', 'Textiles', 'Electronics') or funding requirement "
-            "(e.g. 'Credit Guarantee', 'Capital Subsidy', 'Seed Grant')."
+            f"Based on official government notifications, no direct policy or subsidy match was found for \"{query}\".\n\n"
+            "To get accurate recommendations, please specify:\n"
+            "- Your **industry sector** (e.g. *Food Processing*, *Textiles*, *Electronics*, *Renewable Energy*)\n"
+            "- Your **funding requirement** (e.g. *Credit Guarantee*, *Capital Subsidy*, *Working Capital*, *Seed Grant*)\n"
+            "- Or upload your **GST REG-06 / Udyam Certificate** for automated policy matching."
         )
-        actions = ["Browse All 41 Schemes", "Upload GST Certificate for Instant Matching"]
+        actions = ["Browse All 41 Schemes", "Upload GST Certificate for Instant Matching", "Explore Credit Guarantee (CGTMSE)"]
     else:
         top_scheme = store.get_scheme(cited_badges[0].scheme_id)
         reply_lines = [
