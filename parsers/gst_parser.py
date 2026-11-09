@@ -140,11 +140,28 @@ class GSTCertificateParser:
         gstin_match = re.search(r"\b([0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1})\b", text, re.IGNORECASE)
         gstin = gstin_match.group(1).upper() if gstin_match else None
 
+        if not gstin:
+            # Fallback search for GSTIN labeled numbers that may contain spaces or hyphens
+            loose_match = re.search(r"(?:GSTIN|Registration\s*Number)\s*[:\-]?\s*([0-9]{2}[A-Za-z0-9\s\-]{13,20})", text, re.IGNORECASE)
+            if loose_match:
+                candidate = re.sub(r"[\s\-]+", "", loose_match.group(1)).upper()
+                if len(candidate) == 15 and re.match(r"^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$", candidate):
+                    gstin = candidate
+
         # State resolution
         state_code = "99"
         state_name = "India"
         if gstin:
             state_code, state_name = resolve_state_from_gstin(gstin)
+
+        # Fallback state resolution from document text when GSTIN is missing or inconclusive
+        if state_name in ["India", "Unknown"]:
+            text_lower = text.lower()
+            for code, name in STATE_CODES_MAP.items():
+                if name.lower() in text_lower:
+                    state_name = name
+                    state_code = code
+                    break
 
         # 2. Legal Name (Field 1)
         legal_name = "Unknown Legal Entity"

@@ -109,6 +109,39 @@ class TestPhase4API(unittest.TestCase):
         self.assertEqual(profile["legal_name"], "GREENLIGHT AGRO PRODUCTS PVT LTD")
         self.assertEqual(profile["principal_address"]["state_name"], "Maharashtra")
 
+    def test_upload_gst_pdf_and_deliberate(self):
+        """
+        Tests uploading a real PDF document, validating the extracted BusinessProfile
+        and executing immediate deliberation without validation errors.
+        """
+        pdf_path = os.path.join(PROJECT_ROOT, "samples", "guidelines", "pmegp_guidelines.pdf")
+        with open(pdf_path, "rb") as f:
+            pdf_bytes = f.read()
+
+        files = {"file": ("form_gst_reg06.pdf", pdf_bytes, "application/pdf")}
+        up_res = self.client.post("/api/upload-document", files=files)
+        self.assertEqual(up_res.status_code, 200)
+        up_data = up_res.json()
+        self.assertTrue(up_data["success"])
+        profile = up_data["profile"]
+
+        # Ensure enums and dates are valid strings
+        self.assertIn("constitution", profile)
+        self.assertIn("turnover_bracket", profile)
+        self.assertIn("social_category", profile)
+        self.assertIn("msme_tier", profile)
+        self.assertEqual(profile["turnover_bracket"], "Unknown")
+
+        # Test immediate deliberation with parsed profile (mirroring browser flow)
+        delib_res = self.client.post(
+            "/api/schemes/deliberate",
+            json={"profile": profile, "top_k": 4, "apply_hard_filters": True}
+        )
+        self.assertEqual(delib_res.status_code, 200)
+        report = delib_res.json()
+        self.assertIn("top_recommendations", report)
+        self.assertGreaterEqual(len(report["top_recommendations"]), 1)
+
     # 7. End-to-End Deliberation & Gap Analysis
     def test_deliberate_endpoint(self):
         # Fetch sample profile

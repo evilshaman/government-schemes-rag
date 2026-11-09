@@ -138,11 +138,14 @@ class BusinessProfile(BaseModel):
     @field_validator("gstin")
     @classmethod
     def validate_gstin(cls, v: Optional[str]) -> Optional[str]:
-        if v is not None:
+        if v:
             v = v.strip().upper()
+            if not v:
+                return None
             if len(v) != 15:
                 raise ValueError(f"GSTIN must be 15 characters long, got {len(v)}: '{v}'")
-        return v
+            return v
+        return None
 
     @model_validator(mode="after")
     def calculate_age_and_defaults(self) -> BusinessProfile:

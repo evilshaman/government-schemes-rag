@@ -194,6 +194,9 @@
                     <option value="Partnership">Partnership</option>
                     <option value="Limited Liability Partnership">Limited Liability Partnership</option>
                     <option value="Public Limited Company">Public Limited Company</option>
+                    <option value="Society/Trust">Society/Trust</option>
+                    <option value="Hindu Undivided Family">Hindu Undivided Family</option>
+                    <option value="Other">Other</option>
                   </select>
                 </div>
                 <div>
@@ -211,6 +214,8 @@
                     <option value="₹1 Crore to ₹5 Crore">₹1 Crore to ₹5 Crore</option>
                     <option value="₹5 Crore to ₹50 Crore">₹5 Crore to ₹50 Crore</option>
                     <option value="₹50 Crore to ₹250 Crore">₹50 Crore to ₹250 Crore</option>
+                    <option value="Above ₹250 Crore">Above ₹250 Crore</option>
+                    <option value="Unknown">Unknown</option>
                   </select>
                 </div>
 
@@ -231,6 +236,8 @@
                     <option value="SC">SC</option>
                     <option value="ST">ST</option>
                     <option value="OBC">OBC</option>
+                    <option value="Minority">Minority</option>
+                    <option value="Unknown">Unknown</option>
                   </select>
                 </div>
               </div>
@@ -484,39 +491,78 @@
 
     // Populate Form from Profile JSON
     function populateProfileForm(p) {
+      if (!p) return;
       document.getElementById('prof-legal-name').value = p.legal_name || '';
       document.getElementById('prof-gstin').value = p.gstin || '';
-      document.getElementById('prof-state').value = p.principal_address ? p.principal_address.state_name : '';
-      document.getElementById('prof-constitution').value = p.constitution || 'Private Limited Company';
+      document.getElementById('prof-state').value = (p.principal_address && p.principal_address.state_name) ? p.principal_address.state_name : '';
+      
+      const constSelect = document.getElementById('prof-constitution');
+      if (p.constitution) constSelect.value = p.constitution;
+      if (!constSelect.value) constSelect.value = 'Other';
+
       document.getElementById('prof-sector').value = p.primary_sector || 'General';
-      document.getElementById('prof-turnover').value = p.turnover_bracket || 'Below ₹1 Crore';
+
+      const turnoverSelect = document.getElementById('prof-turnover');
+      if (p.turnover_bracket) turnoverSelect.value = p.turnover_bracket;
+      if (!turnoverSelect.value) turnoverSelect.value = 'Unknown';
+
       document.getElementById('prof-woman').checked = !!p.is_woman_owned;
       document.getElementById('prof-dpiit').checked = !!p.is_dpiit_recognized;
-      document.getElementById('prof-social').value = p.social_category || 'General';
-      document.getElementById('profile-badge-tier').innerText = p.msme_tier || 'Micro';
+
+      const socialSelect = document.getElementById('prof-social');
+      if (p.social_category) socialSelect.value = p.social_category;
+      if (!socialSelect.value) socialSelect.value = 'General';
+
+      document.getElementById('profile-badge-tier').innerText = p.msme_tier || 'Unknown';
     }
 
-    // Collect Form into Profile Object
+    // Collect Form into Profile Object (Preserves rich parsed document metadata)
     function getProfileFromForm() {
-      return {
-        legal_name: document.getElementById('prof-legal-name').value,
-        gstin: document.getElementById('prof-gstin').value || null,
-        constitution: document.getElementById('prof-constitution').value,
-        principal_address: {
-          full_address: document.getElementById('prof-state').value,
-          state_name: document.getElementById('prof-state').value,
-          state_code: (document.getElementById('prof-gstin').value || '27').slice(0, 2),
-        },
-        date_of_registration: "2025-06-01",
-        business_age_years: 1.5,
-        primary_sector: document.getElementById('prof-sector').value,
-        nature_of_activities: ["Manufacturing"],
-        turnover_bracket: document.getElementById('prof-turnover').value,
-        msme_tier: document.getElementById('profile-badge-tier').innerText || "Micro",
-        social_category: document.getElementById('prof-social').value,
-        is_woman_owned: document.getElementById('prof-woman').checked,
-        is_dpiit_recognized: document.getElementById('prof-dpiit').checked,
-      };
+      const p = (currentProfile && typeof currentProfile === 'object')
+        ? JSON.parse(JSON.stringify(currentProfile))
+        : {};
+
+      p.legal_name = (document.getElementById('prof-legal-name').value || '').trim() || p.legal_name || 'Business Entity';
+
+      const rawGstin = (document.getElementById('prof-gstin').value || '').trim().toUpperCase();
+      p.gstin = (rawGstin.length === 15) ? rawGstin : (p.gstin && p.gstin.length === 15 ? p.gstin : null);
+
+      p.constitution = document.getElementById('prof-constitution').value || p.constitution || 'Private Limited Company';
+
+      if (!p.principal_address || typeof p.principal_address !== 'object') {
+        p.principal_address = {};
+      }
+      const stateVal = (document.getElementById('prof-state').value || '').trim();
+      p.principal_address.state_name = stateVal || p.principal_address.state_name || 'Maharashtra';
+      if (!p.principal_address.full_address) {
+        p.principal_address.full_address = p.principal_address.state_name;
+      }
+      if (!p.principal_address.state_code) {
+        p.principal_address.state_code = (p.gstin && p.gstin.length >= 2) ? p.gstin.slice(0, 2) : '27';
+      }
+
+      p.primary_sector = (document.getElementById('prof-sector').value || '').trim() || p.primary_sector || 'General';
+      p.turnover_bracket = document.getElementById('prof-turnover').value || p.turnover_bracket || 'Unknown';
+      p.is_woman_owned = document.getElementById('prof-woman').checked;
+      p.is_dpiit_recognized = document.getElementById('prof-dpiit').checked;
+      p.social_category = document.getElementById('prof-social').value || p.social_category || 'General';
+
+      // Fallback defaults for mandatory BusinessProfile schema fields
+      if (!p.date_of_registration) {
+        p.date_of_registration = new Date().toISOString().split('T')[0];
+      }
+      if (p.business_age_years === undefined || p.business_age_years === null) {
+        p.business_age_years = 1.0;
+      }
+      if (!p.nature_of_activities || p.nature_of_activities.length === 0) {
+        p.nature_of_activities = ["Manufacturing"];
+      }
+      if (!p.msme_tier) {
+        const badgeTier = (document.getElementById('profile-badge-tier').innerText || '').trim();
+        p.msme_tier = (badgeTier && badgeTier !== '') ? badgeTier : 'Unknown';
+      }
+
+      return p;
     }
 
     // Run Deliberation (Phase 3 Engine)
@@ -534,7 +580,22 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ profile: profile, top_k: 4, apply_hard_filters: true })
         });
-        if (!res.ok) throw new Error("Deliberation failed");
+        if (!res.ok) {
+          const errData = await res.json().catch(() => null);
+          let errMsg = `Deliberation failed (HTTP ${res.status})`;
+          if (errData) {
+            if (errData.detail && typeof errData.detail === 'string') {
+              errMsg = errData.detail;
+            } else if (Array.isArray(errData.detail)) {
+              errMsg = errData.detail.map(e => `${e.loc ? e.loc.join('.') : 'field'}: ${e.msg}`).join(', ');
+            } else if (errData.invalid_params && Array.isArray(errData.invalid_params)) {
+              errMsg = errData.invalid_params.map(e => `${e.field}: ${e.message}`).join(', ');
+            } else if (errData.title) {
+              errMsg = `${errData.title}: ${errData.detail || ''}`;
+            }
+          }
+          throw new Error(errMsg);
+        }
         currentReport = await res.json();
         renderDeliberationResults(currentReport);
       } catch (err) {
@@ -962,7 +1023,11 @@
       formData.append('file', file);
       try {
         const res = await fetch('/api/upload-document', { method: 'POST', body: formData });
-        if (!res.ok) throw new Error("Upload failed");
+        if (!res.ok) {
+          const errData = await res.json().catch(() => null);
+          const errMsg = (errData && errData.detail) ? errData.detail : `Upload failed (HTTP ${res.status})`;
+          throw new Error(errMsg);
+        }
         const data = await res.json();
         currentProfile = data.profile;
         populateProfileForm(currentProfile);

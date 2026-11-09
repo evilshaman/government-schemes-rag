@@ -165,7 +165,7 @@ async def upload_document(
         "file_name": file.filename,
         "file_size_bytes": len(content),
         "text_snippet": extracted_text[:300].strip(),
-        "profile": profile.model_dump(),
+        "profile": profile.model_dump(mode="json"),
     }
 
 

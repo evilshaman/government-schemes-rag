@@ -215,6 +215,8 @@ export default function DashboardPage() {
                       <option value="₹1 Crore to ₹5 Crore">₹1 Crore to ₹5 Crore</option>
                       <option value="₹5 Crore to ₹50 Crore">₹5 Crore to ₹50 Crore</option>
                       <option value="₹50 Crore to ₹250 Crore">₹50 Crore to ₹250 Crore</option>
+                      <option value="Above ₹250 Crore">Above ₹250 Crore</option>
+                      <option value="Unknown">Unknown</option>
                     </select>
                   </div>
 
@@ -436,6 +438,24 @@ export default function DashboardPage() {
                         ))}
                       </div>
                     </details>
+
+                    {/* Application Process Accordion */}
+                    {item.application_roadmap && item.application_roadmap.length > 0 && (
+                      <details className="text-xs bg-indigo-50/50 rounded-lg border border-indigo-100 p-2.5 mt-2">
+                        <summary className="font-bold text-indigo-950 cursor-pointer flex justify-between">
+                          <span>🚀 Step-by-Step Application Process ({item.application_roadmap.length} Steps)</span>
+                          <span className="text-indigo-600 font-normal">Click to toggle</span>
+                        </summary>
+                        <div className="mt-2 space-y-1.5 pl-1">
+                          {item.application_roadmap.map((step, sIdx) => (
+                            <div key={sIdx} className="p-2 bg-white rounded border border-indigo-50 text-slate-700 flex items-start gap-2">
+                              <span className="font-bold text-indigo-700 text-xs flex-shrink-0">{sIdx + 1}.</span>
+                              <span>{step}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </details>
+                    )}
                   </div>
                 ))}
               </div>
