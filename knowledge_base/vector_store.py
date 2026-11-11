@@ -149,11 +149,12 @@ class SchemeVectorStore:
 
         # 1. Index Schemes
         for s in schemes:
+            app_steps = " ".join(s.application_process) if s.application_process else ""
             text = (
                 f"{s.scheme_name} {s.scheme_short_code} {s.nodal_ministry} "
                 f"{s.summary} {' '.join(s.eligibility_criteria_text)} "
                 f"{s.benefits.quantum_description} {' '.join(s.tags)} "
-                f"{' '.join(s.rules.target_sectors)}"
+                f"{' '.join(s.rules.target_sectors)} {s.application_mode} {app_steps}"
             )
             corpus_texts.append(text)
             raw_items.append({

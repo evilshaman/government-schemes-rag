@@ -105,6 +105,9 @@ export interface GovernmentScheme {
   };
   tags: string[];
   official_portal_url: string;
+  application_mode?: string;
+  application_process?: string[];
+  application_process_md?: string | null;
 }
 
 export interface ChatRequest {

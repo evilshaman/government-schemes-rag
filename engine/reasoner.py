@@ -543,13 +543,16 @@ class LLMEligibilityReasoner:
         financial_calc = self.calculate_financial_benefit(profile, scheme)
         citations = self.extract_official_citations(scheme, chunks)
 
-        # Application Roadmap Steps
-        roadmap = [
-            f"Step 1 (Prerequisites): Procure remaining mandatory documents ({', '.join([d.document_name for d in missing_mandatory[:2]]) if missing_mandatory else 'Self-attested documentation'}).",
-            f"Step 2 (Online Portal): Access official application portal at {scheme.official_portal_url} via {scheme.nodal_ministry}.",
-            "Step 3 (Submission): Fill application form, attach Detailed Project Report, vendor quotes, and GST certificate.",
-            "Step 4 (Verification & Sanction): Application reviewed by District Industries Centre (DIC) / Nodal Agency and linked bank for subsidy disbursement.",
-        ]
+        # Application Roadmap Steps: prioritize authentic crawled application process if available
+        if scheme.application_process:
+            roadmap = scheme.application_process
+        else:
+            roadmap = [
+                f"Step 1 (Prerequisites): Procure remaining mandatory documents ({', '.join([d.document_name for d in missing_mandatory[:2]]) if missing_mandatory else 'Self-attested documentation'}).",
+                f"Step 2 (Online Portal): Access official application portal at {scheme.official_portal_url} via {scheme.nodal_ministry}.",
+                "Step 3 (Submission): Fill application form, attach Detailed Project Report, vendor quotes, and GST certificate.",
+                "Step 4 (Verification & Sanction): Application reviewed by District Industries Centre (DIC) / Nodal Agency and linked bank for subsidy disbursement.",
+            ]
 
         return SchemeEligibilityAssessment(
             scheme_id=scheme.scheme_id,

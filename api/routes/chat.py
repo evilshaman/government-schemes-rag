@@ -227,6 +227,8 @@ async def chat_with_copilot(
                     f"- Benefit: {scheme.benefits.quantum_description}\n"
                     f"- Eligibility: {'; '.join(scheme.eligibility_criteria_text[:3])}\n"
                     f"- Required Documents: {', '.join(scheme.required_documents[:4])}\n"
+                    f"- Application Mode: {scheme.application_mode}\n"
+                    f"- Application Process Steps: {'; '.join(scheme.application_process[:5]) if scheme.application_process else 'Refer to official portal steps.'}\n"
                     f"- Portal: {scheme.official_portal_url}\n"
                     f"- Guideline Circular Excerpts: {chunk_excerpts or 'Official gazette circular.'}"
                 )
@@ -455,14 +457,25 @@ async def chat_with_copilot(
                 f"### Application Roadmap for **{target_scheme.scheme_name}** (`{target_scheme.scheme_short_code}`)",
                 "",
                 f"Administered by **{target_scheme.implementing_agency}** under the **{target_scheme.nodal_ministry}**.",
+                f"**Application Mode:** {target_scheme.application_mode}",
                 "",
-                "**Step-by-Step Filing Roadmap:**",
-                "1. **Step 1 (Prerequisites):** Procure valid Udyam Registration Certificate and business PAN.",
-                "2. **Step 2 (DPR Preparation):** Prepare a Detailed Project Report detailing technical specifications, machinery quotes, and cash flow projections.",
-                "3. **Step 3 (Vendor Quotations):** Obtain competitive proforma invoices on OEM vendor letterhead with GSTIN numbers.",
-                f"4. **Step 4 (Online Submission):** Access the official portal at [{target_scheme.official_portal_url}]({target_scheme.official_portal_url}) and submit your application with supporting proofs.",
-                "5. **Step 5 (Sanction & Disbursement):** Nodal agency and partner bank appraise application and disburse capital subsidy / margin money.",
             ]
+            if target_scheme.application_process:
+                reply_lines.append("**Official Step-by-Step Application Procedure:**")
+                for step in target_scheme.application_process:
+                    reply_lines.append(f"- {step}")
+                reply_lines.append("")
+            else:
+                reply_lines.extend([
+                    "**Step-by-Step Filing Roadmap:**",
+                    "1. **Step 1 (Prerequisites):** Procure valid Udyam Registration Certificate and business PAN.",
+                    "2. **Step 2 (DPR Preparation):** Prepare a Detailed Project Report detailing technical specifications, machinery quotes, and cash flow projections.",
+                    "3. **Step 3 (Vendor Quotations):** Obtain competitive proforma invoices on OEM vendor letterhead with GSTIN numbers.",
+                    f"4. **Step 4 (Online Submission):** Access the official portal at [{target_scheme.official_portal_url}]({target_scheme.official_portal_url}) and submit your application with supporting proofs.",
+                    "5. **Step 5 (Sanction & Disbursement):** Nodal agency and partner bank appraise application and disburse capital subsidy / margin money.",
+                    "",
+                ])
+            reply_lines.append(f"Official Application Portal: [{target_scheme.official_portal_url}]({target_scheme.official_portal_url})")
             actions = [
                 f"Show Document Gaps for {target_scheme.scheme_short_code}",
                 f"Go to {target_scheme.scheme_short_code} Application Portal",

@@ -153,6 +153,14 @@ class GovernmentScheme(BaseModel):
         None,
         description="Direct link to official gazette notification or operational guidelines PDF"
     )
+    application_process: List[str] = Field(
+        default_factory=list,
+        description="Authoritative step-by-step application process and instructions"
+    )
+    application_process_md: Optional[str] = Field(
+        None,
+        description="Complete markdown formatted official application workflow and guidelines"
+    )
     
     tags: List[str] = Field(
         default_factory=list,

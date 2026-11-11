@@ -226,6 +226,8 @@ class SchemeNormalizer:
             application_mode=record.raw_application_mode or "Online Portal",
             official_portal_url=record.source_url,
             guidelines_doc_url=record.raw_guidelines_url,
+            application_process=record.raw_application_process or [],
+            application_process_md=record.raw_application_process_md,
             tags=tags,
             status=SchemeStatus.ACTIVE,
             metadata=record.extracted_metadata,
@@ -237,7 +239,7 @@ class SchemeNormalizer:
     ) -> List[GovernmentScheme]:
         """
         Deduplicates schemes based on scheme_id and canonical title.
-        Merges additional tags and guidelines links from new schemes.
+        Merges additional tags, guidelines links, and application processes from new schemes.
         """
         index_by_id: Dict[str, GovernmentScheme] = {s.scheme_id: s for s in existing_schemes}
 
@@ -250,6 +252,10 @@ class SchemeNormalizer:
                 curr.required_documents = merged_docs
                 if not curr.guidelines_doc_url and new_s.guidelines_doc_url:
                     curr.guidelines_doc_url = new_s.guidelines_doc_url
+                if not curr.application_process and new_s.application_process:
+                    curr.application_process = new_s.application_process
+                if not curr.application_process_md and new_s.application_process_md:
+                    curr.application_process_md = new_s.application_process_md
             else:
                 index_by_id[new_s.scheme_id] = new_s
 

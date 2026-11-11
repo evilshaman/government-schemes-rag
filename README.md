@@ -26,6 +26,7 @@ flowchart TD
 | **Phase 4: App & Dashboard** | ✅ Complete | FastAPI REST Backend Service, Interactive Single-Page Matching Dashboard, Next.js 14 App Router Client, Grounded Policy Copilot Chat. |
 | **Phase 5: Guardrails & Benchmarks**| ✅ Complete | Hallucination Guardrails, PII Sanitization, Golden Benchmark Suite, Multi-Stage Dockerfile & Compose orchestration. |
 | **Productionization E2E** | ✅ Complete | Centralized Pydantic Settings, OWASP Security Headers, Request-ID Tracing, Slowapi Rate Limiting, RFC 7807 Problem Details, SQLite WAL High Concurrency, Multi-Worker Gunicorn, Kubernetes Manifests (`k8s/`), CI/CD GitHub Actions, & Prometheus Telemetry. |
+| **Tech Debt & Enhancements** | 📋 Parked | See [`TECH_DEBT.md`](./TECH_DEBT.md): Adaptive Query Feedback Loop Pipeline, LLM Response Validator Guardrail, Dynamic & Contextualized Synthesis. |
 
 ---
 

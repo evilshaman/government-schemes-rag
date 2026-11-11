@@ -30,6 +30,8 @@ class CrawledSchemeRecord(BaseModel):
     raw_documents: List[str] = Field(default_factory=list, description="Document requirements")
     raw_guidelines_url: Optional[str] = Field(None, description="Link to official PDF or notification")
     raw_application_mode: Optional[str] = Field("Online Portal", description="Mode of application")
+    raw_application_process: List[str] = Field(default_factory=list, description="Extracted application procedure steps")
+    raw_application_process_md: Optional[str] = Field(None, description="Full application procedure in markdown")
     raw_tags: List[str] = Field(default_factory=list, description="Sector or category tags")
     extracted_metadata: Dict[str, Any] = Field(default_factory=dict, description="Extra crawl attributes")
 
